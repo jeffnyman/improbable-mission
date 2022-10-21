@@ -5,3 +5,30 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:where(html, body) {
+  overscroll-behavior-y: none;
+}
+
+html {
+  min-height: 100%;
+  display: flex;
+  flex-direction: columns;
+}
+
+body {
+  flex-grow: 1;
+
+  user-select: none;
+
+  background: #000;
+  color: #fff;
+}
+
+#content {
+  top: 0;
+  left: 0;
+  margin-left: 0;
+  width: auto;
+  transition: margin-left 0.2s linear 0s;
+}
