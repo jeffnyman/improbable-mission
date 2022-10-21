@@ -5,9 +5,11 @@
   "main": "public/index.html",
   "scripts": {
     "serve": "browser-sync start --server public --files public",
+    "watch:assets": "onchange \"./src/assets/**/*\" -- npm run copy:assets",
     "watch:sass": "sass --no-source-map --error-css --watch src/sass:public/css",
     "watch:html": "onchange \"./src/**/*.html\" -- npm run copy:html",
     "watch": "npm-run-all --parallel watch:*",
+    "copy:assets": "copyfiles -u 1 \"./src/assets/**/*\" public",
     "copy:html": "copyfiles -u 1 \"./src/**/*.html\" \"./src/favicon.ico\" public",
     "copy": "npm-run-all --parallel copy:*",
     "start": "npm-run-all --parallel copy watch serve"
