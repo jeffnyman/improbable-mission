@@ -1,0 +1,38 @@
+{
+  "name": "@jeffnyman/improbable-mission",
+  "version": "0.1.0",
+  "description": "An Homage to the 1984 \"Impossible Mission\" Game",
+  "main": "public/index.html",
+  "scripts": {
+    "serve": "browser-sync start --server public --files public",
+    "watch:html": "onchange \"./src/**/*.html\" -- npm run copy:html",
+    "watch": "npm-run-all --parallel watch:*",
+    "copy:html": "copyfiles -u 1 \"./src/**/*.html\" \"./src/favicon.ico\" public",
+    "copy": "npm-run-all --parallel copy:*",
+    "start": "npm-run-all --parallel copy watch serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffnyman/improbable-mission.git"
+  },
+  "keywords": [
+    "game",
+    "retro-game",
+    "platformer",
+    "2d",
+    "HTML5",
+    "canvas"
+  ],
+  "author": "Jeff Nyman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffnyman/improbable-mission/issues"
+  },
+  "homepage": "https://github.com/jeffnyman/improbable-mission#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.10",
+    "copyfiles": "^2.4.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0"
+  }
+}
