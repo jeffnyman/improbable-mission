@@ -61,6 +61,35 @@ body {
   height: 100%;
 }
 
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 70%;
+  margin-top: 15vh;
+  margin-left: 25vw;
+  background: #666;
+  border: 12px solid #dc8;
+  overflow-y: scroll;
+
+  .details {
+    padding: 10px 30px;
+    color: #eee;
+    line-height: 1.5em;
+
+    h2 {
+      margin: 20px 0px;
+      color: #fe0;
+      text-align: center;
+    }
+
+    p {
+      margin: 12px 0px;
+    }
+  }
+}
+
 .hidden {
   display: none;
 }
