@@ -14,7 +14,7 @@ function Engine() {
         log("Check capabilities: SUCCESS");
       },
       function () {
-        // things went south
+        $("#unsupported").removeClass("hidden");
       },
     );
   };
