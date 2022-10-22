@@ -12,11 +12,26 @@ function Engine() {
     engine.checkCapabilities(
       function () {
         log("Check capabilities: SUCCESS");
+
+        // Enable the menu interface.
+        engine.initMenu();
       },
       function () {
         $("#unsupported").removeClass("hidden");
       },
     );
+  };
+
+  this.initMenu = function () {
+    log("Initializing menu ...");
+
+    $(".button-dossier").click(function () {
+      $("#overlay, #dossier").removeClass("hidden");
+    });
+
+    $("#overlay").click(function () {
+      $("#overlay, #dossier").addClass("hidden");
+    });
   };
 
   this.checkCapabilities = function (success, fail) {
