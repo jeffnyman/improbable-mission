@@ -4,7 +4,6 @@
 # Generated
 
 node_modules/
-public/
 dist-ssr/
 dist/
 app/
