@@ -14,5 +14,13 @@
     "2d",
     "html5",
     "canvas"
-  ]
+  ],
+  "scripts": {
+    "start": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.5.0"
+  }
 }
