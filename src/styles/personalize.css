@@ -85,4 +85,7 @@ body {
   essentially fill all of the vertical space.
   */
   min-block-size: 100%;
+
+  background: #000;
+  color: #fff;
 }
