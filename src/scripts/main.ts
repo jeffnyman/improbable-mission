@@ -14,6 +14,9 @@ function missionAccepted() {
   const missionDiv = document.querySelector<HTMLDivElement>("#mission")!;
   missionDiv.remove();
 
+  const footerDiv = document.querySelector<HTMLDivElement>("#footer")!;
+  footerDiv.remove();
+
   const appDiv = document.querySelector<HTMLDivElement>("#app")!;
   appDiv.classList.remove("hidden");
 
