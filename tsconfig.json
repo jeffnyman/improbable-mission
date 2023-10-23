@@ -1,3 +1,6 @@
 {
+  "compilerOptions": {
+    "noEmit": true
+  },
   "include": ["src"]
 }
