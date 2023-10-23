@@ -5,3 +5,84 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:where(:root) {
+  /*
+  This setting prevents type from being resized automatically
+  when there is an orientation change. This applies only to
+  very limited contexts.
+  */
+  text-size-adjust: 100%;
+
+  /*
+  Root element should take up 100% of the available height of
+  its parent, which will correspond to whatever the current
+  viewport size is.
+  */
+  block-size: 100%;
+}
+
+:where(html, body) {
+  /* Disable any vertical overscrolling. */
+  overscroll-behavior-y: none;
+}
+
+:root {
+  /* Adapt content to both light and dark color schemes. */
+  color-scheme: light dark;
+
+  /*
+  Makes sure the browser does not attempt to simulate missing
+  font styles (e.g., bold or italic) when a specific font is
+  not available.
+  */
+  font-synthesis: none;
+
+  /*
+  Makes sure the browser uses rendering techniques that improve
+  text readability, such as ligatures and kerning.
+  */
+  text-rendering: optimizeLegibility;
+
+  /*
+  Improve the "smoothness" appearance of text.
+  */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  /*
+  Makes sure that this element takes up at least the full
+  height of the viewport. This is to make sure that the
+  document covers the full height of the screen even if
+  the content doesn't fill the entire space.
+  */
+  min-height: 100%;
+
+  /*
+  Sets this element to be a flex container that has a
+  vertical main axis.
+  */
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  position: relative;
+
+  /*
+  This element expands to fill the available space within
+  its container. This means the body takes up the full
+  height of the containing block, which is the html. The
+  html in turn is set to take up the full viewport.
+  */
+  flex-grow: 1;
+
+  /*
+  This element will have a minimum height of 100% of its
+  containing block's height. This means the body will
+  essentially fill all of the vertical space.
+  */
+  min-block-size: 100%;
+}
