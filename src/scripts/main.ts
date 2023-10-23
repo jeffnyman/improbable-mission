@@ -1,4 +1,5 @@
 import "../styles/mission.css";
+import { App } from "./app";
 
 console.log("... Improbable Mission ...");
 console.log("Browser ready; mission provided.");
@@ -23,4 +24,6 @@ function missionAccepted() {
   appDiv.innerHTML = `
     <p>Improbable Mission</p>
   `;
+
+  new App();
 }
