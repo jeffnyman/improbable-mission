@@ -22,7 +22,9 @@ function missionAccepted() {
   appDiv.classList.remove("hidden");
 
   appDiv.innerHTML = `
-    <p>Improbable Mission</p>
+    <div id="loading">
+      <p>Improbable Mission</p>
+    </div>
 
     <div id="unsupported" class="unsupported hidden">
       <h2>Unsupported Browser</h2>

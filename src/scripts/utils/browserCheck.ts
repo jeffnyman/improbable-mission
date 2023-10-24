@@ -41,6 +41,7 @@ export function checkBrowserCapabilities() {
 }
 
 function displayUnsupported(reasons: string[]) {
+  const loadingDiv = document.querySelector<HTMLDivElement>("#loading")!;
   const unsupportedDiv =
     document.querySelector<HTMLDivElement>("#unsupported")!;
   const unsupportedList = unsupportedDiv.querySelector<HTMLUListElement>("ul")!;
@@ -50,4 +51,5 @@ function displayUnsupported(reasons: string[]) {
     .join("");
 
   unsupportedDiv.classList.remove("hidden");
+  loadingDiv.classList.add("hidden");
 }
