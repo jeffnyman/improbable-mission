@@ -24,7 +24,7 @@ function missionAccepted() {
   appDiv.innerHTML = `
     <p>Improbable Mission</p>
 
-    <div id="unsupported" class="hidden">
+    <div id="unsupported" class="unsupported hidden">
       <h2>Unsupported Browser</h2>
 
       <p>Your browser is not supported for the following reasons:</p>
