@@ -1,3 +1,5 @@
+import { ResourceLoader } from "./utils/resourceLoader";
+
 export class Coordinator {
   constructor() {
     console.log("Coordinator Constructed");
@@ -5,5 +7,7 @@ export class Coordinator {
 
   start() {
     console.log("|| Coordinator Started ||");
+
+    new ResourceLoader();
   }
 }
