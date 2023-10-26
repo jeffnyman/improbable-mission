@@ -8,6 +8,8 @@ export class Coordinator {
   start() {
     console.log("|| Coordinator Started ||");
 
-    new ResourceLoader();
+    const resources = new ResourceLoader();
+
+    resources.load();
   }
 }
