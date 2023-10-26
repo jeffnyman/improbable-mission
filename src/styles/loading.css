@@ -1,0 +1,16 @@
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  font-family: "C64ProMonoRegular", sans-serif;
+  text-align: center;
+  letter-spacing: 0.2em;
+
+  p {
+    text-transform: uppercase;
+    line-height: 28px;
+  }
+}
