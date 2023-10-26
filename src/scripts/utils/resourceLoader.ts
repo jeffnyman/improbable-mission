@@ -1,10 +1,12 @@
 export class ResourceLoader {
   spriteSheet: HTMLImageElement;
+  neededResources: number;
 
   constructor() {
     console.log("Resource Loader Constructed");
 
     this.spriteSheet = new Image();
+    this.neededResources = 0;
   }
 
   load() {
@@ -14,10 +16,16 @@ export class ResourceLoader {
   }
 
   loadSprites() {
+    this.neededResources += 1;
     this.spriteSheet.src = "../images/missionSprites.png";
 
     this.spriteSheet.onload = () => {
       console.log("found the sprite sheet");
+
+      const neededResourcesSpan =
+        document.querySelector<HTMLSpanElement>("#needed-resources")!;
+
+      neededResourcesSpan.textContent = `${this.neededResources}`;
     };
 
     this.spriteSheet.onerror = () => {

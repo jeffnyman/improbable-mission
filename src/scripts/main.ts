@@ -24,7 +24,8 @@ function missionAccepted() {
   appDiv.innerHTML = `
     <div id="loading" class="loading">
       <p>
-        Loading Resources<br>0 / 0
+        Loading Resources<br>
+        0 / <span id="needed-resources">0</span>
       </p>
     </div>
 
