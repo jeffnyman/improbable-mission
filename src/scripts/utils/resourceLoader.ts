@@ -18,7 +18,7 @@ export class ResourceLoader {
   }
 
   loadSprites() {
-    this.neededResources += 1;
+    this.neededResources++;
     this.updateNeededResources();
 
     this.spriteSheet.src = "../images/missionSprites.png";
@@ -26,7 +26,7 @@ export class ResourceLoader {
     this.spriteSheet.onload = () => {
       console.log("found the sprite sheet");
 
-      this.loadedResources += 1;
+      this.loadedResources++;
       this.updateLoadedResources();
     };
 
