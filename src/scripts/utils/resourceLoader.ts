@@ -17,19 +17,23 @@ export class ResourceLoader {
 
   loadSprites() {
     this.neededResources += 1;
+    this.updatedNeededResources();
+
     this.spriteSheet.src = "../images/missionSprites.png";
 
     this.spriteSheet.onload = () => {
       console.log("found the sprite sheet");
-
-      const neededResourcesSpan =
-        document.querySelector<HTMLSpanElement>("#needed-resources")!;
-
-      neededResourcesSpan.textContent = `${this.neededResources}`;
     };
 
     this.spriteSheet.onerror = () => {
       console.log("could not find sprite sheet");
     };
+  }
+
+  updatedNeededResources() {
+    const neededResourcesSpan =
+      document.querySelector<HTMLSpanElement>("#needed-resources")!;
+
+    neededResourcesSpan.textContent = `${this.neededResources}`;
   }
 }
