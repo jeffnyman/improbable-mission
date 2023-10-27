@@ -25,7 +25,7 @@ function missionAccepted() {
     <div id="loading" class="loading">
       <p>
         Loading Resources<br>
-        0 / <span id="needed-resources">0</span>
+        <span id="loaded-resources">0</span> / <span id="needed-resources">0</span>
       </p>
     </div>
 
