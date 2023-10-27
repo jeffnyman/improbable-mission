@@ -19,7 +19,7 @@ export class ResourceLoader {
 
   loadSprites() {
     this.neededResources += 1;
-    this.updatedNeededResources();
+    this.updateNeededResources();
 
     this.spriteSheet.src = "../images/missionSprites.png";
 
@@ -39,7 +39,7 @@ export class ResourceLoader {
     };
   }
 
-  updatedNeededResources() {
+  updateNeededResources() {
     const neededResourcesSpan =
       document.querySelector<HTMLSpanElement>("#needed-resources")!;
 
