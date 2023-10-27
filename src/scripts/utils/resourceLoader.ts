@@ -27,11 +27,7 @@ export class ResourceLoader {
       console.log("found the sprite sheet");
 
       this.loadedResources += 1;
-
-      const loadedResourcesSpan =
-        document.querySelector<HTMLSpanElement>("#loaded-resources")!;
-
-      loadedResourcesSpan.textContent = `${this.loadedResources}`;
+      this.updateLoadedResources();
     };
 
     this.spriteSheet.onerror = () => {
@@ -44,5 +40,12 @@ export class ResourceLoader {
       document.querySelector<HTMLSpanElement>("#needed-resources")!;
 
     neededResourcesSpan.textContent = `${this.neededResources}`;
+  }
+
+  updateLoadedResources() {
+    const loadedResourcesSpan =
+      document.querySelector<HTMLSpanElement>("#loaded-resources")!;
+
+    loadedResourcesSpan.textContent = `${this.loadedResources}`;
   }
 }
