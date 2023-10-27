@@ -32,6 +32,15 @@ export class ResourceLoader {
 
     this.spriteSheet.onerror = () => {
       console.log("could not find sprite sheet");
+
+      const loadingDiv = document.querySelector<HTMLDivElement>("#loading")!;
+      loadingDiv.classList.add("hidden");
+
+      const errorDiv = document.querySelector<HTMLDivElement>("#error")!;
+      errorDiv.classList.remove("hidden");
+
+      const problemParagraph = errorDiv.querySelector("p")!;
+      problemParagraph.innerHTML = "Unable to load game sprite sheet.";
     };
   }
 

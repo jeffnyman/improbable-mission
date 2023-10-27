@@ -36,6 +36,12 @@ function missionAccepted() {
 
       <ul></ul>
     </div>
+
+    <div id="error" class="hidden">
+      <h2>Problem!</h2>
+
+      <p></p>
+    </div>
   `;
 
   new App();
