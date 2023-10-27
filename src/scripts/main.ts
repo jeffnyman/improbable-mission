@@ -37,7 +37,7 @@ function missionAccepted() {
       <ul></ul>
     </div>
 
-    <div id="error" class="hidden">
+    <div id="error" class="error hidden">
       <h2>Problem!</h2>
 
       <p></p>
