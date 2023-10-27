@@ -41,6 +41,8 @@ export class ResourceLoader {
 
       const problemParagraph = errorDiv.querySelector("p")!;
       problemParagraph.innerHTML = "Unable to load game sprite sheet.";
+
+      throw new Error("ERROR: Cannot Load Mission Sprites");
     };
   }
 
@@ -55,6 +57,8 @@ export class ResourceLoader {
     const loadedResourcesSpan =
       document.querySelector<HTMLSpanElement>("#loaded-resources")!;
 
-    loadedResourcesSpan.textContent = `${this.loadedResources}`;
+    setTimeout(() => {
+      loadedResourcesSpan.textContent = `${this.loadedResources}`;
+    }, 1000);
   }
 }
