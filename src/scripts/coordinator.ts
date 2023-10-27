@@ -10,6 +10,13 @@ export class Coordinator {
 
     const resources = new ResourceLoader();
 
-    resources.load();
+    resources
+      .load()
+      .then(() => {
+        console.log("Loading completed.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

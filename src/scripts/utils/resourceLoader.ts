@@ -11,13 +11,15 @@ export class ResourceLoader {
     this.loadedResources = 0;
   }
 
-  load() {
-    console.log("| Loading Resources |");
+  load(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      console.log("| Loading Resources |");
 
-    this.loadSprites();
+      this.loadSprites(resolve, reject);
+    });
   }
 
-  loadSprites() {
+  loadSprites(resolve: () => void, reject: (error: Error) => void) {
     this.neededResources++;
     this.updateNeededResources();
 
@@ -28,6 +30,8 @@ export class ResourceLoader {
 
       this.loadedResources++;
       this.updateLoadedResources();
+
+      resolve();
     };
 
     this.spriteSheet.onerror = () => {
@@ -42,7 +46,7 @@ export class ResourceLoader {
       const problemParagraph = errorDiv.querySelector("p")!;
       problemParagraph.innerHTML = "Unable to load game sprite sheet.";
 
-      throw new Error("ERROR: Cannot Load Mission Sprites");
+      reject(new Error("ERROR: Cannot Load Mission Sprites"));
     };
   }
 
