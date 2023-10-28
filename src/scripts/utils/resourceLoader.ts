@@ -5,6 +5,7 @@ export class ResourceLoader {
   spriteSheet: HTMLImageElement;
   neededResources: number;
   loadedResources: number;
+  audioResources: string[] = [];
 
   constructor() {
     console.log("Resource Loader Constructed");
@@ -13,6 +14,11 @@ export class ResourceLoader {
     this.spriteSheet = new Image();
     this.neededResources = 0;
     this.loadedResources = 0;
+    this.audioResources = [];
+
+    if (this.audio.context) {
+      this.gatherAudioResources();
+    }
   }
 
   load(): Promise<void> {
@@ -68,5 +74,12 @@ export class ResourceLoader {
     setTimeout(() => {
       loadedResourcesSpan.textContent = `${this.loadedResources}`;
     }, 1000);
+  }
+
+  gatherAudioResources() {
+    this.audioResources.push("1");
+
+    this.neededResources += this.audioResources.length;
+    this.updateNeededResources();
   }
 }
