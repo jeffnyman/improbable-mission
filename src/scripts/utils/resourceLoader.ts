@@ -25,39 +25,62 @@ export class ResourceLoader {
     return new Promise<void>((resolve, reject) => {
       console.log("| Loading Resources |");
 
-      this.loadSprites(resolve, reject);
+      this.loadSprites()
+        .then(() => {
+          console.log("-- Load Sounds after Sprites");
+          return this.loadSounds();
+        })
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          console.error("Error occurred during resource loading:", error);
+          reject(error);
+        });
     });
   }
 
-  loadSprites(resolve: () => void, reject: (error: Error) => void) {
-    this.neededResources++;
-    this.updateNeededResources();
+  loadSprites(): Promise<void> {
+    console.log("** Loading Sprites");
 
-    this.spriteSheet.src = "../images/missionSprites.png";
+    return new Promise<void>((resolve, reject) => {
+      this.neededResources++;
+      this.updateNeededResources();
 
-    this.spriteSheet.onload = () => {
-      console.log("found the sprite sheet");
+      this.spriteSheet.src = "../images/missionSprites.png";
 
-      this.loadedResources++;
-      this.updateLoadedResources();
+      this.spriteSheet.onload = () => {
+        console.log("found the sprite sheet");
 
+        this.loadedResources++;
+        this.updateLoadedResources();
+
+        resolve();
+      };
+
+      this.spriteSheet.onerror = () => {
+        console.log("could not find sprite sheet");
+
+        const loadingDiv = document.querySelector<HTMLDivElement>("#loading")!;
+        loadingDiv.classList.add("hidden");
+
+        const errorDiv = document.querySelector<HTMLDivElement>("#error")!;
+        errorDiv.classList.remove("hidden");
+
+        const problemParagraph = errorDiv.querySelector("p")!;
+        problemParagraph.innerHTML = "Unable to load game sprite sheet.";
+
+        reject(new Error("ERROR: Cannot Load Mission Sprites"));
+      };
+    });
+  }
+
+  loadSounds() {
+    console.log("** Loading Sounds");
+
+    return new Promise<void>((resolve, reject) => {
       resolve();
-    };
-
-    this.spriteSheet.onerror = () => {
-      console.log("could not find sprite sheet");
-
-      const loadingDiv = document.querySelector<HTMLDivElement>("#loading")!;
-      loadingDiv.classList.add("hidden");
-
-      const errorDiv = document.querySelector<HTMLDivElement>("#error")!;
-      errorDiv.classList.remove("hidden");
-
-      const problemParagraph = errorDiv.querySelector("p")!;
-      problemParagraph.innerHTML = "Unable to load game sprite sheet.";
-
-      reject(new Error("ERROR: Cannot Load Mission Sprites"));
-    };
+    });
   }
 
   updateNeededResources() {
