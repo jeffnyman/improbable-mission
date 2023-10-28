@@ -6,6 +6,7 @@ export class ResourceLoader {
   neededResources: number;
   loadedResources: number;
   audioResources: string[] = [];
+  sounds: { [key: string]: AudioBuffer };
 
   constructor() {
     console.log("Resource Loader Constructed");
@@ -15,6 +16,7 @@ export class ResourceLoader {
     this.neededResources = 0;
     this.loadedResources = 0;
     this.audioResources = [];
+    this.sounds = {};
 
     if (this.audio.context) {
       this.gatherAudioResources();
@@ -103,11 +105,21 @@ export class ResourceLoader {
       request.onload = () => {
         if (request.status === 200 && request.response) {
           console.log("Sound resource found.");
+          this.loadedResources++;
+
+          this.audio.context?.decodeAudioData(
+            request.response,
+            (buffer) => {
+              this.sounds[resourceName] = buffer;
+
+              this.updateLoadedResources();
+            },
+            (error) => {
+              reject(new Error(`Unable to decode audio. Error: ${error}`));
+            },
+          );
           resolve();
         } else {
-          console.log(
-            `Unable to find sound resource. URL: ${request.responseURL}`,
-          );
           reject(
             new Error(
               `ERROR: Cannot Load Mission Audio: ${request.responseURL}`,
