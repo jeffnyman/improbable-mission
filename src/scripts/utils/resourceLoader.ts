@@ -1,4 +1,7 @@
+import { MissionAudio } from "../audio";
+
 export class ResourceLoader {
+  audio: MissionAudio;
   spriteSheet: HTMLImageElement;
   neededResources: number;
   loadedResources: number;
@@ -6,6 +9,7 @@ export class ResourceLoader {
   constructor() {
     console.log("Resource Loader Constructed");
 
+    this.audio = new MissionAudio();
     this.spriteSheet = new Image();
     this.neededResources = 0;
     this.loadedResources = 0;
