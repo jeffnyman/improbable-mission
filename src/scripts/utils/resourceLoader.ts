@@ -156,7 +156,15 @@ export class ResourceLoader {
   }
 
   gatherAudioResources() {
-    this.audioResources.push("anotherVisitor.ogg", "destroyHim.ogg");
+    this.audioResources.push(
+      "anotherVisitor.ogg",
+      "destroyHim.ogg",
+      "dieByZap.ogg",
+      "droid.ogg",
+      "droidTurn.ogg",
+      "elevatorStart.ogg",
+      "elevatorStop.ogg",
+    );
 
     this.neededResources += this.audioResources.length;
     this.updateNeededResources();
