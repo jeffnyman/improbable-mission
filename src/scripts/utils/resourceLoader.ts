@@ -185,6 +185,10 @@ export class ResourceLoader {
       this.audioResources.push("organTone" + i + ".ogg");
     }
 
+    for (var i = 1; i <= 5; i++) {
+      this.audioResources.push("zap" + i + ".ogg");
+    }
+
     this.neededResources += this.audioResources.length;
     this.updateNeededResources();
   }
