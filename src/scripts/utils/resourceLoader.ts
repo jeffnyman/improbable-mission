@@ -177,6 +177,10 @@ export class ResourceLoader {
       this.audioResources.push("beep" + i + ".ogg");
     }
 
+    for (var i = 1; i <= 2; i++) {
+      this.audioResources.push("dial" + i + ".ogg");
+    }
+
     this.neededResources += this.audioResources.length;
     this.updateNeededResources();
   }
