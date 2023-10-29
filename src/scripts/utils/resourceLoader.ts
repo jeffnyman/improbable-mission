@@ -169,6 +169,10 @@ export class ResourceLoader {
       "inLine.ogg",
       "jumpLeft.ogg",
       "jumpRight.ogg",
+      "missionAccomplished.ogg",
+      "nonono.ogg",
+      "stepLeft.ogg",
+      "stepRight.ogg",
     );
 
     this.neededResources += this.audioResources.length;
