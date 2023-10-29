@@ -88,8 +88,6 @@ export class ResourceLoader {
       const resourceFileName = this.audioResources[i];
       const resourceName = resourceFileName.split(".")[0];
 
-      console.log(resourceName);
-
       // Initiate an asynchronous request to fetch an audio resource.
       // The response will contain the audio data in the form of an
       // array buffer that can be processed further.
@@ -174,6 +172,10 @@ export class ResourceLoader {
       "stepLeft.ogg",
       "stepRight.ogg",
     );
+
+    for (var i = 1; i <= 5; i++) {
+      this.audioResources.push("beep" + i + ".ogg");
+    }
 
     this.neededResources += this.audioResources.length;
     this.updateNeededResources();
