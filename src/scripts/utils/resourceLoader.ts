@@ -164,6 +164,11 @@ export class ResourceLoader {
       "droidTurn.ogg",
       "elevatorStart.ogg",
       "elevatorStop.ogg",
+      "falling.ogg",
+      "hahaha.ogg",
+      "inLine.ogg",
+      "jumpLeft.ogg",
+      "jumpRight.ogg",
     );
 
     this.neededResources += this.audioResources.length;
