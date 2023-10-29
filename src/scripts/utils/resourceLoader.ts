@@ -181,6 +181,10 @@ export class ResourceLoader {
       this.audioResources.push("dial" + i + ".ogg");
     }
 
+    for (var i = 1; i <= 14; i++) {
+      this.audioResources.push("organTone" + i + ".ogg");
+    }
+
     this.neededResources += this.audioResources.length;
     this.updateNeededResources();
   }
