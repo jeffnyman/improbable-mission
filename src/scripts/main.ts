@@ -4,6 +4,10 @@ import { App } from "./app";
 console.log("... Improbable Mission ...");
 console.log("Browser ready; mission provided.");
 
+if (document.location.search !== "") {
+  window.history.pushState(false, "", "/");
+}
+
 const acceptMissionSpan =
   document.querySelector<HTMLSpanElement>("#accept-mission")!;
 
