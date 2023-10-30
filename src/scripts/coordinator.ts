@@ -19,6 +19,7 @@ export class Coordinator {
       .load()
       .then(() => {
         console.log("Loading completed.");
+        this.layout.generate();
       })
       .catch((error) => {
         console.log(error);
