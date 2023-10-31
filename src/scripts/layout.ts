@@ -5,5 +5,11 @@ export class Layout {
 
   generate() {
     console.log("| Generating layout |");
+
+    this.generateRooms();
+  }
+
+  generateRooms() {
+    console.log("| Generating rooms |");
   }
 }
