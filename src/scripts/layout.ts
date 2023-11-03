@@ -24,7 +24,7 @@ export class Layout {
     console.log("| Generating rooms |");
 
     for (var i = 1; i <= 32; i++) {
-      this.rooms[i] = new Room();
+      this.rooms[i] = new Room(this.map);
       this.rooms[i].setup();
     }
   }
