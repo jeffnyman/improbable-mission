@@ -1,0 +1,35 @@
+table.game-in-monitor {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+table.game-in-monitor td {
+  vertical-align: top;
+}
+
+table.game-in-monitor td img[src$="moni-top.gif"] {
+  height: 20px;
+}
+
+table.game-in-monitor td img[src$="moni-left.gif"],
+table.game-in-monitor td img[src$="moni-right.gif"] {
+  height: 200px;
+}
+
+table.game-in-monitor td img[src$="moni-screen.png"] {
+  height: 200px;
+}
+
+p.accept-mission {
+  text-align: center;
+  margin-top: 20px;
+}
+
+p.accept-mission span {
+  cursor: pointer;
+  color: hsla(211, 100%, 50%, 1);
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 0.2ch;
+  word-spacing: 1ch;
+}
