@@ -1,3 +1,21 @@
 .hidden {
   display: none;
 }
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: hsl(0, 0%, 20%, 1);
+  color: hsl(0, 0%, 100%, 1);
+
+  span,
+  img {
+    margin: 0 5px;
+  }
+}
