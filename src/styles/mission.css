@@ -1,10 +1,1 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-* {
-  margin: unset;
-  padding: unset;
-}
+@import url("./reset.css");
