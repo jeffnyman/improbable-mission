@@ -1,6 +1,7 @@
 @import url("./fonts.css");
 @import url("./reset.css");
 @import url("./landing.css");
+@import url("./content.css");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
