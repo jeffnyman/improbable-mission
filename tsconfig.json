@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "noEmit": true
+
+    /* Bundler mode */
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }
