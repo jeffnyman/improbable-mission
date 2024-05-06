@@ -1,4 +1,5 @@
 import "../styles/mission.css";
+import { App } from "./app";
 
 console.log("... Improbable Mission ...");
 console.log("Browser ready; mission provided.");
@@ -21,6 +22,8 @@ function missionAccepted() {
   appDiv.classList.remove("hidden");
 
   appDiv.innerHTML = `
-  <p>Improbable Mission</p>
-`;
+    <p>Improbable Mission</p>
+  `;
+
+  new App();
 }
