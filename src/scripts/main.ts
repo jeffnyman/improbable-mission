@@ -1,6 +1,6 @@
 import "../styles/mission.css";
 
-let game: string = "Improbable Mission";
+const game = "Improbable Mission";
 
 console.log(`... ${game} ...`);
 console.log("Browser ready; mission provided.");
@@ -8,7 +8,11 @@ console.log("Browser ready; mission provided.");
 const acceptMissionSpan =
   document.querySelector<HTMLSpanElement>("#accept-mission");
 
-acceptMissionSpan.addEventListener("click", () => missionAccepted());
+if (acceptMissionSpan) {
+  acceptMissionSpan.addEventListener("click", () => missionAccepted());
+} else {
+  console.error("Element with id 'accept-mission' not found.");
+}
 
 function missionAccepted() {
   console.log("Mission has been accepted.");
