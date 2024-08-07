@@ -1,0 +1,19 @@
+{
+  "name": "@jeffnyman/improbable-mission",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "An Homage to Epyx's 1984 \"Impossible Mission\" Game",
+  "author": "Jeff Nyman (https://testerstories.com)",
+  "license": "MIT",
+  "keywords": [
+    "game",
+    "platformer",
+    "retro game",
+    "commodore 64",
+    "c64",
+    "2d",
+    "html5",
+    "canvas"
+  ]
+}
