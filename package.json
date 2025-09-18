@@ -1,0 +1,30 @@
+{
+  "name": "improbable-mission",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "An Homage to Epyx's 1984 \"Impossible Mission\"",
+  "author": {
+    "name": "Jeff Nyman",
+    "email": "jeffnyman@gmail.com",
+    "url": "https://testerstories.com"
+  },
+  "keywords": [
+    "game",
+    "platformer",
+    "retrogaming",
+    "commodore 64",
+    "c64",
+    "2d",
+    "html5",
+    "canvas"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffnyman/improbable-mission/"
+  },
+  "bugs": {
+    "url": "https://github.com/jeffnyman/improbable-mission/issues"
+  }
+}
