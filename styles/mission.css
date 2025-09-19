@@ -62,6 +62,23 @@
     align-items: center;
   }
 
+  #loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    letter-spacing: 0.2em;
+
+    p {
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+  }
+
   #unsupported {
     position: absolute;
     top: 50%;

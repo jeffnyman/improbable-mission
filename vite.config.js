@@ -1,5 +1,7 @@
 import { defineConfig } from "vite";
 
-export default defineConfig({
-  base: "/improbable-mission/",
+export default defineConfig(({ mode }) => {
+  return {
+    base: mode === "production" ? "/improbable-mission/" : "/",
+  };
 });
