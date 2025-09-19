@@ -1,4 +1,5 @@
 import { checkBrowserCapabilities } from "./browserCheck";
+import missionSpritesUrl from "/images/missionSprites.png";
 
 export class Engine {
   constructor() {
@@ -83,7 +84,7 @@ export class Engine {
         reject();
       };
 
-      baseSprites.src = "/images/missionSprites.png";
+      baseSprites.src = missionSpritesUrl;
     });
   }
 }
