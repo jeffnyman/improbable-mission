@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
+  const isProduction = mode === "production" || command === "build";
+
   return {
-    base: mode === "production" ? "/improbable-mission/" : "/",
+    base: isProduction ? "/improbable-mission/" : "/",
   };
 });
