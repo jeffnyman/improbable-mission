@@ -1,8 +1,11 @@
 import { checkBrowserCapabilities } from "./browserCheck";
+import { GameAudio } from "./audio";
 import missionSpritesUrl from "/images/missionSprites.png";
 
 export class Engine {
   constructor() {
+    this.audio = new GameAudio();
+
     this.loadedResources = 0;
     this.requiredResources = 1;
 
@@ -25,6 +28,9 @@ export class Engine {
         window.history.pushState(false, false, "/");
       }
 
+      // Initialize subsystems.
+      await this.audio.init(this);
+
       checkBrowserCapabilities();
       await this.loadResources();
     } catch (error) {
@@ -38,11 +44,13 @@ export class Engine {
 
     const updateProgress = () => {
       const loadedElement = document.getElementById("loaded-resources");
+
       if (loadedElement) {
         loadedElement.textContent = this.loadedResources;
       }
     };
 
+    // Load image
     const baseSprites = new Image();
 
     await new Promise((resolve, reject) => {
@@ -70,11 +78,6 @@ export class Engine {
 
         this.loadedResources++;
         updateProgress();
-
-        setTimeout(() => {
-          document.getElementById("loading")?.classList.add("hidden");
-        }, 200);
-
         resolve();
       };
 
@@ -86,5 +89,27 @@ export class Engine {
 
       baseSprites.src = missionSpritesUrl;
     });
+
+    // Load audio resources
+    try {
+      if (this.audio.context) {
+        await this.audio.loadResource();
+        console.log("All audio resources loaded");
+      } else {
+        console.warn("No audio context available, skipping audio");
+      }
+    } catch (error) {
+      console.error("Error loading audio resources:", error);
+    }
+
+    // Final progress update and UI changes
+    updateProgress();
+
+    // Check if we've loaded everything we need
+    if (this.loadedResources >= this.requiredResources) {
+      setTimeout(() => {
+        document.getElementById("loading")?.classList.add("hidden");
+      }, 200);
+    }
   }
 }
