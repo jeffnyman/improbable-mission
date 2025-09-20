@@ -1,7 +1,5 @@
 export class GameAudio {
   constructor() {
-    console.log("Audio Constructed");
-
     this.engine = null;
     this.sounds = {};
 
@@ -16,12 +14,9 @@ export class GameAudio {
   }
 
   async init(engine) {
-    console.log("Audio Initialized");
-
     this.engine = engine;
 
     if (this.context) {
-      console.log("Audio context established.");
       this.engine.requiredResources += this.resources.length;
     }
 
@@ -36,10 +31,11 @@ export class GameAudio {
       }
 
       const fileName = this.resources[index];
+      const fullPath = `${import.meta.env.BASE_URL}audio/${fileName}`;
       const name = fileName.split(".")[0];
 
       const request = new XMLHttpRequest();
-      request.open("GET", `audio/${fileName}`, true);
+      request.open("GET", fullPath, true);
       request.responseType = "arraybuffer";
 
       const handleComplete = () => {

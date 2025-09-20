@@ -82,8 +82,8 @@ export class Engine {
       };
 
       baseSprites.onerror = (error) => {
-        console.error("Image failed to load:", error);
-        console.error("Image src was:", baseSprites.src);
+        console.error("✗ Image failed to load:", error);
+        console.error("✗ Image src was:", baseSprites.src);
         reject();
       };
 
@@ -94,12 +94,12 @@ export class Engine {
     try {
       if (this.audio.context) {
         await this.audio.loadResource();
-        console.log("All audio resources loaded");
+        console.log("✓ All audio resources loaded");
       } else {
         console.warn("No audio context available, skipping audio");
       }
     } catch (error) {
-      console.error("Error loading audio resources:", error);
+      console.error("✗ Error loading audio resources:", error);
     }
 
     // Final progress update and UI changes
