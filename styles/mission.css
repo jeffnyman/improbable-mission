@@ -17,9 +17,25 @@
   padding: 0;
 }
 
+img,
+picture,
+svg,
+canvas {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
 :where(html, body) {
   overscroll-behavior-y: none;
   height: 100%;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -35,6 +51,15 @@ body {
   font-family: "C64ProMonoRegular", "Courier New", Courier, monospace;
 }
 
+#mission {
+  position: relative;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #app {
   position: absolute;
   top: 0;
@@ -43,4 +68,48 @@ body {
   height: 100%;
   background-color: hsla(0, 0%, 0%, 1);
   z-index: 50;
+}
+
+#accept-mission {
+  cursor: pointer;
+  margin-top: 20px;
+  color: hsla(211, 100%, 50%, 1);
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.2ch;
+  word-spacing: 1ch;
+}
+
+table.game-in-monitor {
+  margin: 0 auto;
+  border-collapse: collapse;
+
+  & td {
+    vertical-align: top;
+
+    & img[src$="moni-top.gif"] {
+      height: 20px;
+    }
+
+    & img[src$="moni-left.gif"],
+    & img[src$="moni-right.gif"] {
+      height: 200px;
+    }
+
+    & img[src$="moni-screen.png"] {
+      height: 200px;
+    }
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  white-space: nowrap;
 }
