@@ -25,9 +25,11 @@
   "scripts": {
     "dev": "vite --host --open",
     "build": "vite build",
-    "preview": "vite preview --host --open"
+    "preview": "vite preview --host --open",
+    "format": "prettier --write ."
   },
   "devDependencies": {
+    "prettier": "3.6.2",
     "vite": "^7.1.7"
   }
 }
