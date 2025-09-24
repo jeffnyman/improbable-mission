@@ -70,6 +70,44 @@ body {
   z-index: 50;
 }
 
+#unsupported {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  z-index: 100;
+  background-color: hsla(0, 0%, 85%, 1);
+  border: 5px solid hsla(0, 70%, 15%, 0.552);
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+
+  h2 {
+    font-size: 2em;
+    margin: 10px;
+    color: hsla(0, 0%, 20%, 1);
+  }
+
+  p {
+    font-size: 1.4em;
+    font-weight: 500;
+    margin: 10px;
+    color: hsla(0, 0%, 10%, 1);
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 20px;
+
+    li {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: hsla(11, 100%, 60%, 1);
+      margin-bottom: 10px;
+    }
+  }
+}
+
 #accept-mission {
   cursor: pointer;
   margin-top: 20px;
