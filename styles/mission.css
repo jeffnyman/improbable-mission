@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "C64ProMonoRegular";
+  src: url("/fonts/c64-webfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -24,6 +32,7 @@ body {
   line-height: 1;
   background-color: hsla(0, 0%, 0%, 1);
   color: hsla(0, 0%, 100%, 1);
+  font-family: "C64ProMonoRegular", "Courier New", Courier, monospace;
 }
 
 #app {
