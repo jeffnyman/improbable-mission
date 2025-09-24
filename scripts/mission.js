@@ -1,3 +1,5 @@
+import { Engine } from "./engine";
+
 const game = "Improbable Mission";
 
 console.log(`... ${game} ...`);
@@ -31,4 +33,7 @@ function missionAccepted() {
   } else {
     console.error("Element with id 'app' not found.");
   }
+
+  const engine = new Engine();
+  engine.init();
 }
