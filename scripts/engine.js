@@ -17,10 +17,23 @@ export class Engine {
 
     try {
       this.setupToolbar();
+      this.setupKeyHandling();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
     }
+  }
+
+  setupKeyHandling() {
+    console.log("[ENGINE] Setup: Key handling");
+
+    document.addEventListener("keydown", (evt) => {
+      var overlay = document.getElementById("overlay");
+
+      if (evt.code === "Escape" && !overlay.classList.contains("hidden")) {
+        overlay.click();
+      }
+    });
   }
 
   setupToolbar() {
