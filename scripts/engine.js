@@ -1,4 +1,5 @@
 import { checkBrowserCapabilities } from "./checkBrowser";
+import { loadGameResources } from "./loadResources";
 import { GameAudio } from "./audio";
 import * as Constants from "./constants";
 
@@ -6,10 +7,14 @@ export class Engine {
   constructor() {
     console.log("[ENGINE] Construct: Engine");
 
+    this.test = false; // REMOVE
+
+    this.loadedResources = 0;
+
     this.audio = new GameAudio();
   }
 
-  init() {
+  async init() {
     console.log("[ENGINE] Initialize: Engine");
 
     // Redirect to the landing page if the URL has a query string.
@@ -23,6 +28,10 @@ export class Engine {
       this.setupToolbar();
       this.setupKeyHandling();
       this.setupOptions();
+
+      console.log(this.test); // REMOVE
+      await loadGameResources(this);
+      console.log(this.test); // REMOVE
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
