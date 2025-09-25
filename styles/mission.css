@@ -103,6 +103,14 @@ body {
   }
 }
 
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: hsl(0, 0%, 0%);
+  opacity: 0.7;
+}
+
 #unsupported {
   position: absolute;
   top: 50%;
@@ -171,6 +179,46 @@ table.game-in-monitor {
     & img[src$="moni-screen.png"] {
       height: 200px;
     }
+  }
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  width: min(640px, 90vw);
+  height: min(50vh, 400px);
+  background: hsl(0, 0%, 40%);
+  border: 12px solid hsl(48, 56%, 70%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    padding: 10px 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    font-size: 1em;
+    color: hsl(0, 0%, 93%);
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #999 #555; /* Firefox */
+  }
+
+  h2 {
+    font-size: 2em;
+    margin: 20px 0px;
+    text-align: center;
+    color: hsl(56, 100%, 50%);
+  }
+
+  p {
+    font-size: 1.2em;
+    margin: 12px 0px;
+    text-align: justify;
   }
 }
 
