@@ -38,10 +38,24 @@ export class Engine {
       console.log(this.test); // REMOVE
       await loadGameResources(this);
       console.log(this.test); // REMOVE
+
+      this.setupInterface();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
     }
+  }
+
+  setupInterface() {
+    console.log("[ENGINE] Setup: Interface");
+
+    const loadingDiv = document.getElementById("loading");
+    const toolBarDiv = document.getElementById("toolbar");
+    const gameDiv = document.getElementById("game");
+
+    loadingDiv.classList.add("hidden");
+    toolBarDiv.classList.remove("hidden");
+    gameDiv.classList.remove("hidden");
   }
 
   setupOptions() {
