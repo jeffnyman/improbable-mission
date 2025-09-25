@@ -1,4 +1,5 @@
 import { checkBrowserCapabilities } from "./checkBrowser";
+import * as Constants from "./constants";
 
 export class Engine {
   constructor() {
@@ -18,9 +19,28 @@ export class Engine {
     try {
       this.setupToolbar();
       this.setupKeyHandling();
+      this.setupOptions();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
+    }
+  }
+
+  setupOptions() {
+    console.log("[ENGINE] Setup: Options");
+
+    if (localStorage.getItem("palette") === null) {
+      localStorage.setItem("palette", "vice");
+    }
+
+    Constants.options.palette = localStorage.getItem("palette");
+
+    const paletteButton = document.querySelector(
+      `.palette[data-palette="${Constants.options.palette}"]`,
+    );
+
+    if (paletteButton) {
+      paletteButton.click();
     }
   }
 
