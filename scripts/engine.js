@@ -10,6 +10,7 @@ export class Engine {
     this.test = false; // REMOVE
 
     this.loadedResources = 0;
+    this.requiredResources = 1;
 
     this.audio = new GameAudio();
   }
@@ -23,6 +24,11 @@ export class Engine {
     }
 
     checkBrowserCapabilities();
+
+    this.audio.init(this);
+
+    const requiredElement = document.getElementById("required-resources");
+    requiredElement.textContent = this.requiredResources;
 
     try {
       this.setupToolbar();
