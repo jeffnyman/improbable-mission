@@ -49,15 +49,15 @@ async function loadAudioResources(engine) {
   }
 
   try {
-    const audioPromises = engine.audio.resources.map((fileName) =>
-      loadAudio(fileName, engine),
-    );
+    const results = [];
 
-    const results = await Promise.all(audioPromises);
+    for (const fileName of engine.audio.resources) {
+      const result = await loadAudio(fileName, engine);
+      results.push(result);
+    }
 
     return results;
   } catch (error) {
-    // MAY NOT NEED THIS //
     console.error("Failed to load audio resources:", error);
     throw error;
   }
@@ -72,7 +72,6 @@ async function loadAudio(fileName, engine) {
   }
 
   const name = fileName.split(".")[0];
-  console.log(name);
 
   try {
     const response = await fetch(
@@ -90,6 +89,10 @@ async function loadAudio(fileName, engine) {
     engine.loadedResources++;
 
     loadedElement.textContent = engine.loadedResources;
+
+    // This is a random delay, purely to simulate the retro-feel.
+    const delay = Math.random() * 100 + 50;
+    await new Promise((resolve) => setTimeout(resolve, delay));
 
     return { fileName, name, buffer };
   } catch (error) {
