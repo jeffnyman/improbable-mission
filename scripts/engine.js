@@ -1,9 +1,12 @@
 import { checkBrowserCapabilities } from "./checkBrowser";
+import { GameAudio } from "./audio";
 import * as Constants from "./constants";
 
 export class Engine {
   constructor() {
     console.log("[ENGINE] Construct: Engine");
+
+    this.audio = new GameAudio();
   }
 
   init() {
