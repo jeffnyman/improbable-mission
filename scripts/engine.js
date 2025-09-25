@@ -76,5 +76,29 @@ export class Engine {
         document.getElementById("dossier")?.classList.add("hidden");
       });
     }
+
+    const paletteButtons = document.querySelectorAll(".palette");
+
+    paletteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const pal = button.getAttribute("data-palette");
+
+        Constants.options.palette = pal;
+        localStorage.setItem("palette", pal);
+
+        this.setActiveButton(button);
+      });
+    });
+  }
+
+  setActiveButton(button) {
+    const item = button.closest(".item");
+
+    if (item) {
+      const allButtons = item.querySelectorAll(".clickable");
+      allButtons.forEach((btn) => btn.classList.remove("active"));
+    }
+
+    button.classList.add("active");
   }
 }
