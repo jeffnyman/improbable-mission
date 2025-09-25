@@ -14,5 +14,34 @@ export class Engine {
     }
 
     checkBrowserCapabilities();
+
+    try {
+      this.setupToolbar();
+    } catch (error) {
+      console.error("Initialization failed:", error);
+      return;
+    }
+  }
+
+  setupToolbar() {
+    console.log("[ENGINE] Setup: Toolbar");
+
+    const dossierButton = document.getElementById("dossier-button");
+
+    if (dossierButton) {
+      dossierButton.addEventListener("click", () => {
+        document.getElementById("overlay")?.classList.remove("hidden");
+        document.getElementById("dossier")?.classList.remove("hidden");
+      });
+    }
+
+    const overlay = document.getElementById("overlay");
+
+    if (overlay) {
+      overlay.addEventListener("click", () => {
+        document.getElementById("overlay")?.classList.add("hidden");
+        document.getElementById("dossier")?.classList.add("hidden");
+      });
+    }
   }
 }
