@@ -11,7 +11,7 @@ export async function loadGameResources(engine) {
   try {
     const [spritesLoaded, audioLoaded] = await Promise.all([
       loadSpriteResources(engine),
-      loadAudioResources(),
+      loadAudioResources(engine),
     ]);
 
     return { spritesLoaded, audioLoaded };
@@ -42,4 +42,58 @@ function loadSpriteResources(engine) {
   });
 }
 
-async function loadAudioResources() {}
+async function loadAudioResources(engine) {
+  if (!engine.audio.context) {
+    console.warn("Audio context not available");
+    return [];
+  }
+
+  try {
+    const audioPromises = engine.audio.resources.map((fileName) =>
+      loadAudio(fileName, engine),
+    );
+
+    const results = await Promise.all(audioPromises);
+
+    return results;
+  } catch (error) {
+    // MAY NOT NEED THIS //
+    console.error("Failed to load audio resources:", error);
+    throw error;
+  }
+}
+
+async function loadAudio(fileName, engine) {
+  const loadedElement = document.getElementById("loaded-resources");
+
+  if (!engine.audio.context) {
+    console.warn("Audio context not available");
+    return [];
+  }
+
+  const name = fileName.split(".")[0];
+  console.log(name);
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}audio/${fileName}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${fileName}: ${response.status}`);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = await engine.audio.context.decodeAudioData(arrayBuffer);
+
+    engine.audio.sounds[name] = buffer;
+    engine.loadedResources++;
+
+    loadedElement.textContent = engine.loadedResources;
+
+    return { fileName, name, buffer };
+  } catch (error) {
+    console.error(`Error loading audio resource ${fileName}:`, error);
+    throw error;
+  }
+}
