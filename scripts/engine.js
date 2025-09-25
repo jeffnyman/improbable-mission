@@ -45,6 +45,24 @@ export class Engine {
     if (paletteButton) {
       paletteButton.click();
     }
+
+    if (!this.audio.context) {
+      localStorage.setItem("sound", "off");
+    }
+
+    if (localStorage.getItem("sound") === null) {
+      localStorage.setItem("sound", "on");
+    }
+
+    Constants.options.sound = localStorage.getItem("sound");
+
+    const soundButton = document.querySelector(
+      `.setting-sound-${Constants.options.sound}`,
+    );
+
+    if (soundButton) {
+      soundButton.click();
+    }
   }
 
   setupKeyHandling() {
