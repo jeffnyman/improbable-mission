@@ -110,6 +110,25 @@ export class Engine {
         this.setActiveButton(button);
       });
     });
+
+    const soundOnButton = document.querySelector(".setting-sound-on");
+    const soundOffButton = document.querySelector(".setting-sound-off");
+
+    soundOnButton?.addEventListener("click", () => {
+      if (this.audio.context) {
+        Constants.options.sound = "on";
+        localStorage.setItem("sound", "on");
+        this.setActiveButton(soundOnButton);
+      }
+    });
+
+    soundOffButton?.addEventListener("click", () => {
+      if (this.audio.context) {
+        Constants.options.sound = "off";
+        localStorage.setItem("sound", "off");
+        this.setActiveButton(soundOffButton);
+      }
+    });
   }
 
   setActiveButton(button) {
