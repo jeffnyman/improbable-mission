@@ -3,8 +3,6 @@ import missionSpritesUrl from "/images/missionSprites.png";
 export async function loadGameResources(engine) {
   console.log("Load: game resources");
 
-  engine.test = true; // REMOVE
-
   const loadingDiv = document.getElementById("loading");
   loadingDiv.classList.remove("hidden");
 
@@ -30,6 +28,8 @@ function loadSpriteResources(engine) {
       try {
         engine.loadedResources++;
         loadedElement.textContent = engine.loadedResources;
+
+        engine.baseSprites = baseSprites;
 
         resolve(true);
       } catch (error) {

@@ -7,10 +7,18 @@ export class Engine {
   constructor() {
     console.log("[ENGINE] Construct: Engine");
 
-    this.test = false; // REMOVE
-
     this.loadedResources = 0;
     this.requiredResources = 1;
+
+    // Sprite management
+    this.spriteWidth = 800;
+    this.spriteHeight = 600;
+    this.baseSprites = null;
+    this.baseSpriteCanvas = null;
+    this.baseSpriteContext = null;
+    this.baseSpriteData = null;
+    this.baseSpriteDataPix = null;
+    this.baseSpriteImageDataCreated = null;
 
     this.audio = new GameAudio();
   }
@@ -35,15 +43,37 @@ export class Engine {
       this.setupKeyHandling();
       this.setupOptions();
 
-      console.log(this.test); // REMOVE
       await loadGameResources(this);
-      console.log(this.test); // REMOVE
 
+      this.setupSpriteProcessing();
       this.setupInterface();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
     }
+  }
+
+  setupSpriteProcessing() {
+    this.baseSpriteCanvas = document.createElement("canvas");
+    this.baseSpriteCanvas.width = this.spriteWidth;
+    this.baseSpriteCanvas.height = this.spriteHeight;
+
+    this.baseSpriteContext = this.baseSpriteCanvas.getContext("2d");
+    this.baseSpriteContext.drawImage(this.baseSprites, 0, 0);
+
+    this.baseSpriteData = this.baseSpriteContext.getImageData(
+      0,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+    );
+
+    this.baseSpriteDataPix = this.baseSpriteData.data;
+
+    this.baseSpriteImageDataCreated = this.baseSpriteContext.createImageData(
+      this.spriteWidth,
+      this.spriteHeight,
+    );
   }
 
   setupInterface() {
