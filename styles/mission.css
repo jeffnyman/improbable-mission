@@ -70,6 +70,39 @@ body {
   z-index: 50;
 }
 
+#toolbar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  display: flex;
+  background: hsl(0, 0%, 87%);
+  color: hsl(0, 0%, 28%);
+  text-transform: uppercase;
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    background-color: hsl(0, 0%, 94%);
+    border: 1px solid hsl(0, 0%, 80%);
+
+    .clickable {
+      cursor: pointer;
+
+      &.active {
+        text-decoration: underline;
+      }
+    }
+
+    .palette {
+      border-right: 1px solid hsl(0, 0%, 53%);
+      padding-right: 8px;
+    }
+  }
+}
+
 #unsupported {
   position: absolute;
   top: 50%;
