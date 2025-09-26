@@ -70,6 +70,18 @@ body {
   z-index: 50;
 }
 
+#screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 200px;
+  z-index: 100;
+  image-rendering: crisp-edges;
+  background-color: red; /* THIS IS TEMPORARY */
+}
+
 #loading {
   position: absolute;
   top: 50%;
