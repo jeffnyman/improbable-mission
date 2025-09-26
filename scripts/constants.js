@@ -1,6 +1,9 @@
 // Holds options from local storage
 export const options = {};
 
+// Holds generated sprites for palettes
+export const sprites = {};
+
 export const palette = {
   vice: [
     "000000",

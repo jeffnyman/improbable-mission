@@ -74,6 +74,12 @@ export class Engine {
       this.spriteWidth,
       this.spriteHeight,
     );
+
+    this.swapSpritePalette("vice", Constants.palette.vice);
+    this.swapSpritePalette("c64s", Constants.palette.c64s);
+    this.swapSpritePalette("c64hq", Constants.palette.c64hq);
+    this.swapSpritePalette("ccs64", Constants.palette.ccs64);
+    this.swapSpritePalette("pc64", Constants.palette.pc64);
   }
 
   setupInterface() {
@@ -199,5 +205,64 @@ export class Engine {
     }
 
     button.classList.add("active");
+  }
+
+  swapSpritePalette(name, targetPalette) {
+    var newImageData = this.baseSpriteImageDataCreated;
+
+    for (
+      var pixelIndex = 0, totalPixels = this.baseSpriteDataPix.length;
+      pixelIndex < totalPixels;
+      pixelIndex += 4
+    ) {
+      var currentRed = this.baseSpriteDataPix[pixelIndex];
+      var currentGreen = this.baseSpriteDataPix[pixelIndex + 1];
+      var currentBlue = this.baseSpriteDataPix[pixelIndex + 2];
+
+      for (var colorIndex = 0; colorIndex < 16; colorIndex++) {
+        var sourceColor = Constants.palette.sprite[colorIndex];
+        var sourceRed = parseInt(sourceColor[0] + sourceColor[1], 16);
+        var sourceGreen = parseInt(sourceColor[2] + sourceColor[3], 16);
+        var sourceBlue = parseInt(sourceColor[4] + sourceColor[5], 16);
+
+        if (
+          currentRed == sourceRed &&
+          currentGreen == sourceGreen &&
+          currentBlue == sourceBlue
+        ) {
+          var targetColor = targetPalette[colorIndex];
+
+          newImageData.data[pixelIndex] = parseInt(
+            targetColor[0] + targetColor[1],
+            16,
+          );
+
+          newImageData.data[pixelIndex + 1] = parseInt(
+            targetColor[2] + targetColor[3],
+            16,
+          );
+
+          newImageData.data[pixelIndex + 2] = parseInt(
+            targetColor[4] + targetColor[5],
+            16,
+          );
+
+          newImageData.data[pixelIndex + 3] =
+            this.baseSpriteDataPix[pixelIndex + 3];
+
+          break;
+        }
+      }
+    }
+
+    var outputCanvas = document.createElement("canvas");
+    outputCanvas.width = this.spriteWidth;
+    outputCanvas.height = this.spriteHeight;
+
+    var outputContext = outputCanvas.getContext("2d");
+    outputContext.putImageData(newImageData, 0, 0);
+
+    Constants.sprites[name] = new Image();
+    Constants.sprites[name].src = outputCanvas.toDataURL("image/png");
   }
 }
