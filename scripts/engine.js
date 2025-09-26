@@ -1,6 +1,7 @@
 import { checkBrowserCapabilities } from "./checkBrowser";
 import { loadGameResources } from "./loadResources";
 import { GameAudio } from "./audio";
+import { Game } from "./game";
 import * as Constants from "./constants";
 
 export class Engine {
@@ -21,6 +22,7 @@ export class Engine {
     this.baseSpriteImageDataCreated = null;
 
     this.audio = new GameAudio();
+    this.game = new Game();
   }
 
   async init() {
@@ -47,10 +49,17 @@ export class Engine {
 
       this.setupSpriteProcessing();
       this.setupInterface();
+      this.generateGame();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
     }
+  }
+
+  generateGame() {
+    console.log("[ENGINE] Generate: Game");
+
+    this.game.init();
   }
 
   setupSpriteProcessing() {
