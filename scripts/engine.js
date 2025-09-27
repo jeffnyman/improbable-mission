@@ -11,6 +11,11 @@ export class Engine {
     this.loadedResources = 0;
     this.requiredResources = 1;
 
+    // Canvas properties
+    this.screen = null;
+    this.canvas = null;
+    this.screenScale = 0.9;
+
     // Sprite management
     this.spriteWidth = 800;
     this.spriteHeight = 600;
@@ -49,6 +54,7 @@ export class Engine {
 
       this.setupSpriteProcessing();
       this.setupInterface();
+      this.setupWindowHandling();
       this.generateGame();
     } catch (error) {
       console.error("Initialization failed:", error);
@@ -101,6 +107,37 @@ export class Engine {
     loadingDiv.classList.add("hidden");
     toolBarDiv.classList.remove("hidden");
     gameDiv.classList.remove("hidden");
+
+    this.screen = document.getElementById("screen");
+    this.canvas = this.screen.getContext("2d");
+    this.canvas.imageSmoothingEnabled = false;
+  }
+
+  setupWindowHandling() {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const aspectRatio = 16 / 10;
+
+      let newWidth, newHeight;
+
+      if (windowWidth / windowHeight > aspectRatio) {
+        newHeight = windowHeight;
+        newWidth = Math.round((windowHeight / 10) * 16);
+      } else {
+        newWidth = windowWidth;
+        newHeight = Math.round((windowWidth * 10) / 16);
+      }
+
+      newWidth *= this.screenScale;
+      newHeight *= this.screenScale;
+
+      this.screen.style.width = newWidth + "px";
+      this.screen.style.height = newHeight + "px";
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
   }
 
   setupOptions() {
