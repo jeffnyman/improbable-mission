@@ -56,6 +56,7 @@ export class Engine {
       this.setupInterface();
       this.setupWindowHandling();
       this.generateGame();
+      this.startProcessingLoop();
     } catch (error) {
       console.error("Initialization failed:", error);
       return;
@@ -66,6 +67,21 @@ export class Engine {
     console.log("[ENGINE] Generate: Game");
 
     this.game.init();
+  }
+
+  startProcessingLoop() {
+    console.log("[ENGINE] Start: Processing loop");
+
+    this.animation();
+    this.startScan();
+  }
+
+  animation() {
+    console.log("[ENGINE] Starting animation ...");
+  }
+
+  startScan() {
+    console.log("[ENGINE] Starting scanning ...");
   }
 
   setupSpriteProcessing() {
