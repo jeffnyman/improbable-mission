@@ -240,6 +240,25 @@ export class Engine {
         this.setActiveButton(soundOffButton);
       }
     });
+
+    const fullScreenButton = document.getElementById("fullscreen");
+
+    fullScreenButton?.addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        this.exitFullScreen();
+      } else {
+        this.enterFullScreen();
+      }
+    });
+  }
+
+  enterFullScreen() {
+    var gameDiv = document.getElementById("game");
+    if (gameDiv.requestFullscreen) gameDiv.requestFullscreen();
+  }
+
+  exitFullScreen() {
+    if (document.exitFullscreen) document.exitFullscreen();
   }
 
   setActiveButton(button) {
