@@ -123,6 +123,14 @@ body {
     }
   }
 
+  #overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: hsl(0, 0%, 0%);
+    opacity: 0.7;
+  }
+
   .dialog {
     position: fixed;
     top: 50%;
