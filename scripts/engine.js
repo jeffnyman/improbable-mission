@@ -1,13 +1,19 @@
 import { checkBrowser } from "./checkBrowser";
 import { loadResources } from "./loadResources";
+import { GameAudio } from "./audio";
 
 export class Engine {
   constructor() {
     // Sprite management
     this.gameSprites = null;
+
+    // Subsystems
+    this.audio = new GameAudio();
   }
 
   async init() {
+    this.audio.init();
+
     checkBrowser();
     await loadResources(this);
 
