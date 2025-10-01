@@ -13,4 +13,5 @@ function missionAccepted() {
   console.log("Mission has been accepted.");
 
   document.getElementById("mission").remove();
+  document.getElementById("app").classList.remove("hidden");
 }
