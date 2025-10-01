@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "C64ProMonoRegular";
+  src: url("/fonts/c64-webfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 *,
 *::before,
 *::after {
@@ -7,4 +15,8 @@
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: "C64ProMonoRegular", "Courier New", Courier, monospace;
 }
