@@ -1,3 +1,5 @@
+import { Engine } from "./engine";
+
 const game = "Improbable Mission";
 
 console.log(`... ${game} ...`);
@@ -14,4 +16,7 @@ function missionAccepted() {
 
   document.getElementById("mission").remove();
   document.getElementById("app").classList.remove("hidden");
+
+  const engine = new Engine();
+  engine.init();
 }
