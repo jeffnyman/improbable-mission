@@ -2,9 +2,14 @@ import { checkBrowser } from "./checkBrowser";
 import { loadResources } from "./loadResources";
 
 export class Engine {
-  init() {
+  constructor() {
+    // Sprite management
+    this.gameSprites = null;
+  }
+
+  async init() {
     checkBrowser();
-    loadResources();
+    await loadResources(this);
 
     this.setupInterface();
     this.setupToolbar();
@@ -12,6 +17,7 @@ export class Engine {
   }
 
   setupInterface() {
+    document.getElementById("loading").classList.add("hidden");
     document.getElementById("toolbar").classList.remove("hidden");
 
     document.getElementById("overlay").addEventListener("click", () => {
