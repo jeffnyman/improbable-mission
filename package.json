@@ -1,0 +1,26 @@
+{
+  "name": "improbable-mission",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Jeff Nyman",
+    "email": "jeffnyman@gmail.com",
+    "url": "https://testerstories.com"
+  },
+  "description": "A faithful recreation of the 1984 puzzle-platformer Impossible Mission by Epyx.",
+  "keywords": [
+    "commodore 64",
+    "retrogaming",
+    "recreation",
+    "platformer",
+    "game"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffnyman/improbable-mission/"
+  },
+  "bugs": {
+    "url": "https://github.com/jeffnyman/improbable-mission/issues"
+  },
+  "homepage": "https://jeffnyman.github.io/improbable-mission"
+}
