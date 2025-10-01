@@ -77,3 +77,13 @@ You can see there how the red and tan areas overlap many sprites. Some elements 
 This sprite sheet was reverse-engineered from the original game data. Keep in mind that the original 1984 game didn't have had a "sprite sheet" like this at all. Graphics were stored in memory-efficient formats specific to the Commodore 64's VIC-II chip. The above PNG is a reconstruction based on that underlying data. Basically, I extracted the graphics data from the original Commodore 64 game files.
 
 Regardless of the fact that the sprite sheet has overlapping/composite regions, the basic procedure is the same as with any other sprite sheet: crop by coordinates. I have to extract rectangular regions using the x, y, width, height values. The composite nature just means that I have redundant data (same pixels defined multiple times) and I will need to make intelligent choices about which sprites to actually use.
+
+## 📐 Sound Files
+
+The Commodore 64 used the SID chip (Sound Interface Device, MOS 6581/8580), which was revolutionary for its time. Sound isn't stored as audio files but instead as two things: music/sound data (note sequences, instrument parameters, waveforms) and a player routine, which was 6502 code that interpreted the data and programmed the SID registers.
+
+What I did is I ran an original image of the game in an emulator with debugging. While doing that, I was able to monitor the SID chip registers (D400-D41C) and capture the register writes to understand the music structure. Then I located the music player routine in the disassembled code, found the music data tables, and extracted all that to package it as a standalone `.sid` file. Once I had that, I could play that file in an emulator/player, record the audio output, and convert the output to an OGG format.
+
+It's worth noting that with this process I'm essentially converting from synthesized/chip music to sampled audio. The `.sid` files are very tiny but the resulting OGG files are quite a bit larger, even when compressed. What you lose here is a bit of the "authentic SID chip sound" flexibility.
+
+In the end, this process netted forty-two specific audio files. That really showcases the efficiency and sophistication fo the Commodore 64 sound design! Each "sound" in the `.sid` is really just a set of parameters: waveform type, ADSR envelope, frequency sweep, and filter settings. The SID chip synthesizsed these in real-time. This means there was a very tiny data footprint. Each sound effect was just a few bytes of parameters. One player routine serviced all the sounds and, thus, different sounds had different parameter sets fed to the same code. This is like having forty-two "presets" for a synthesizer versus forty-two pre-recorded audio files.
