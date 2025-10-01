@@ -1,8 +1,10 @@
 import { checkBrowser } from "./checkBrowser";
+import { loadResources } from "./loadResources";
 
 export class Engine {
   init() {
     checkBrowser();
+    loadResources();
 
     this.setupInterface();
     this.setupToolbar();
