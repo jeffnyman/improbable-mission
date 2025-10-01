@@ -17,6 +17,33 @@
   padding: 0;
 }
 
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(html, body) {
+  overscroll-behavior-y: none;
+  height: 100%;
+}
+
+:where(img, picture, svg, canvas) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+html {
+  overflow: hidden;
+  background-color: hsla(0, 0%, 0%, 1);
+}
+
 body {
+  position: relative;
+  line-height: 1;
+  background-color: hsla(0, 0%, 0%, 1);
+  color: hsla(0, 0%, 100%, 1);
   font-family: "C64ProMonoRegular", "Courier New", Courier, monospace;
 }
