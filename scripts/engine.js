@@ -1,5 +1,7 @@
+import { checkBrowser } from "./checkBrowser";
+
 export class Engine {
   init() {
-    console.log("[ENGINE] Initialized");
+    checkBrowser();
   }
 }
