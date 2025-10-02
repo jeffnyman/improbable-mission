@@ -144,6 +144,14 @@ export class Engine {
         this.setActiveButton(soundOffButton);
       }
     });
+
+    document.getElementById("fullscreen").addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        this.exitFullScreen();
+      } else {
+        this.enterFullScreen();
+      }
+    });
   }
 
   setupKeyHandling() {
@@ -224,5 +232,14 @@ export class Engine {
     }
 
     button.classList.add("active");
+  }
+
+  enterFullScreen() {
+    var gameDiv = document.getElementById("game");
+    if (gameDiv.requestFullscreen) gameDiv.requestFullscreen();
+  }
+
+  exitFullScreen() {
+    if (document.exitFullscreen) document.exitFullscreen();
   }
 }
