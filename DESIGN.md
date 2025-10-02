@@ -78,6 +78,56 @@ This sprite sheet was reverse-engineered from the original game data. Keep in mi
 
 Regardless of the fact that the sprite sheet has overlapping/composite regions, the basic procedure is the same as with any other sprite sheet: crop by coordinates. I have to extract rectangular regions using the x, y, width, height values. The composite nature just means that I have redundant data (same pixels defined multiple times) and I will need to make intelligent choices about which sprites to actually use.
 
+### Sprite Processing
+
+The `gameSprites` variable on the Engine class is my source spritesheet image, which is loaded from the extracted game data. I create a canvas matching the sprite dimensions and then I draw the spritesheet and extract its raw pixel data into `baseSpritePixels`. Then I can generate new sprite images with different emulator palettes.
+
+My `gameSprites` image was created with the source palette colors, so when I extract the pixel data, I get colors matching the source palette. When I call the `swapSpritePalette()` function, that maps those source colors to the target palette.
+
+The Commodore 64 had a limited set of available colors that could be used for its graphics. These colors were defined by their hexadecimal values, and different games and applications for the Commodore 64 would use specific color combinations to achieve their desired visual effects. Certain emulators (VICE, CCS64, C64HQ, C64S, and PC64) all made their own choices on the palette. In my context, those choices will be provided as possible color palettes for the game.
+
+The Commodore 64 had exactly sixteen colors in its palette, and I've represented all sixteen for each emulator variant. The array indices (0-15) naturally correspond to the Commodore 64's color numbers:
+
+```
+0 = Black
+1 = White
+2 = Red
+3 = Cyan
+4 = Purple
+5 = Green
+6 = Blue
+7 = Yellow
+8 = Orange
+9 = Brown
+10 = Light Red
+11 = Dark Grey
+12 = Grey
+13 = Light Green
+14 = Light Blue
+15 = Light Grey
+```
+
+The `source` palette is my source/reference palette, meaning it's the palette that my `baseSpritePixels` was originally encoded with when I extracted it from the game image data. When I call `getImageData()`, I get an ImageData object that has a .data property. That property is a Uint8ClampedArray, which is a special type of array that stores pixel color data. The array stores pixels in RGBA format, with four consecutive values per pixel:
+
+```
+[ R, G, B, A,   R, G, B, A,   R, G, B, A, ... ]
+ |--Pixel 0--| |--Pixel 1--| |--Pixel 2--| ...
+```
+
+For example, a bright red pixel with full opacity:
+
+```
+[255, 0, 0, 255] // Red=255, Green=0, Blue=0, Alpha=255
+```
+
+So, I'm essentially reading every group of four values as one complete pixel, comparing its RGB values to find which palette color it matches, then swapping it out.
+
+The simple way to explain all of this is that I extracted sprite data from the original _Impossible Mission_ game. That extracted data uses the `source` palette as its color encoding. The `swapSpritePalette()` function then does the following:
+
+- Loops through each pixel in `baseSpritePixels`.
+- Finds which color index (0-15) it matches in the `source` palette.
+- Replaces it with the corresponding color from the target palette (e.g., vice).
+
 ## 📐 Sound Files
 
 The Commodore 64 used the SID chip (Sound Interface Device, MOS 6581/8580), which was revolutionary for its time. Sound isn't stored as audio files but instead as two things: music/sound data (note sequences, instrument parameters, waveforms) and a player routine, which was 6502 code that interpreted the data and programmed the SID registers.
