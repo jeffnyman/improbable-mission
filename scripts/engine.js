@@ -6,6 +6,13 @@ export class Engine {
   constructor() {
     // Sprite management
     this.gameSprites = null;
+    this.spriteWidth = 800;
+    this.spriteHeight = 600;
+    this.baseSpriteCanvas = null;
+    this.baseSpriteContext = null;
+    this.baseSpriteData = null;
+    this.baseSpritePixels = null;
+    this.outputSpriteData = null;
 
     // Subsystems
     this.audio = new GameAudio();
@@ -17,9 +24,33 @@ export class Engine {
     checkBrowser();
     await loadResources(this);
 
+    this.setupSpriteProcessing();
     this.setupInterface();
     this.setupToolbar();
     this.setupKeyHandling();
+  }
+
+  setupSpriteProcessing() {
+    this.baseSpriteCanvas = document.createElement("canvas");
+    this.baseSpriteCanvas.width = this.spriteWidth;
+    this.baseSpriteCanvas.height = this.spriteHeight;
+
+    this.baseSpriteContext = this.baseSpriteCanvas.getContext("2d");
+    this.baseSpriteContext.drawImage(this.gameSprites, 0, 0);
+
+    this.baseSpriteData = this.baseSpriteContext.getImageData(
+      0,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+    );
+
+    this.baseSpritePixels = this.baseSpriteData.data;
+
+    this.outputSpriteData = this.baseSpriteContext.createImageData(
+      this.spriteWidth,
+      this.spriteHeight,
+    );
   }
 
   setupInterface() {
