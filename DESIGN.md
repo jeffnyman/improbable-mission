@@ -128,6 +128,18 @@ The simple way to explain all of this is that I extracted sprite data from the o
 - Finds which color index (0-15) it matches in the `source` palette.
 - Replaces it with the corresponding color from the target palette (e.g., vice).
 
+### Game Canvas
+
+I have a canvas with attributes of `width="960" height="600"`. The CSS for the canvas element, however, has attributes of `width: 320px; height: 200px;`. The attributes on the canvas define the intrinsic resolution of the canvas, meaning the number of pixels in the canvas's internal coordinate system (its drawing surface). This is the actual pixel grid used for rendering content via the canvas's 2D or WebGL context.
+
+The CSS values control the display size of the canvas element in the browser, referring to how large it appears on the page in CSS pixels. The canvas will be scaled to fit these dimensions, stretching or compressing the intrinsic resolution to match the CSS size.
+
+The browser will scale the 960x600 pixel canvas to fit within the 320x200 CSS pixel area. This means the canvas's content is compressed by a factor of 3 (960/320 = 3 for width, 600/200 = 3 for height). Why do all this? By setting a higher intrinsic resolution (960x600) than the display size (320x200), I can make sure that the canvas has more pixels to work with, improving clarity on high-DPI screens, like Retina displays. The browser scales the high-resolution canvas down to the CSS size, making graphics appear crisp rather than blurry. In this case, a 960x600 canvas scaled to 320x200 CSS pixels has a 3x pixel density, ideal for modern displays with 2x or 3x pixel ratios.
+
+Importantly for me, since I'm using a spritesheet, a larger intrinsic resolution allows for detailed rendering without needing to dynamically resize assets. The browser handles scaling, which can be more efficient than rendering at a lower resolution and upscaling. For _Impossible Mission_, with its platformer-style rooms and sprites, a higher internal resolution ensures smooth animations and sharp visuals when scaled to a smaller display size.
+
+The dimensions (960x600 and 320x200) maintain the same aspect ratio (1.6:1). This ensures the game’s visuals aren't distorted when scaled. For a game like _Impossible Mission_, maintaining the aspect ratio is crucial for consistent level design and sprite proportions across different screen sizes.
+
 ## 📐 Sound Files
 
 The Commodore 64 used the SID chip (Sound Interface Device, MOS 6581/8580), which was revolutionary for its time. Sound isn't stored as audio files but instead as two things: music/sound data (note sequences, instrument parameters, waveforms) and a player routine, which was 6502 code that interpreted the data and programmed the SID registers.
