@@ -78,6 +78,24 @@ export class Engine {
     if (paletteButton) {
       paletteButton.click();
     }
+
+    if (!this.audio.context) {
+      localStorage.setItem("sound", "off");
+    }
+
+    if (localStorage.getItem("sound") === null) {
+      localStorage.setItem("sound", "on");
+    }
+
+    this.options.sound = localStorage.getItem("sound");
+
+    const soundButton = document.querySelector(
+      `.setting-sound-${this.options.sound}`,
+    );
+
+    if (soundButton) {
+      soundButton.click();
+    }
   }
 
   setupInterface() {
