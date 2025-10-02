@@ -10,6 +10,7 @@ export class Engine {
     // Canvas properties
     this.canvas = null;
     this.ctx = null;
+    this.scaleFactor = 0.89;
 
     // Sprite management
     this.gameSprites = null;
@@ -36,6 +37,7 @@ export class Engine {
     this.setupToolbar();
     this.setupOptions();
     this.setupInterface();
+    this.setupInterfaceResizing();
     this.setupKeyHandling();
   }
 
@@ -172,6 +174,33 @@ export class Engine {
         overlay.click();
       }
     });
+  }
+
+  setupInterfaceResizing() {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const aspectRatio = 16 / 10;
+
+      let newWidth, newHeight;
+
+      if (windowWidth / windowHeight > aspectRatio) {
+        newHeight = windowHeight;
+        newWidth = Math.round((windowHeight / 10) * 16);
+      } else {
+        newWidth = windowWidth;
+        newHeight = Math.round((windowWidth * 10) / 16);
+      }
+
+      newWidth *= this.scaleFactor;
+      newHeight *= this.scaleFactor;
+
+      this.canvas.style.width = newWidth + "px";
+      this.canvas.style.height = newHeight + "px";
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
   }
 
   swapSpritePalette(name, targetPalette) {
