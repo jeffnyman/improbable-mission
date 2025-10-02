@@ -7,6 +7,10 @@ export class Engine {
   constructor() {
     this.options = {};
 
+    // Canvas properties
+    this.canvas = null;
+    this.ctx = null;
+
     // Sprite management
     this.gameSprites = null;
     this.sprites = {};
@@ -108,6 +112,10 @@ export class Engine {
     });
 
     document.getElementById("game").classList.remove("hidden");
+
+    this.canvas = document.getElementById("missionCanvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.ctx.imageSmoothingEnabled = false;
   }
 
   setupToolbar() {
