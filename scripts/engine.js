@@ -5,6 +5,8 @@ import { palette } from "./palette";
 
 export class Engine {
   constructor() {
+    this.options = {};
+
     // Sprite management
     this.gameSprites = null;
     this.sprites = {};
@@ -27,6 +29,7 @@ export class Engine {
     await loadResources(this);
 
     this.setupSpriteProcessing();
+    this.setupOptions();
     this.setupInterface();
     this.setupToolbar();
     this.setupKeyHandling();
@@ -59,6 +62,22 @@ export class Engine {
         this.swapSpritePalette(name, colors);
       }
     });
+  }
+
+  setupOptions() {
+    if (localStorage.getItem("palette") === null) {
+      localStorage.setItem("palette", "vice");
+    }
+
+    this.options.palette = localStorage.getItem("palette");
+
+    const paletteButton = document.querySelector(
+      `.palette[data-palette="${this.options.palette}"]`,
+    );
+
+    if (paletteButton) {
+      paletteButton.click();
+    }
   }
 
   setupInterface() {
