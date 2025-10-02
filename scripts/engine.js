@@ -106,6 +106,8 @@ export class Engine {
       document.getElementById("overlay").classList.add("hidden");
       document.getElementById("dossier").classList.add("hidden");
     });
+
+    document.getElementById("game").classList.remove("hidden");
   }
 
   setupToolbar() {
