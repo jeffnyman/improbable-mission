@@ -29,9 +29,9 @@ export class Engine {
     await loadResources(this);
 
     this.setupSpriteProcessing();
+    this.setupToolbar();
     this.setupOptions();
     this.setupInterface();
-    this.setupToolbar();
     this.setupKeyHandling();
   }
 
@@ -94,6 +94,18 @@ export class Engine {
     document.getElementById("dossier-button").addEventListener("click", () => {
       document.getElementById("overlay").classList.remove("hidden");
       document.getElementById("dossier").classList.remove("hidden");
+    });
+
+    const paletteButtons = document.querySelectorAll(".palette");
+
+    paletteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const pal = button.getAttribute("data-palette");
+
+        this.options.palette = pal;
+        localStorage.setItem("palette", pal);
+        this.setActiveButton(button);
+      });
     });
   }
 
@@ -164,5 +176,16 @@ export class Engine {
 
     this.sprites[name] = new Image();
     this.sprites[name].src = outputCanvas.toDataURL("image/png");
+  }
+
+  setActiveButton(button) {
+    const item = button.closest(".item");
+
+    if (item) {
+      const allButtons = item.querySelectorAll(".clickable");
+      allButtons.forEach((btn) => btn.classList.remove("active"));
+    }
+
+    button.classList.add("active");
   }
 }
