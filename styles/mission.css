@@ -136,6 +136,15 @@ body {
 
       .clickable {
         cursor: pointer;
+
+        &.active {
+          text-decoration: underline;
+        }
+      }
+
+      .palette {
+        border-right: 1px solid hsl(0, 0%, 53%);
+        padding-right: 8px;
       }
     }
   }
