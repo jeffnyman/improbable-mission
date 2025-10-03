@@ -76,18 +76,18 @@ There are also room doors that are defined. These define which directions each r
 
 ```javascript
 roomDoors = [
-  [0],     // Room 0: no exits
-  [3],     // Room 1: right exit only
-  [2, 4],  // Room 2: right and left exits
-  [1, 3],  // Room 3: left and right exits
+  [0], // Room 0: no exits
+  [3], // Room 1: right exit only
+  [2, 4], // Room 2: right and left exits
+  [1, 3], // Room 3: left and right exits
   // ... continues for all 32 rooms
-]
+];
 ```
 
 **Door Types:**
 
 - `1` = Left exit
-- `2` = Right exit  
+- `2` = Right exit
 - `3` = Right exit
 - `4` = Left exit
 

@@ -17,13 +17,29 @@ export class Room {
 
       if (row !== -1) {
         this.floorLevel = row;
-        if (this.utils.hasLeftDoor(this.roomId)) this.elevatorLeft = i;
+
+        const leftDoorType = this.utils.hasLeftDoor(this.roomId);
+        const rightDoorType = this.utils.hasRightDoor(this.roomId);
+
+        if (leftDoorType) {
+          this.elevatorLeft = i;
+          this.leftDoorPosition = leftDoorType === 1 ? "top" : "bottom";
+        }
+
+        if (rightDoorType) {
+          this.elevatorRight = i + 1;
+          this.rightDoorPosition = rightDoorType === 2 ? "top" : "bottom";
+        }
 
         console.log(
-          `Room ${this.roomId}: Found at floor level ${this.floorLevel} (column ${i}, row ${row})`,
+          `Room ${this.roomId}: Column ${i}, Floor ${this.floorLevel}`,
         ); // REMOVE
-        console.log(`Elevator Left: ${this.elevatorLeft}`); // REMOVE
-        console.log(`Elevator Right: ${this.elevatorRight}`); // REMOVE
+        console.log(
+          `  Left: elevator ${this.elevatorLeft || "none"} (${this.leftDoorPosition || "n/a"})`,
+        ); // REMOVE
+        console.log(
+          `  Right: elevator ${this.elevatorRight || "none"} (${this.rightDoorPosition || "n/a"})`,
+        ); // REMOVE
 
         break;
       }
