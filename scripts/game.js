@@ -1,14 +1,16 @@
 import { Room } from "./room";
+import { utils } from "./utils";
 import * as Layout from "./layout";
 
 export class Game {
   constructor() {
+    this.utils = utils;
     this.rooms = {};
 
-    this.layoutId = 0;
-    this.map = Layout.maps[this.layoutId];
+    this.mapId = this.utils.rnd(Layout.maps.length) - 1;
+    this.map = Layout.maps[this.mapId];
 
-    console.log(`Layout ID: ${this.layoutId}`); // REMOVE
+    console.log(`Map ID: ${this.mapId}`); // REMOVE
     console.log(`Map: ${JSON.stringify(this.map)}`); // REMOVE
   }
 
