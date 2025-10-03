@@ -24,4 +24,26 @@ export class Game {
       this.rooms[i].init();
     }
   }
+
+  printRoomsByFloor() {
+    const byFloor = {};
+
+    for (const roomId in this.rooms) {
+      const room = this.rooms[roomId];
+      if (!byFloor[room.floorLevel]) byFloor[room.floorLevel] = [];
+      byFloor[room.floorLevel].push(room);
+    }
+
+    console.log("\n=== ROOMS BY FLOOR ===");
+    Object.keys(byFloor)
+      .sort((a, b) => a - b)
+      .forEach((floor) => {
+        console.log(`\nFloor ${floor}:`);
+        byFloor[floor].forEach((room) => {
+          console.log(
+            `  Room ${room.roomId}: ElevL=${room.elevatorLeft}, ElevR=${room.elevatorRight}`,
+          );
+        });
+      });
+  }
 }
