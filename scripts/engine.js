@@ -1,5 +1,6 @@
 import { checkBrowser } from "./checkBrowser";
 import { loadResources } from "./loadResources";
+import { Game } from "./game";
 import { GameAudio } from "./audio";
 import { palette } from "./palette";
 
@@ -25,6 +26,7 @@ export class Engine {
 
     // Subsystems
     this.audio = new GameAudio();
+    this.game = new Game();
   }
 
   async init() {
@@ -39,6 +41,8 @@ export class Engine {
     this.setupInterface();
     this.setupInterfaceResizing();
     this.setupKeyHandling();
+
+    this.game.init();
   }
 
   setupSpriteProcessing() {
