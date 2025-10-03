@@ -4,6 +4,93 @@ _How the pieces fit together..._
 
 Here I'll provide an overview of the project's internal landscape: the key pieces, their roles, and how they combine to form the bigger picture.
 
+## 📐 Rooms
+
+The _Impossible Mission_ game uses a grid-based room layout system with elevator shafts connecting different floors. The game world consists of:
+
+- **9 vertical columns** where rooms can be placed (columns 0-8)
+- **6 horizontal floors** (floors 0-5, where 0 is top, 5 is bottom)
+- **8 elevator shafts** (numbered 1-8) positioned between room columns
+- **32 unique rooms** distributed across the grid
+- **Pathways** connecting rooms to adjacent elevator shafts
+
+The general schematic is this:
+
+```
+Floor 0: [Room] [Elevator] [Room] [Elevator] [Room] ...
+Floor 1: [Room] [Elevator] [Room] [Elevator] [Room] ...
+Floor 2: [Room] [Elevator] [Room] [Elevator] [Room] ...
+...
+```
+
+Here is a visual schematic:
+
+<p align="center">
+<img src="./assets/images/mission-map.png" width="1703" height="574">
+</p>
+
+The room layout is organized by **columns**, not rows:
+
+```javascript
+rooms: {
+  0: [27, 0, 28, 10, 0, 11],  // Column 0: rooms on floors 0-5
+  1: [25, 18, 13, 29, 30, 0], // Column 1: rooms on floors 0-5
+  2: [20, 2, 0, 0, 0, 0],     // Column 2: rooms on floors 0-5
+  // ... continues for columns 3-8
+}
+```
+
+**Key Points:**
+
+- Each key (0-8) represents a **column**
+- Each array contains 6 values representing **floors 0-5** in that column
+- `0` means no room at that position
+- Numbers 1-32 represent unique room IDs
+
+**Original View**
+
+```
+0: [27,  0, 28, 10,  0, 11],
+1: [25, 18, 13, 29, 30,  0],
+2: [20,  2,  0,  0,  0,  0],
+3: [ 0,  0,  5, 14,  0,  0],
+4: [ 3,  4, 26, 21, 12,  6],
+5: [16, 19, 32,  0, 22,  7],
+6: [ 8,  0,  1, 23,  0, 24],
+7: [ 9,  0, 15,  0,  0, 17],
+8: [ 0,  0,  0,  0,  0, 31],
+```
+
+**Transposed View (by floors):**
+
+```
+Floor 0: 27  25  20   0   3  16   8   9   0
+Floor 1:  0  18   2   0   4  19   0   0   0
+Floor 2: 28  13   0   5  26  32   1  15   0
+Floor 3: 10  29   0  14  21   0  23   0   0
+Floor 4:  0  30   0   0  12  22   0   0   0
+Floor 5: 11   0   0   0   6   7  24  17  31
+```
+
+There are also room doors that are defined. These define which directions each room can exit:
+
+```javascript
+roomDoors = [
+  [0],     // Room 0: no exits
+  [3],     // Room 1: right exit only
+  [2, 4],  // Room 2: right and left exits
+  [1, 3],  // Room 3: left and right exits
+  // ... continues for all 32 rooms
+]
+```
+
+**Door Types:**
+
+- `1` = Left exit
+- `2` = Right exit  
+- `3` = Right exit
+- `4` = Left exit
+
 ## 📐 Sprites
 
 A typical sprite sheet structure is that individual sprites are extracted as separate, non-overlapping rectangles. Each element gets its own entry. There are generally no "composite" or "section" sprites that contain other sprites. That's _not_ the case with the sprite sheet I'm using.
