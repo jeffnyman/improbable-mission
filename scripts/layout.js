@@ -1,4 +1,4 @@
-export const layouts = [
+export const maps = [
   {
     rooms: {
       0: [27, 0, 28, 10, 0, 11],
