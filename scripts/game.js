@@ -2,6 +2,8 @@ import { Room } from "./room";
 import { utils } from "./utils";
 import * as Layout from "./layout";
 
+import { LayoutValidator } from "./layoutValidate";
+
 export class Game {
   constructor() {
     this.utils = utils;
@@ -15,6 +17,10 @@ export class Game {
   }
 
   init() {
+    const validator = new LayoutValidator();
+    const results = validator.validateAllMaps();
+    console.log(validator.printSummary(results));
+
     this.generateRooms();
   }
 
