@@ -186,11 +186,19 @@ export class Engine {
       const windowHeight = window.innerHeight;
       const aspectRatio = 16 / 10;
 
+      // Get the toolbar element and its height
+      const toolbar = document.getElementById("toolbar");
+      const toolbarHeight = toolbar ? toolbar.offsetHeight : 0;
+
+      // Calculate available height (subtract toolbar height)
+      const availableHeight = windowHeight - toolbarHeight;
+
       let newWidth, newHeight;
 
-      if (windowWidth / windowHeight > aspectRatio) {
-        newHeight = windowHeight;
-        newWidth = Math.round((windowHeight / 10) * 16);
+      // Use availableHeight instead of windowHeight for calculations
+      if (windowWidth / availableHeight > aspectRatio) {
+        newHeight = availableHeight;
+        newWidth = Math.round((availableHeight / 10) * 16);
       } else {
         newWidth = windowWidth;
         newHeight = Math.round((windowWidth * 10) / 16);
@@ -201,6 +209,12 @@ export class Engine {
 
       this.canvas.style.width = newWidth + "px";
       this.canvas.style.height = newHeight + "px";
+
+      // Adjust the vertical centering to account for toolbar
+      // The canvas uses transform: translate(-50%, -50%) with top: 50%
+      // So AI need to shift it down by half the toolbar height
+      const offsetTop = `calc(50% + ${toolbarHeight / 2}px)`;
+      this.canvas.style.top = offsetTop;
     };
 
     handleResize();
