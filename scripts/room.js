@@ -31,15 +31,16 @@ export class Room {
           this.rightDoorPosition = rightDoorType === 2 ? "top" : "bottom";
         }
 
-        console.log(
-          `Room ${this.roomId}: Column ${i}, Floor ${this.floorLevel}`,
-        ); // REMOVE
-        console.log(
-          `  Left: elevator ${this.elevatorLeft || "none"} (${this.leftDoorPosition || "n/a"})`,
-        ); // REMOVE
-        console.log(
-          `  Right: elevator ${this.elevatorRight || "none"} (${this.rightDoorPosition || "n/a"})`,
-        ); // REMOVE
+        // DEBUGGING
+        // console.log(
+        //   `Room ${this.roomId}: Column ${i}, Floor ${this.floorLevel}`,
+        // ); // REMOVE
+        // console.log(
+        //   `  Left: elevator ${this.elevatorLeft || "none"} (${this.leftDoorPosition || "n/a"})`,
+        // ); // REMOVE
+        // console.log(
+        //   `  Right: elevator ${this.elevatorRight || "none"} (${this.rightDoorPosition || "n/a"})`,
+        // ); // REMOVE
 
         break;
       }

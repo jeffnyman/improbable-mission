@@ -2,7 +2,7 @@ import { Room } from "./room";
 import { utils } from "./utils";
 import * as Layout from "./layout";
 
-import { LayoutValidator } from "./layoutValidate";
+// import { LayoutValidator } from "./layoutValidate";
 
 export class Game {
   constructor() {
@@ -12,16 +12,20 @@ export class Game {
     this.mapId = this.utils.rnd(Layout.maps.length) - 1;
     this.map = Layout.maps[this.mapId];
 
-    console.log(`Map ID: ${this.mapId}`); // REMOVE
-    console.log(`Map: ${JSON.stringify(this.map)}`); // REMOVE
+    // DEBUGGING
+    // console.log(`Map ID: ${this.mapId}`); // REMOVE
+    // console.log(`Map: ${JSON.stringify(this.map)}`); // REMOVE
   }
 
   init() {
-    const validator = new LayoutValidator();
-    const results = validator.validateAllMaps();
-    console.log(validator.printSummary(results));
+    // DEBUGGING
+    // const validator = new LayoutValidator();
+    // const results = validator.validateAllMaps();
+    // console.log(validator.printSummary(results));
 
     this.generateRooms();
+
+    // this.printRoomsByFloor(); // DEBUGGING
   }
 
   generateRooms() {
