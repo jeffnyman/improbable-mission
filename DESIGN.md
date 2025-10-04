@@ -4,7 +4,7 @@ _How the pieces fit together..._
 
 Here I'll provide an overview of the project's internal landscape: the key pieces, their roles, and how they combine to form the bigger picture.
 
-## 📐 Rooms
+## 📐 Layout: Rooms and Elevators
 
 The _Impossible Mission_ game uses a grid-based room layout system with elevator shafts connecting different floors. The game world consists of:
 
@@ -20,8 +20,20 @@ The general schematic is this:
 Floor 0: [Room] [Elevator] [Room] [Elevator] [Room] ...
 Floor 1: [Room] [Elevator] [Room] [Elevator] [Room] ...
 Floor 2: [Room] [Elevator] [Room] [Elevator] [Room] ...
-...
 ```
+
+Crucially, elevator shafts exist **between** room columns:
+
+```
+Column:     0    1    2    3    4    5    6    7    8
+            |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |
+         [Room][Room][Room][Room][Room][Room][Room][Room][Room]
+```
+
+- Elevator 1 is between columns 0 and 1
+- Elevator 2 is between columns 1 and 2
+- Elevator 3 is between columns 2 and 3
+- ...and so on through elevator 8 between columns 7 and 8
 
 Here is a visual schematic:
 
@@ -29,25 +41,33 @@ Here is a visual schematic:
 <img src="./assets/images/mission-map.png" width="1703" height="574">
 </p>
 
-The room layout is organized by **columns**, not rows:
+The layout is stored as a column-major structure:
 
 ```javascript
-rooms: {
-  0: [27, 0, 28, 10, 0, 11],  // Column 0: rooms on floors 0-5
-  1: [25, 18, 13, 29, 30, 0], // Column 1: rooms on floors 0-5
-  2: [20, 2, 0, 0, 0, 0],     // Column 2: rooms on floors 0-5
-  // ... continues for columns 3-8
-}
+export const maps = [
+  {
+    rooms: {
+      0: [27, 0, 28, 10, 0, 11], // Column 0: floors 0-5
+      1: [25, 18, 13, 29, 30, 0], // Column 1: floors 0-5
+      2: [20, 2, 0, 0, 0, 0], // Column 2: floors 0-5
+      3: [0, 0, 5, 14, 0, 0], // Column 3: floors 0-5
+      4: [3, 4, 26, 21, 12, 6], // Column 4: floors 0-5
+      5: [16, 19, 32, 0, 22, 7], // Column 5: floors 0-5
+      6: [8, 0, 1, 23, 0, 24], // Column 6: floors 0-5
+      7: [9, 0, 15, 0, 0, 17], // Column 7: floors 0-5
+      8: [0, 0, 0, 0, 0, 31], // Column 8: floors 0-5
+    },
+  },
+];
 ```
 
-**Key Points:**
+Some crucial points to understands:
 
-- Each key (0-8) represents a **column**
-- Each array contains 6 values representing **floors 0-5** in that column
-- `0` means no room at that position
-- Numbers 1-32 represent unique room IDs
+- **Keys (0-8)** represent vertical columns (left to right)
+- **Array indices (0-5)** represent floors (top to bottom, where 0 is the top floor)
+- **Array values (1-32)** are room IDs; **0** represents empty space (no room)
 
-**Original View**
+So, consider the original view:
 
 ```
 0: [27,  0, 28, 10,  0, 11],
@@ -61,7 +81,7 @@ rooms: {
 8: [ 0,  0,  0,  0,  0, 31],
 ```
 
-**Transposed View (by floors):**
+The same data can be visualized as floors for easier spatial understanding:
 
 ```
 Floor 0: 27  25  20   0   3  16   8   9   0
@@ -72,24 +92,114 @@ Floor 4:  0  30   0   0  12  22   0   0   0
 Floor 5: 11   0   0   0   6   7  24  17  31
 ```
 
-There are also room doors that are defined. These define which directions each room can exit:
+This view makes it easier to see the spatial relationships between rooms, but remember that **rooms don't connect directly to each other**. Instead, they connect to elevator shafts.
+
+Each room can have doors at specific positions, defined by door types:
 
 ```javascript
-roomDoors = [
+export const roomDoors = [
   [0], // Room 0: no exits
-  [3], // Room 1: right exit only
-  [2, 4], // Room 2: right and left exits
-  [1, 3], // Room 3: left and right exits
+  [3], // Room 1: bottom-right exit
+  [2, 4], // Room 2: top-right and bottom-left exits
+  [1, 3], // Room 3: top-left and bottom-right exits
   // ... continues for all 32 rooms
 ];
 ```
 
-**Door Types:**
+The door types are as follows:
 
-- `1` = Left exit
-- `2` = Right exit
-- `3` = Right exit
-- `4` = Left exit
+- **1** = Top-left corner exit
+- **2** = Top-right corner exit
+- **3** = Bottom-right corner exit
+- **4** = Bottom-left corner exit
+
+The door numbers indicate both **which side** of the room (left or right) and **which vertical position** (top or bottom):
+
+- **Left doors**: types 1 (top-left) or 4 (bottom-left)
+- **Right doors**: types 2 (top-right) or 3 (bottom-right)
+
+To try a representation of this:
+
+```
+Room layout with door positions:
+
+    [1]―――――[2]
+     |  ROOM  |
+    [4]―――――[3]
+
+Where:
+  1 = top-left exit → left elevator shaft
+  2 = top-right exit → right elevator shaft
+  3 = bottom-right exit → right elevator shaft
+  4 = bottom-left exit → left elevator shaft
+```
+
+It sounds simple but I kept getting tripped up by the design when I forgot that rooms connect to elevators, not other rooms. Critical concept there! Rooms → Elevators, Not Rooms → Rooms. I'll say it again: doors do NOT connect rooms directly to adjacent rooms. Doors connect rooms to the elevator shafts on either side of the room's column.
+
+From the above representation, here's an example for Room 1.
+
+**Data:**
+
+- Location: Column 6, Floor 2
+- Doors: `[3]` (bottom-right exit only)
+
+**Column-major view:**
+
+```javascript
+6: [8, 0, 1, 23, 0, 24]
+        ↑
+    Room 1 at floor 2
+```
+
+**Floor view:**
+
+```
+Floor 2: 28  13   0   5  26  32  [1]  15   0
+                                  ↑
+                            Column 6, Floor 2
+```
+
+**Connection logic:**
+
+- Room 1 has a door type 3 (bottom-right)
+- This means: exit on the **right side**, at the **bottom** of the room
+- This door leads to **elevator shaft 7** (between columns 6 and 7)
+- From elevator 7, the player can ride up/down or enter other rooms with left doors
+
+**Important distinction:**
+
+```
+[Room 32] |Shaft 6| [Room 1] |Shaft 7| [Room 15]
+           Column 5  Column 6  Column 7
+
+Room 1's right door → Shaft 7 (NOT directly to Room 15)
+```
+
+Even though Room 15 is adjacent in the floor view, Room 1's door doesn't lead directly to it. The door leads to the elevator shaft, and from there the player could potentially access Room 15 if it has an appropriate left door.
+
+Having these two views in my head was getting difficult, so I started to think of some heuristics as to when to use each view.
+
+**Use the column-major view when:**
+
+- Accessing room data programmatically
+- Finding a room's position in the structure
+- Understanding elevator connections
+
+**Use the floor-based view when:**
+
+- Visualizing the overall layout
+- Understanding spatial relationships
+- Designing or debugging level layouts
+
+The primary takeaways if you want to understand what I'm attempting to do here are these:
+
+1. The data is stored in **column-major** format (columns are keys, floors are array indices)
+2. Rooms are numbered 1-32; **0 means empty space**
+3. Door types (1-4) indicate **both side and vertical position** of exits
+4. Doors connect rooms to **elevator shafts**, not to adjacent rooms
+5. Elevator shaft numbers correspond to the space **between** columns
+6. Each room can have 0-2 doors (one on each side)
+7. Door positions (top/bottom) matter for proper gameplay and rendering
 
 ## 📐 Sprites
 
