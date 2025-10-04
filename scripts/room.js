@@ -1,7 +1,12 @@
 import { utils } from "./utils";
-import { roomFurnitureItems, roomTerminalItems } from "./layout";
+import {
+  roomFurnitureItems,
+  roomTerminalItems,
+  innerLiftItems,
+} from "./layout";
 import { Furniture } from "./furniture";
 import { Terminal } from "./terminal";
+import { InnerLift } from "./innerLift";
 
 export class Room {
   constructor(game, roomId) {
@@ -13,6 +18,7 @@ export class Room {
     this.elevatorRight = 0;
     this.furnitureItems = [];
     this.terminalItems = [];
+    this.liftGroups = [];
   }
 
   init() {
@@ -68,6 +74,15 @@ export class Room {
 
       this.terminalItems[j] = new Terminal(this.roomId, item.l, item.b);
       this.terminalItems[j].init();
+    }
+  }
+
+  setupInnerLiftItems() {
+    for (var j = 0; j < innerLiftItems[this.roomId].length; j++) {
+      var item = innerLiftItems[this.roomId][j];
+
+      this.liftGroups[j] = new InnerLift(this.roomId, item.l);
+      this.liftGroups[j].init();
     }
   }
 }
