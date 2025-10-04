@@ -1,6 +1,7 @@
 import { utils } from "./utils";
-import { roomFurnitureItems } from "./layout";
+import { roomFurnitureItems, roomTerminalItems } from "./layout";
 import { Furniture } from "./furniture";
+import { Terminal } from "./terminal";
 
 export class Room {
   constructor(game, roomId) {
@@ -11,9 +12,16 @@ export class Room {
     this.elevatorLeft = 0;
     this.elevatorRight = 0;
     this.furnitureItems = [];
+    this.terminalItems = [];
   }
 
   init() {
+    this.setupRoomConnections();
+    this.setupFurnitureItems();
+    this.setupTerminalItems();
+  }
+
+  setupRoomConnections() {
     for (var i = 0; i < 9; i++) {
       var column = this.game.map.rooms[i];
       var row = column.indexOf(this.roomId);
@@ -34,22 +42,12 @@ export class Room {
           this.rightDoorPosition = rightDoorType === 2 ? "top" : "bottom";
         }
 
-        // DEBUGGING
-        // console.log(
-        //   `Room ${this.roomId}: Column ${i}, Floor ${this.floorLevel}`,
-        // ); // REMOVE
-        // console.log(
-        //   `  Left: elevator ${this.elevatorLeft || "none"} (${this.leftDoorPosition || "n/a"})`,
-        // ); // REMOVE
-        // console.log(
-        //   `  Right: elevator ${this.elevatorRight || "none"} (${this.rightDoorPosition || "n/a"})`,
-        // ); // REMOVE
-
         break;
       }
     }
+  }
 
-    // Furniture Items
+  setupFurnitureItems() {
     for (var j = 0; j < roomFurnitureItems[this.roomId].length; j++) {
       var item = roomFurnitureItems[this.roomId][j];
 
@@ -61,6 +59,15 @@ export class Room {
       );
 
       this.furnitureItems[j].init();
+    }
+  }
+
+  setupTerminalItems() {
+    for (var j = 0; j < roomTerminalItems[this.roomId].length; j++) {
+      var item = roomTerminalItems[this.roomId][j];
+
+      this.terminalItems[j] = new Terminal(this.roomId, item.l, item.b);
+      this.terminalItems[j].init();
     }
   }
 }
