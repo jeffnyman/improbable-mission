@@ -1,4 +1,6 @@
 import { utils } from "./utils";
+import { roomFurnitureItems } from "./layout";
+import { Furniture } from "./furniture";
 
 export class Room {
   constructor(game, roomId) {
@@ -8,6 +10,7 @@ export class Room {
     this.floorLevel = -1;
     this.elevatorLeft = 0;
     this.elevatorRight = 0;
+    this.furnitureItems = [];
   }
 
   init() {
@@ -44,6 +47,20 @@ export class Room {
 
         break;
       }
+    }
+
+    // Furniture Items
+    for (var j = 0; j < roomFurnitureItems[this.roomId].length; j++) {
+      var item = roomFurnitureItems[this.roomId][j];
+
+      this.furnitureItems[j] = new Furniture(
+        this.roomId,
+        item.type,
+        item.l,
+        item.b,
+      );
+
+      this.furnitureItems[j].init();
     }
   }
 }
