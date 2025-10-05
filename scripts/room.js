@@ -86,7 +86,7 @@ export class Room {
       var item = innerLiftItems[this.roomId][j];
 
       this.liftGroups[j] = new InnerLift(this.roomId, item.l);
-      this.liftGroups[j].init();
+      this.liftGroups[j].init(item.s);
     }
   }
 
