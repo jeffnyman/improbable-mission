@@ -3,10 +3,12 @@ import {
   roomFurnitureItems,
   roomTerminalItems,
   innerLiftItems,
+  blackBallEnemies,
 } from "./layout";
 import { Furniture } from "./furniture";
 import { Terminal } from "./terminal";
 import { InnerLift } from "./innerLift";
+import { BlackBall } from "./blackBall";
 
 export class Room {
   constructor(game, roomId) {
@@ -19,12 +21,14 @@ export class Room {
     this.furnitureItems = [];
     this.terminalItems = [];
     this.liftGroups = [];
+    this.blackBallEnemy = false;
   }
 
   init() {
     this.setupRoomConnections();
     this.setupFurnitureItems();
     this.setupTerminalItems();
+    this.setupBlackBallEnemies();
   }
 
   setupRoomConnections() {
@@ -83,6 +87,13 @@ export class Room {
 
       this.liftGroups[j] = new InnerLift(this.roomId, item.l);
       this.liftGroups[j].init();
+    }
+  }
+
+  setupBlackBallEnemies() {
+    if (blackBallEnemies[this.roomId]) {
+      this.blackBallEnemy = new BlackBall(this.roomId);
+      this.blackBallEnemy.init();
     }
   }
 }

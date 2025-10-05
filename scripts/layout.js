@@ -594,3 +594,12 @@ export const innerLiftItems = {
   31: [],
   32: [],
 };
+
+export const blackBallEnemies = {
+  1: { x: 10, y: 180 },
+  3: { x: 15, y: 112 },
+  4: { x: 202, y: 171 },
+  6: { x: 100, y: -60 },
+  13: { x: 288, y: 10 },
+  28: { x: 96, y: 90 },
+};
