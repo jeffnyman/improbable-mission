@@ -558,6 +558,11 @@ export const roomTerminalItems = {
   32: [],
 };
 
+/*
+This structure can be a little confusing. The `l` is
+the standard left coordinate (0-39). The `s` refers to
+the vertical lift position coordinates (stations).
+*/
 export const innerLiftItems = {
   1: [
     { l: 1, s: [6, 12, -18, -24] },
