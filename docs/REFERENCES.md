@@ -5,7 +5,7 @@ The original source code for _Impossible Mission_ was, according to the original
 I'm recreating what I can from a disassembly of one of the Atari 7800 ROM images of the game, obliquely referenced [in this thread](https://forums.atariage.com/topic/153052-impossible-mission-successful-recompile-of-source-code/).
 
 <ul>
-  <li><a href="./assets/roms/mission.a78">Impossible Mission (Atari 7800 version; fixed)</a></li>
+  <li><a href="../assets/roms/mission.a78">Impossible Mission (Atari 7800 version; fixed)</a></li>
 </ul>
 
 The "fixed" part refers to the fact that the most infamous port of _Impossible Mission_ was the Atari 7800 version of the game that was released in North America. This version was also called the "NTSC version" and it couldn't be completed due to a bug. The glitch prevented you from acquiring certain key items from computer terminals because those terminals were not searchable. This was fixed in the subsequent "PAL version."
@@ -13,15 +13,15 @@ The "fixed" part refers to the fact that the most infamous port of _Impossible M
 I also have two binary files for the Commodore 64.
 
 <ul>
-  <li><a href="./assets/roms/mission.tap">Impossible Mission (C64 tape version)</a></li>
-  <li><a href="./assets/roms/mission.d64">Impossible Mission (C64 disk version)</a></li>
+  <li><a href="../assets/roms/mission.tap">Impossible Mission (C64 tape version)</a></li>
+  <li><a href="../assets/roms/mission.d64">Impossible Mission (C64 disk version)</a></li>
 </ul>
 
 Those implementations were generated from a "nibbled" disk image that I was able to reference as well as a `.sid` file.
 
 <ul>
-  <li><a href="./assets/roms/mission.nib">Impossible Mission (disk image)</a></li>
-  <li><a href="./assets/roms/mission.sid">Impossible Mission (sid image)</a></li>
+  <li><a href="../assets/roms/mission.nib">Impossible Mission (disk image)</a></li>
+  <li><a href="../assets/roms/mission.sid">Impossible Mission (sid image)</a></li>
 </ul>
 
 The `.nib` file includes all the intricate details of the original disk, preserving the exact, bit-for-bit layout of original game. A NIB is usually not directly runnable in an emulator, but it can be converted into other, more compatible formats, such as the `.tap` and `.d64` formats that I used.
@@ -31,7 +31,7 @@ The `.sid` file is a self-contained music program that includes 6502 machine cod
 With all of the above references, I found the tools [Retro Debugger](https://github.com/slajerek/RetroDebugger) and [DirMaster](https://style64.org/dirmaster) to be immensely helpful!
 
 <p align="center">
-<img src="./assets/images/disassemble.jpg" width="1088" height="901" alt="Example of Impossible Mission being played in a debugger.">
+<img src="../assets/images/disassemble.jpg" width="1088" height="901" alt="Example of Impossible Mission being played in a debugger.">
 </p>
 
 I also referenced [Andrea Capitani's tribute to the game](https://github.com/acapitani/im), which was written in Go, for the Defold game engine. This helped me understand how someone interpreted the data structures of the game and broke out the various assets. I found this wasn't an entirely faithful reproduction of the game.
@@ -40,7 +40,7 @@ There is also a [remastered version on Steam](https://store.steampowered.com/app
 
 ## Cartridge and PCB
 
-Another interesting approach here was one I came upon regarding using an actual PCB (printed circuit board). First, I have a <a href="./assets/roms/27c512_imp_mission.bin">binary EPROM image</a> file. But what is that?
+Another interesting approach here was one I came upon regarding using an actual PCB (printed circuit board). First, I have a <a href="../assets/roms/27c512_imp_mission.bin">binary EPROM image</a> file. But what is that?
 
 This is part of a hardware cartridge that lets you run Commodore 64 games from ROM chips instead of loading them from disk or tape. Magic Desk Cartridge was a popular C64 cartridge format that used bank switching to access more memory than the C64's cartridge port normally allowed. It became a standard design that homebrew developers still use today.
 
@@ -51,7 +51,7 @@ The original Magic Desk carts could hold multiple programs, but this version is 
 Great, but what do you do with that? Well, you need a PCB. This is the physical circuit board with all the traces, holes, and component placements already designed. Here is one example of that in schematic form:
 
 <p align="center">
-<img src="./assets/images/pcb-schematic.png" width="432" height="657">
+<img src="../assets/images/pcb-schematic.png" width="432" height="657">
 </p>
 
 That schematic is specifically laid out to replicate the original Epyx _Impossible Mission_ cartridge hardware. The implementation has through-hole components. These are the electronic parts (resistors, capacitors, the EPROM socket, etc.) that you solder into the PCB yourself. "Through-hole" means they have wire leads that go through holes in the board. This is much easier for hobbyists than surface-mount components. The EPROM image (`.bin` file) is the actual game code/data that needs to be programmed (burned) onto a blank 27C512 EPROM chip.
@@ -67,7 +67,7 @@ Thus, the steps are relatively simple.
 Think of it this way: the PCB is the hardware blueprint, and the EPROM image is the software that runs on it. They're providing both pieces so anyone can recreate a physical cartridge of the game. This is common in the retro gaming community. People create reproduction carts of rare or homebrew games this way. Here is what that looks like when implemented:
 
 <p align="center">
-<img src="./assets/images/impossible-mission-pcb.png" width="434" height="600">
+<img src="../assets/images/impossible-mission-pcb.png" width="434" height="600">
 </p>
 
 THe cartridge design needs are well known.

@@ -38,7 +38,7 @@ Column:     0    1    2    3    4    5    6    7    8
 Here is a visual schematic:
 
 <p align="center">
-<img src="./assets/images/mission-map.png" width="1703" height="574">
+<img src="../assets/images/mission-map.png" width="1703" height="574">
 </p>
 
 The layout is stored as a column-major structure:
@@ -206,7 +206,7 @@ The primary takeaways if you want to understand what I'm attempting to do here a
 A typical sprite sheet structure is that individual sprites are extracted as separate, non-overlapping rectangles. Each element gets its own entry. There are generally no "composite" or "section" sprites that contain other sprites. That's _not_ the case with the sprite sheet I'm using.
 
 <p align="center">
-<img src="./assets/images/missionSprites.png" width="400" height="300">
+<img src="../assets/images/missionSprites.png" width="400" height="300">
 </p>
 
 That's an 800x600 sprite sheet but that's structured in a potentially interesting way:
@@ -266,7 +266,7 @@ That's an 800x600 sprite sheet but that's structured in a potentially interestin
 </table>
 
 <p align="center">
-<img src="./assets/images/spritesheet-composite.png" width="461" height="337">
+<img src="../assets/images/spritesheet-composite.png" width="461" height="337">
 </p>
 
 You can see there how the red and tan areas overlap many sprites. Some elements (the puzzle pieces, or white boxes, for example) are broken out into individual sprites, while others (the top and bottom panels) are treated as single large blocks. Only certain elements from the top and bottom panels are individually defined, leaving others embedded in the composite.
