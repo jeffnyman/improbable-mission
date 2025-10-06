@@ -92,6 +92,8 @@ The first time you access one, it will light up three squares, each with a diffe
 
 Each time you access one of these computers, the number of notes you need to put in order increases by one.
 
+The term "organ room" has been used to describe these sub-puzzles, because they involve musical tones that must be played back in the correct sequence. I say "sub-puzzle" because the puzzle is optional. This side puzzle is _not_ strictly necessary to complete the game, but the codes it provides are extremely useful in reaching difficult-to-access areas to find the final password pieces.
+
 As you've seen, to move around Elvin's complex, you will need to use the corridors and elevators, which are connected to the rooms. In the rooms you can access lift platforms to move to a level, so you can search any furnishings in the room. The elevator or corridor is the only place you can call headquarters for help and access your pocket computer. You will need to do this at some stage, to try and solve the puzzle. This is where the puzzle pieces come in.
 
 Once you've searched through all the furniture in the professor's lair, you will find yourself in possession of thirty-six puzzle pieces. You must now take these puzzle pieces, and put them together to form nine solid card-type objects.
@@ -143,3 +145,21 @@ The punch card is cut into two using one of the nine overlays then each of those
 This is probably why the password contains nine letters. The game iterates through each of the nine cutters first and after that it electively chooses one of the other eight at random and uses it as the second cutter. This means it always uses three bits of the randomly generated number to choose the second cutter. This would imply that there are 134,217,728 different possible puzzles.
 
 The solution that the above picture shows is the solution from _one game_. Play it again and the next time the pieces will be different.
+
+## Tone Puzzle
+
+I want to focus on this particular bit since the implementation is important. Each game has two code ("organ", "chessboard") rooms where you can get passcodes by playing back the notes from low to high. But how long can that sequence possibly get?
+
+As it turns out, the sequence maxes out at 14. The notes are also color-coded. It uses seven different colors to represent the notes and each color is used twice, once for the lower set of notes and once for the higher set. These are the mapped out colors:
+
+<p align="center">
+<img src="../assets/images/imp-mission-code-sequence.png" width="493" height="233">
+</p>
+
+However, they don't always go in sequence! Sometimes the sequence will include some notes from both the first and second sets, even if there are only three notes, as there are the first time you play. What _is_ consistent is that the order of the colors is always the same. In other words, a blue note will always be higher than a green note from the same set.
+
+Since the second set (notes 8-14) are all higher pitched than the first set, it's fairly obvious whether a note belongs to the first or second set. Therefore, the colors can be used to quickly determine what order that the notes need to played back.
+
+What isn't quite so easy is remembering the placement of each note when the sequence starts getting long. A strategy would be to draw a copy of the 8x4 checkboard, then cut out thin cardboard markers numbered 1-14. As you go through the sequences, you would place the markers on the checkerboard so that you can keep track of which notes you had already covered and what order they needed to be played in.
+
+Once you have them all, you just need to follow the sequence!
