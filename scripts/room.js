@@ -4,11 +4,13 @@ import {
   roomTerminalItems,
   innerLiftItems,
   blackBallEnemies,
+  robotEnemies,
 } from "./layout";
 import { Furniture } from "./furniture";
 import { Terminal } from "./terminal";
 import { InnerLift } from "./innerLift";
 import { BlackBall } from "./blackBall";
+import { Robot } from "./robot";
 
 export class Room {
   constructor(game, roomId) {
@@ -22,6 +24,7 @@ export class Room {
     this.terminalItems = [];
     this.liftGroups = [];
     this.blackBallEnemy = false;
+    this.robotEnemy = [];
   }
 
   init() {
@@ -29,6 +32,7 @@ export class Room {
     this.setupFurnitureItems();
     this.setupTerminalItems();
     this.setupBlackBallEnemies();
+    this.setupRobotEnemies();
   }
 
   setupRoomConnections() {
@@ -94,6 +98,15 @@ export class Room {
     if (blackBallEnemies[this.roomId]) {
       this.blackBallEnemy = new BlackBall(this.roomId);
       this.blackBallEnemy.init();
+    }
+  }
+
+  setupRobotEnemies() {
+    for (var j = 0; j < robotEnemies[this.roomId].length; j++) {
+      var item = robotEnemies[this.roomId][j];
+
+      this.robotEnemy[j] = new Robot(this.roomId, item.l, item.b);
+      this.robotEnemy[j].init();
     }
   }
 }
