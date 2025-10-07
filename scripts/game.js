@@ -1,5 +1,6 @@
 import { Agent } from "./agent";
 import { Room } from "./room";
+import { Puzzle } from "./puzzle";
 import { Elevator } from "./elevator";
 import { PocketComputer } from "./pocketComputer";
 import { utils } from "./utils";
@@ -64,6 +65,7 @@ export class Game {
 
       if (this.rooms[roomId].furnitureItems[index].contents == "nothing") {
         this.rooms[roomId].furnitureItems[index].contents = "puzzle";
+        this.rooms[roomId].furnitureItems[index].puzzle = new Puzzle(i);
         i++;
       }
     }
