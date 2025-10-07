@@ -24,6 +24,9 @@ export class Engine {
     this.baseSpritePixels = null;
     this.outputSpriteData = null;
 
+    // Color properties
+    this.gameColors = palette.vice;
+
     // Subsystems
     this.audio = new GameAudio();
     this.game = new Game();
@@ -137,7 +140,9 @@ export class Engine {
         const pal = button.getAttribute("data-palette");
 
         this.options.palette = pal;
+        this.gameColors = palette[pal];
         localStorage.setItem("palette", pal);
+
         this.setActiveButton(button);
       });
     });
