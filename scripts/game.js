@@ -35,6 +35,7 @@ export class Game {
     // console.log(validator.printSummary(results));
 
     this.generateRooms();
+    this.placeItems();
 
     // this.printRoomsByFloor(); // DEBUGGING
   }
@@ -43,6 +44,28 @@ export class Game {
     for (var i = 1; i <= 32; i++) {
       this.rooms[i] = new Room(this, i);
       this.rooms[i].init();
+    }
+  }
+
+  placeItems() {
+    this.placePuzzles();
+  }
+
+  placePuzzles() {
+    for (var i = 0; i < 36; ) {
+      let roomId = utils.rnd(30);
+      let furnitureCount = this.rooms[roomId].furnitureItems.length;
+
+      if (!furnitureCount) continue;
+
+      let index = utils.rnd(furnitureCount) - 1;
+
+      if (this.rooms[roomId].furnitureItems[index].type == "exit") continue;
+
+      if (this.rooms[roomId].furnitureItems[index].contents == "nothing") {
+        this.rooms[roomId].furnitureItems[index].contents = "puzzle";
+        i++;
+      }
     }
   }
 

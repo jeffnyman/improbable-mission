@@ -12,6 +12,16 @@ export class Furniture {
 
     // The searchTime is measured in pixels.
     this.searchTime = null;
+
+    // This indicates what a given furniture item contains, which
+    // can be found when searched. The options are nothing, snooze,
+    // liftReset, and puzzle.
+    this.contents = "nothing";
+
+    // This holds what specific puzzle piece is contained within
+    // the furniture item. This is only valid when the contents for
+    // the item is "puzzle".
+    this.puzzle = null;
   }
 
   init() {
