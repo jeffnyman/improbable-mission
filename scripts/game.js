@@ -50,6 +50,7 @@ export class Game {
 
   placeItems() {
     this.placePuzzles();
+    this.placeSnoozes();
   }
 
   placePuzzles() {
@@ -66,6 +67,24 @@ export class Game {
       if (this.rooms[roomId].furnitureItems[index].contents == "nothing") {
         this.rooms[roomId].furnitureItems[index].contents = "puzzle";
         this.rooms[roomId].furnitureItems[index].puzzle = new Puzzle(i);
+        i++;
+      }
+    }
+  }
+
+  placeSnoozes() {
+    for (var i = 0; i < 9; ) {
+      let roomId = utils.rnd(30);
+      let furnitureCount = this.rooms[roomId].furnitureItems.length;
+
+      if (!furnitureCount) continue;
+
+      let index = utils.rnd(furnitureCount) - 1;
+
+      if (this.rooms[roomId].furnitureItems[index].type == "exit") continue;
+
+      if (this.rooms[roomId].furnitureItems[index].contents == "nothing") {
+        this.rooms[roomId].furnitureItems[index].contents = "snooze";
         i++;
       }
     }
