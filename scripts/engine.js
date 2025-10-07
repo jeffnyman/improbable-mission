@@ -218,6 +218,8 @@ export class Engine {
       this.canvas.style.width = newWidth + "px";
       this.canvas.style.height = newHeight + "px";
 
+      document.getElementById("dossier").style.height = newHeight - 40 + "px";
+
       // Adjust the vertical centering to account for toolbar
       // The canvas uses transform: translate(-50%, -50%) with top: 50%
       // So AI need to shift it down by half the toolbar height
