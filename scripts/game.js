@@ -1,3 +1,4 @@
+import { Agent } from "./agent";
 import { Room } from "./room";
 import { utils } from "./utils";
 import * as Layout from "./layout";
@@ -9,6 +10,8 @@ export class Game {
     this.utils = utils;
     this.rooms = {};
 
+    this.agent = new Agent();
+
     this.mapId = this.utils.rnd(Layout.maps.length) - 1;
     this.map = Layout.maps[this.mapId];
 
@@ -18,6 +21,8 @@ export class Game {
   }
 
   init() {
+    this.agent.init();
+
     // DEBUGGING
     // const validator = new LayoutValidator();
     // const results = validator.validateAllMaps();
