@@ -1,6 +1,6 @@
-import { blackBallEnemies } from "./layout";
+import { orbEnemies } from "./layout";
 
-export class BlackBall {
+export class Orb {
   constructor(roomId) {
     this.roomId = roomId;
 
@@ -11,7 +11,7 @@ export class BlackBall {
   }
 
   init() {
-    this.x = blackBallEnemies[this.roomId].x;
-    this.y = blackBallEnemies[this.roomId].y;
+    this.x = orbEnemies[this.roomId].x;
+    this.y = orbEnemies[this.roomId].y;
   }
 }
