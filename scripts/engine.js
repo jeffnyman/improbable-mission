@@ -143,6 +143,9 @@ export class Engine {
         this.gameColors = palette[pal];
         localStorage.setItem("palette", pal);
 
+        document.getElementById("app").style.background =
+          "#" + this.gameColors[0];
+
         this.setActiveButton(button);
       });
     });
