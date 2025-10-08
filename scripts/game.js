@@ -68,6 +68,9 @@ export class Game {
       if (this.rooms[roomId].furnitureItems[index].contents == "nothing") {
         this.rooms[roomId].furnitureItems[index].contents = "puzzle";
         this.rooms[roomId].furnitureItems[index].puzzle = new Puzzle(i);
+        this.rooms[roomId].furnitureItems[index].puzzle.setProperties(
+          Layout.roomColors[roomId].bg,
+        );
         i++;
       }
     }

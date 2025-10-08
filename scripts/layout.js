@@ -180,6 +180,54 @@ export const roomDoors = [
   [3],
 ];
 
+/*
+This one is a little extensive. To make sure the
+properties are clear:
+
+bg: background
+pb: platform border
+pg: platform background
+ps: platform surface
+ls: lift surface
+rb: robot background
+rt: robot tools
+rl: robot lights 1/2
+*/
+export const roomColors = {
+  1: { bg: 5, pb: 7, pg: 14, ps: 1, ls: 7, rb: 7, rt: 0, rl1: 1, rl2: 11 },
+  2: { bg: 7, pb: 2, pg: 8, ps: 1, ls: 1, rb: 10, rt: 1, rl1: 0, rl2: 7 },
+  3: { bg: 5, pb: 1, pg: 12, ps: 7, ls: 7, rb: 14, rt: 6, rl1: 3, rl2: 0 },
+  4: { bg: 7, pb: 3, pg: 14, ps: 1, ls: 7, rb: 11, rt: 0, rl1: 7, rl2: 2 },
+  5: { bg: 3, pb: 4, pg: 14, ps: 1, ls: 7, rb: 5, rt: 7, rl1: 10, rl2: 2 },
+  6: { bg: 7, pb: 2, pg: 10, ps: 8, ls: 1, rb: 9, rt: 1, rl1: 0, rl2: 1 },
+  7: { bg: 5, pb: 6, pg: 14, ps: 15, ls: 7, rb: 8, rt: 7, rl1: 2, rl2: 4 },
+  8: { bg: 7, pb: 6, pg: 14, ps: 1, ls: 1, rb: 5, rt: 3, rl1: 13, rl2: 10 },
+  9: { bg: 5, pb: 7, pg: 9, ps: 15, ls: 7, rb: 1, rt: 14, rl1: 4, rl2: 14 },
+  10: { bg: 5, pb: 6, pg: 14, ps: 1, ls: 7, rb: 6, rt: 3, rl1: 13, rl2: 0 },
+  11: { bg: 7, pb: 3, pg: 12, ps: 1, ls: 1, rb: 8, rt: 0, rl1: 2, rl2: 1 },
+  12: { bg: 3, pb: 4, pg: 10, ps: 1, ls: 7, rb: 1, rt: 6, rl1: 10, rl2: 2 },
+  13: { bg: 3, pb: 7, pg: 9, ps: 1, ls: 7, rb: 6, rt: 14, rl1: 1, rl2: 14 },
+  14: { bg: 5, pb: 3, pg: 14, ps: 1, ls: 7, rb: 0, rt: 3, rl1: 7, rl2: 1 },
+  15: { bg: 3, pb: 7, pg: 14, ps: 1, ls: 7, rb: 14, rt: 1, rl1: 6, rl2: 4 },
+  16: { bg: 7, pb: 4, pg: 2, ps: 15, ls: 1, rb: 9, rt: 1, rl1: 7, rl2: 10 },
+  17: { bg: 3, pb: 7, pg: 9, ps: 14, ls: 7, rb: 1, rt: 0, rl1: 4, rl2: 6 },
+  18: { bg: 3, pb: 0, pg: 12, ps: 14, ls: 7, rb: 6, rt: 1, rl1: 14, rl2: 7 },
+  19: { bg: 3, pb: 2, pg: 8, ps: 1, ls: 7, rb: 1, rt: 4, rl1: 7, rl2: 8 },
+  20: { bg: 3, pb: 7, pg: 9, ps: 1, ls: 7, rb: 6, rt: 14, rl1: 10, rl2: 9 },
+  21: { bg: 5, pb: 6, pg: 15, ps: 1, ls: 7, rb: 6, rt: 1, rl1: 6, rl2: 13 },
+  22: { bg: 3, pb: 7, pg: 8, ps: 1, ls: 7, rb: 14, rt: 1, rl1: 13, rl2: 5 },
+  23: { bg: 5, pb: 7, pg: 2, ps: 12, ls: 7, rb: 3, rt: 10, rl1: 0, rl2: 1 },
+  24: { bg: 7, pb: 0, pg: 2, ps: 12, ls: 1, rb: 10, rt: 9, rl1: 1, rl2: 2 },
+  25: { bg: 3, pb: 4, pg: 14, ps: 1, ls: 7, rb: 1, rt: 10, rl1: 6, rl2: 3 },
+  26: { bg: 3, pb: 1, pg: 5, ps: 13, ls: 7, rb: 7, rt: 8, rl1: 14, rl2: 6 },
+  27: { bg: 3, pb: 1, pg: 9, ps: 15, ls: 7, rb: 0, rt: 8, rl1: 1, rl2: 7 },
+  28: { bg: 5, pb: 3, pg: 14, ps: 1, ls: 7, rb: 7, rt: 8, rl1: 6, rl2: 3 },
+  29: { bg: 7, pb: 2, pg: 10, ps: 1, ls: 1, rb: 2, rt: 10, rl1: 4, rl2: 1 },
+  30: { bg: 5, pb: 6, pg: 14, ps: 13, ls: 7, rb: 0, rt: 11, rl1: 1, rl2: 3 },
+  31: { bg: 3, pb: 6, pg: 12, ps: 14, ls: 1, rb: 0, rt: 0, rl1: 0, rl2: 0 },
+  32: { bg: 7, pb: 6, pg: 12, ps: 14, ls: 1, rb: 0, rt: 0, rl1: 0, rl2: 0 },
+};
+
 export const roomFurnitureItems = {
   1: [
     { type: "tapeDrive", l: 23, b: 8 },
