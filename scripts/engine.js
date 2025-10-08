@@ -24,6 +24,10 @@ export class Engine {
     this.baseSpritePixels = null;
     this.outputSpriteData = null;
 
+    // Animation and scan properties
+    this.animationFrameTime = 0;
+    this.animationFrameCounter = 0;
+
     // Color properties
     this.gameColors = palette.vice;
 
@@ -55,7 +59,27 @@ export class Engine {
     this.scan();
   }
 
-  animate() {}
+  animationRoutine() {
+    this.animationFrameCounter++;
+  }
+
+  animate() {
+    const requestAnimFrame = window.requestAnimationFrame;
+
+    requestAnimFrame((actualTime) => {
+      if (this.game.pause) {
+        this.animate();
+        return;
+      }
+
+      if (actualTime - this.animationFrameTime > 30) {
+        this.animationFrameTime = actualTime;
+        this.animationRoutine();
+      }
+
+      this.animate();
+    });
+  }
 
   scan() {}
 
