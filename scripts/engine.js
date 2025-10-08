@@ -46,7 +46,18 @@ export class Engine {
     this.setupKeyHandling();
 
     this.game.init();
+
+    this.startProcessingLoop();
   }
+
+  startProcessingLoop() {
+    this.animate();
+    this.scan();
+  }
+
+  animate() {}
+
+  scan() {}
 
   setupSpriteProcessing() {
     this.baseSpriteCanvas = document.createElement("canvas");
