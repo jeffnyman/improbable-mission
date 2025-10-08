@@ -4,6 +4,36 @@ _How the pieces fit together..._
 
 Here I'll provide an overview of the project's internal landscape: the key pieces, their roles, and how they combine to form the bigger picture.
 
+## 📐 Animating and Scanning
+
+The `animate()` code implements a throttled animation loop using `requestAnimationFrame`. The code creates a recursive animation loop that runs continuously but only executes the actual animation logic (`animationRoutine`) at a limited rate, roughly once every 30 milliseconds.
+
+In terms of the initial state, `animationFrameTime` tracks the last time the animation routine ran and `animationFrameCounter` counts how many times the routine has executed.
+
+The `animate()` method gets the animation frame function (stores a reference to `requestAnimationFrame`) and requests the next frame; `requestAnimFrame` is called with a callback that receives `actualTime` (the current timestamp in milliseconds). There is also a pause check. If the game is paused, this logic recursively calls `animate()` again but skips the animation logic, keeping the loop alive without doing work. The key part is the throttling logic:
+
+```js
+if (actualTime - this.animationFrameTime > 30)
+```
+
+This only runs `animationRoutine()` if more than 30 milliseconds have passed since the last execution. This caps the animation update rate at roughly 33fps (1000ms / 30ms ≈ 33 frames per second), even if the browser is running at 60fps or higher. Needless to say, this is also a recursive call in that `animate()` is called again at the end, creating an infinite loop.
+
+Why throttle? This pattern is useful when the game logic doesn't need to run at the full browser refresh rate, typically 60fps. Running at ~33fps reduces CPU usage while maintaining smooth enough animation for many games and certainly enough for my version of _Impossible Mission_.
+
+The `scan()` method sets up a second independent loop using `setInterval` that runs alongside the `requestAnimationFrame` loop. The `scan()` method creates an interval timer that executes every 27 milliseconds (roughly 37 times per second), stores the interval ID in `scanInterval` so it can be cleared later if needed, and, as with the animation routine, a pause check is done. If the game is paused, the callback returns early without doing anything.
+
+Thus, what I have here are two separate loops running:
+
+- Animation loop: ~33fps (throttled to 30ms via `requestAnimationFrame`)
+- Scan loop: ~37fps (running every 27ms via `setInterval`)
+
+They run at slightly different rates and are completely independent. They're not synchronized at all. This pattern is sometimes used in games to separate concerns:
+
+- Animation loop: Visual updates, rendering, smooth movement
+- Scan loop: Game logic, collision detection, input processing, AI
+
+The different timing (27ms vs 30ms) is intentional, though the naming "scan" might seem a bit mysterious without more context. What this ultimately will be doing is checking ("scanning") for collisions, player input, and performing other regular game state checks.
+
 ## 📐 Layout: Rooms and Elevators
 
 The _Impossible Mission_ game uses a grid-based room layout system with elevator shafts connecting different floors. The game world consists of:
