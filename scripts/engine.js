@@ -25,6 +25,8 @@ export class Engine {
     this.outputSpriteData = null;
 
     // Animation and scan properties
+    this.scanInterval = null;
+    this.scanFrameCounter = 0;
     this.animationFrameTime = 0;
     this.animationFrameCounter = 0;
 
@@ -81,7 +83,16 @@ export class Engine {
     });
   }
 
-  scan() {}
+  scanRoutine() {
+    this.scanFrameCounter++;
+  }
+
+  scan() {
+    this.scanInterval = setInterval(() => {
+      if (this.game.pause) return;
+      this.scanRoutine();
+    }, 27);
+  }
 
   setupSpriteProcessing() {
     this.baseSpriteCanvas = document.createElement("canvas");
