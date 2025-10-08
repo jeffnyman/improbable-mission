@@ -12,6 +12,7 @@ export class Game {
   constructor() {
     this.utils = utils;
     this.rooms = {};
+    this.pause = false;
 
     this.agent = new Agent();
     this.elevator = new Elevator();
@@ -111,6 +112,18 @@ export class Game {
         i++;
       }
     }
+  }
+
+  togglePause(status) {
+    console.log(`game paused: ${status}`); // REMOVE
+
+    if (status === undefined) {
+      status = this.pause ? false : true;
+    }
+
+    this.pause = status;
+
+    return status;
   }
 
   printRoomsByFloor() {

@@ -129,6 +129,7 @@ export class Engine {
     document.getElementById("overlay").addEventListener("click", () => {
       document.getElementById("overlay").classList.add("hidden");
       document.getElementById("dossier").classList.add("hidden");
+      this.game.togglePause(false);
     });
 
     document.getElementById("game").classList.remove("hidden");
@@ -142,6 +143,7 @@ export class Engine {
     document.getElementById("dossier-button").addEventListener("click", () => {
       document.getElementById("overlay").classList.remove("hidden");
       document.getElementById("dossier").classList.remove("hidden");
+      this.game.togglePause(true);
     });
 
     const paletteButtons = document.querySelectorAll(".palette");
