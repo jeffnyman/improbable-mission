@@ -63,6 +63,10 @@ export class Engine {
 
   animationRoutine() {
     this.animationFrameCounter++;
+
+    if (this.game.scene == "anotherVisitor") {
+      this.game.animateElevator();
+    }
   }
 
   animate() {
@@ -85,6 +89,10 @@ export class Engine {
 
   scanRoutine() {
     this.scanFrameCounter++;
+
+    if (this.game.scene == "anotherVisitor") {
+      this.game.scanAnotherVisitor();
+    }
   }
 
   scan() {

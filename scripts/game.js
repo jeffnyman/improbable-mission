@@ -13,6 +13,7 @@ export class Game {
     this.utils = utils;
     this.rooms = {};
     this.pause = false;
+    this.scene = null;
 
     this.agent = new Agent();
     this.elevator = new Elevator();
@@ -27,6 +28,8 @@ export class Game {
   }
 
   init() {
+    this.scene = "anotherVisitor";
+
     this.agent.init();
     this.elevator.init();
     this.pocketComputer.init();
@@ -41,6 +44,12 @@ export class Game {
 
     // this.printRoomsByFloor(); // DEBUGGING
   }
+
+  animateElevator() {
+    this.elevator.animationRoutine();
+  }
+
+  scanAnotherVisitor() {}
 
   generateRooms() {
     for (var i = 1; i <= 32; i++) {
