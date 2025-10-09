@@ -24,5 +24,13 @@ export class Elevator {
       // Right border.
       this.utils.draw(756, 16, 8, 24, 184, i * 24 - 16 - borderOffset);
     }
+
+    // Walls
+    let wallOffset = this.y % 200;
+
+    this.utils.draw(320, 0, 128, 200, 0, 0 - wallOffset);
+    this.utils.draw(320, 0, 128, 200, 192, 0 - wallOffset);
+    this.utils.draw(320, 0, 128, 200, 0, 200 - wallOffset);
+    this.utils.draw(320, 0, 128, 200, 192, 200 - wallOffset);
   }
 }

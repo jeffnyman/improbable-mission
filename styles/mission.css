@@ -108,7 +108,6 @@ body {
     height: 200px;
     z-index: 100;
     image-rendering: crisp-edges;
-    background-color: red; /* THIS IS TEMPORARY */
   }
 
   #loading {
