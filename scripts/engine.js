@@ -3,6 +3,7 @@ import { loadResources } from "./loadResources";
 import { Game } from "./game";
 import { GameAudio } from "./audio";
 import { palette } from "./palette";
+import { utils } from "./utils";
 
 export class Engine {
   constructor() {
@@ -39,6 +40,8 @@ export class Engine {
   }
 
   async init() {
+    utils.setEngine(this);
+
     this.audio.init();
 
     checkBrowser();

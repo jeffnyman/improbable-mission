@@ -1,6 +1,14 @@
 import { roomDoors } from "./layout";
 
 class Utils {
+  constructor() {
+    this.engine = null;
+  }
+
+  setEngine(engine) {
+    this.engine = engine;
+  }
+
   rnd(limit) {
     return Math.floor(Math.random() * limit) + 1;
   }
