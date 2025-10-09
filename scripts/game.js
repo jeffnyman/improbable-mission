@@ -31,7 +31,7 @@ export class Game {
     this.scene = "anotherVisitor";
 
     this.agent.init();
-    this.elevator.init();
+    this.elevator.init(this);
     this.pocketComputer.init();
 
     // DEBUGGING
