@@ -32,5 +32,8 @@ export class Elevator {
     this.utils.draw(320, 0, 128, 200, 192, 0 - wallOffset);
     this.utils.draw(320, 0, 128, 200, 0, 200 - wallOffset);
     this.utils.draw(320, 0, 128, 200, 192, 200 - wallOffset);
+
+    // Top element (if needed).
+    if (this.y < 10) this.utils.draw(708, 0, 64, 8, 128, 0 - this.y);
   }
 }
