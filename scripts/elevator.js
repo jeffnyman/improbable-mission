@@ -7,5 +7,8 @@ export class Elevator {
 
   init() {}
 
-  animationRoutine() {}
+  animationRoutine() {
+    this.utils.rect(128, 0, 64, 200, 0);
+    this.utils.draw(708, 16, 48, 96, 136, 0);
+  }
 }

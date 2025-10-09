@@ -9,6 +9,29 @@ class Utils {
     this.engine = engine;
   }
 
+  fillStyle(colorIndex) {
+    this.engine.ctx.fillStyle = "#" + this.engine.gameColors[colorIndex];
+  }
+
+  rect(x, y, w, h, colorIndex) {
+    this.fillStyle(colorIndex);
+    this.engine.ctx.fillRect(x * 3, y * 3, w * 3, h * 3);
+  }
+
+  draw(sx, sy, sw, sh, dx, dy) {
+    this.engine.ctx.drawImage(
+      this.engine.sprites[this.engine.options.palette],
+      sx,
+      sy,
+      sw,
+      sh,
+      dx * 3,
+      dy * 3,
+      sw * 3,
+      sh * 3,
+    );
+  }
+
   rnd(limit) {
     return Math.floor(Math.random() * limit) + 1;
   }
