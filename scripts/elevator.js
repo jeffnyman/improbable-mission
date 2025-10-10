@@ -18,7 +18,16 @@ export class Elevator {
     this.y = 0;
   }
 
-  scanRoutine() {}
+  scanRoutine() {
+    if (this.game.pocketComputer.state != "map") return;
+
+    let agentInElevator = false;
+
+    if (this.game.agent.x >= 129 && this.game.agent.x <= 156) {
+      agentInElevator = true;
+      console.log(`agent in elevator? ${agentInElevator}`);
+    }
+  }
 
   animationRoutine() {
     this.utils.rect(128, 0, 64, 200, 0);
