@@ -4,6 +4,7 @@ import { Game } from "./game";
 import { GameAudio } from "./audio";
 import { palette } from "./palette";
 import { utils } from "./utils";
+import { keyboard } from "./keyboard";
 
 export class Engine {
   constructor() {
@@ -248,11 +249,20 @@ export class Engine {
   }
 
   setupKeyHandling() {
+    keyboard.init();
+
     document.addEventListener("keydown", (evt) => {
       var overlay = document.getElementById("overlay");
 
-      if (evt.code === "Escape" && !overlay.classList.contains("hidden")) {
+      if (
+        evt.code === keyboard.keys.ESC &&
+        !overlay.classList.contains("hidden")
+      ) {
         overlay.click();
+      }
+
+      if (evt.code === keyboard.keys.P || evt.code === keyboard.keys.PAUSE) {
+        this.game.togglePause(true);
       }
     });
   }

@@ -2,9 +2,33 @@ export class KeyboardManager {
   constructor() {
     this.pressedKeys = [];
     this.keys = {
-      UP: 38,
-      DOWN: 40,
+      P: "KeyP",
+      PAUSE: "Pause",
+      ESC: "Escape",
+      UP: "ArrowUp",
+      DOWN: "ArrowDown",
     };
+  }
+
+  init() {
+    document.addEventListener("keydown", (e) => this.handleKeyDown(e));
+    document.addEventListener("keyup", (e) => this.handleKeyUp(e));
+  }
+
+  handleKeyDown(e) {
+    let code = e.code;
+    console.log(`Key Down: ${code}`); // REMOVE
+
+    if (!this.pressedKeys[code]) {
+      this.pressedKeys[code] = true;
+    }
+  }
+
+  handleKeyUp(e) {
+    let code = e.code;
+    console.log(`Key Up: ${code}`); // REMOVE
+
+    this.pressedKeys[code] = false;
   }
 }
 
