@@ -106,4 +106,15 @@ export class GameAudio {
 
     return source;
   }
+
+  stopAllSound() {
+    if (!this.context) return;
+
+    for (var i = 0; i < this.activeSounds.length; i++) {
+      this.activeSounds[i].bufferSource.stop(0);
+    }
+
+    this.queue = [];
+    this.activeSounds = [];
+  }
 }

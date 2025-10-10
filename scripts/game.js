@@ -148,6 +148,10 @@ export class Game {
 
     this.pause = status;
 
+    if (this.pause) {
+      this.engine.audio.stopAllSound();
+    }
+
     return status;
   }
 
