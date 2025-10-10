@@ -69,6 +69,8 @@ export class Engine {
 
     if (this.game.scene == "anotherVisitor") {
       this.game.animateElevator();
+    } else if (this.game.scene == "elevator") {
+      this.game.animateElevator();
     }
   }
 
@@ -98,6 +100,8 @@ export class Engine {
 
     if (this.game.scene == "anotherVisitor") {
       this.game.scanAnotherVisitor();
+    } else if (this.game.scene == "elevator") {
+      this.game.scanElevator();
     }
 
     this.audio.playQueue();

@@ -53,6 +53,10 @@ export class Game {
     this.elevator.animationRoutine();
   }
 
+  scanElevator() {
+    this.elevator.scanRoutine();
+  }
+
   scanAnotherVisitor() {
     if (!this.timeoutAnotherVisitor) {
       this.engine.audio.request({ name: "anotherVisitor" });
