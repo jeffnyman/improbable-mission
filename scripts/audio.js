@@ -90,6 +90,8 @@ export class GameAudio {
   }
 
   play(name, loop, offset) {
+    if (this.engine.options.sound == "off" || !this.context) return false;
+
     let source = this.context.createBufferSource();
 
     source.buffer = this.sounds[name];
@@ -100,6 +102,8 @@ export class GameAudio {
       source.start(0);
     } else {
       setTimeout(function () {
+        if (this.engine.options.sound == "off") return false;
+
         source.start(0);
       }, offset);
     }

@@ -231,6 +231,7 @@ export class Engine {
 
     soundOffButton.addEventListener("click", () => {
       if (this.audio.context) {
+        this.audio.stopAllSound();
         this.options.sound = "off";
         localStorage.setItem("sound", "off");
         this.setActiveButton(soundOffButton);
