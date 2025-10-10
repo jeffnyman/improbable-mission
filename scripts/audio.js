@@ -1,7 +1,17 @@
 export class GameAudio {
   constructor() {
+    this.engine = null;
     this.context = null;
     this.sounds = {};
+
+    // Holds requested sound effects in a given scan frame.
+    // This should be emptied before every frame.
+    this.queue = [];
+
+    // Buffer source objects of actually played sounds.
+    // This needs to be stopped.
+    this.activeSounds = [];
+
     this.resources = [
       "anotherVisitor.ogg",
       "elevatorStart.ogg",
@@ -38,12 +48,62 @@ export class GameAudio {
     }
   }
 
-  init() {
+  init(engine) {
+    this.engine = engine;
+
     try {
       this.context = new AudioContext();
     } catch (error) {
       console.error("Web Audio API not supported:", error);
       return;
     }
+  }
+
+  request(audio) {
+    if (!this.context) return;
+
+    // Check if the sound is already in the queue.
+    for (var i = 0; i < this.queue.length; i++) {
+      if (this.queue[i].name == audio.name && !audio.offset) return;
+    }
+
+    this.queue.push(audio);
+
+    return true;
+  }
+
+  playQueue() {
+    if (this.engine.options.sound == "off" || !this.context) return false;
+
+    for (var i = 0; i < this.queue.length; i++) {
+      let req = this.queue[i];
+
+      if (!req.name) continue;
+      if (req.loop === undefined) req.loop = false;
+      if (req.offset === undefined) req.offset = 0;
+
+      this.activeSounds.push({
+        name: req.name,
+        bufferSource: this.play(req.name, req.loop, req.offset),
+      });
+    }
+  }
+
+  play(name, loop, offset) {
+    let source = this.context.createBufferSource();
+
+    source.buffer = this.sounds[name];
+    source.loop = loop;
+    source.connect(this.context.destination);
+
+    if (!offset) {
+      source.start(0);
+    } else {
+      setTimeout(function () {
+        source.start(0);
+      }, offset);
+    }
+
+    return source;
   }
 }

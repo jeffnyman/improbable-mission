@@ -10,6 +10,7 @@ import * as Layout from "./layout";
 
 export class Game {
   constructor() {
+    this.engine = null;
     this.utils = utils;
     this.rooms = {};
     this.pause = false;
@@ -25,9 +26,12 @@ export class Game {
     // DEBUGGING
     // console.log(`Map ID: ${this.mapId}`); // REMOVE
     // console.log(`Map: ${JSON.stringify(this.map)}`); // REMOVE
+
+    this.timeoutAnotherVisitor = false;
   }
 
-  init() {
+  init(engine) {
+    this.engine = engine;
     this.scene = "anotherVisitor";
 
     this.agent.init();
@@ -49,7 +53,15 @@ export class Game {
     this.elevator.animationRoutine();
   }
 
-  scanAnotherVisitor() {}
+  scanAnotherVisitor() {
+    if (!this.timeoutAnotherVisitor) {
+      this.engine.audio.request({ name: "anotherVisitor" });
+
+      this.timeoutAnotherVisitor = setTimeout(function () {
+        this.scene = "elevator";
+      }, 6500);
+    }
+  }
 
   generateRooms() {
     for (var i = 1; i <= 32; i++) {

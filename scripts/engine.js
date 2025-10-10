@@ -42,7 +42,7 @@ export class Engine {
   async init() {
     utils.setEngine(this);
 
-    this.audio.init();
+    this.audio.init(this);
 
     checkBrowser();
     await loadResources(this);
@@ -54,7 +54,7 @@ export class Engine {
     this.setupInterfaceResizing();
     this.setupKeyHandling();
 
-    this.game.init();
+    this.game.init(this);
 
     this.startProcessingLoop();
   }
@@ -93,9 +93,14 @@ export class Engine {
   scanRoutine() {
     this.scanFrameCounter++;
 
+    // Empty audio request queue.
+    this.audio.queue = [];
+
     if (this.game.scene == "anotherVisitor") {
       this.game.scanAnotherVisitor();
     }
+
+    this.audio.playQueue();
   }
 
   scan() {
