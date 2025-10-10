@@ -36,7 +36,7 @@ export class Game {
 
     this.agent.init();
     this.elevator.init(this);
-    this.pocketComputer.init();
+    this.pocketComputer.init(this);
 
     // DEBUGGING
     // const validator = new LayoutValidator();
@@ -51,6 +51,7 @@ export class Game {
 
   animateElevator() {
     this.elevator.animationRoutine();
+    this.pocketComputer.animationRoutine();
   }
 
   scanElevator() {
