@@ -1,6 +1,6 @@
 export class KeyboardManager {
   constructor() {
-    this.pressedKeys = [];
+    this.pressedKeys = {};
     this.keys = {
       P: "KeyP",
       PAUSE: "Pause",
@@ -13,6 +13,10 @@ export class KeyboardManager {
   init() {
     document.addEventListener("keydown", (e) => this.handleKeyDown(e));
     document.addEventListener("keyup", (e) => this.handleKeyUp(e));
+  }
+
+  isKeyPressed(code) {
+    return this.pressedKeys[code] === true;
   }
 
   handleKeyDown(e) {

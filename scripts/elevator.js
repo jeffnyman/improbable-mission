@@ -1,5 +1,6 @@
 import { utils } from "./utils";
 import { roomColors } from "./layout";
+import { keyboard } from "./keyboard";
 
 export class Elevator {
   constructor() {
@@ -27,6 +28,12 @@ export class Elevator {
       agentInElevator = true;
       console.log(`agent in elevator? ${agentInElevator}`);
     }
+
+    let buttonUp = keyboard.isKeyPressed(keyboard.keys.UP);
+    let buttonDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
+
+    console.log(buttonUp); // REMOVE
+    console.log(buttonDown); // REMOVE
   }
 
   animationRoutine() {

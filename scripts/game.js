@@ -63,8 +63,10 @@ export class Game {
     if (!this.timeoutAnotherVisitor) {
       this.engine.audio.request({ name: "anotherVisitor" });
 
+      const game = this;
       this.timeoutAnotherVisitor = setTimeout(function () {
-        this.scene = "elevator";
+        game.pocketComputer.visible = true;
+        game.scene = "elevator";
       }, 6500);
     }
   }
