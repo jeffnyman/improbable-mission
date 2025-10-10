@@ -52,6 +52,7 @@ export class Game {
   animateElevator() {
     this.elevator.animationRoutine();
     this.pocketComputer.animationRoutine();
+    this.agent.animationRoutine();
   }
 
   scanElevator() {
