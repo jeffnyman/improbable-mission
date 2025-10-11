@@ -35,9 +35,6 @@ export class Elevator {
     let buttonUp = keyboard.isKeyPressed(keyboard.keys.UP);
     let buttonDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
-    console.log(buttonUp); // REMOVE
-    console.log(buttonDown); // REMOVE
-
     // Start moving the elevator down or up.
     if (
       agentInElevator &&
@@ -47,7 +44,8 @@ export class Elevator {
     ) {
       this.direction = "down";
       if (!this.sound) {
-        // Play sound here?
+        this.sound = this.game.engine.audio.request({ name: "elevatorStart" });
+        // console.log(`DEBUG: ${this.game.engine.audio}`); // REMOVE
       }
     } else if (
       agentInElevator &&
@@ -56,7 +54,7 @@ export class Elevator {
       this.y > 0
     ) {
       this.direction = "up";
-      // Stop playing sound here?
+      this.sound = this.game.engine.audio.request({ name: "elevatorStart" });
     }
 
     // Move elevator down, stop at the bottom.
@@ -69,8 +67,11 @@ export class Elevator {
         this.direction = false;
 
         if (this.sound) {
-          // stop the sound here?
+          this.game.engine.audio.stopAllSound();
+          this.sound = false;
         }
+
+        this.game.engine.audio.request({ name: "elevatorStop" });
       }
     } else if (this.direction == "up") {
       this.y -= 8;
@@ -80,8 +81,11 @@ export class Elevator {
         this.direction = false;
 
         if (this.sound) {
-          // stop the sound here?
+          this.game.engine.audio.stopAllSound();
+          this.sound = false;
         }
+
+        this.game.engine.audio.request({ name: "elevatorStop" });
       }
     }
   }
