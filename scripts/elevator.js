@@ -141,8 +141,8 @@ export class Elevator {
         let roomId = rightRooms[j];
         let level = false;
 
-        if (this.utils.hasLeftDoor(roomId) == 1) level = i * 2;
-        else if (this.utils.hasLeftDoor(roomId) == 4) level = i * 2 + 1;
+        if (this.utils.hasLeftDoor(roomId) == 1) level = j * 2;
+        else if (this.utils.hasLeftDoor(roomId) == 4) level = j * 2 + 1;
 
         if (level === false) continue;
 
