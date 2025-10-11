@@ -30,7 +30,6 @@ export class Elevator {
 
     if (this.game.agent.x >= 129 && this.game.agent.x <= 156) {
       agentInElevator = true;
-      console.log(`agent in elevator? ${agentInElevator}`);
     }
 
     let buttonUp = keyboard.isKeyPressed(keyboard.keys.UP);

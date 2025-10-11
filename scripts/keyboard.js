@@ -21,7 +21,6 @@ export class KeyboardManager {
 
   handleKeyDown(e) {
     let code = e.code;
-    console.log(`Key Down: ${code}`); // REMOVE
 
     if (!this.pressedKeys[code]) {
       this.pressedKeys[code] = true;
@@ -30,7 +29,6 @@ export class KeyboardManager {
 
   handleKeyUp(e) {
     let code = e.code;
-    console.log(`Key Up: ${code}`); // REMOVE
 
     this.pressedKeys[code] = false;
   }
