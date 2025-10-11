@@ -6,6 +6,10 @@ export class Elevator {
   constructor() {
     this.utils = utils;
     this.game = null;
+    this.direction = false;
+
+    // This determines if the sound should play.
+    this.sound = false;
   }
 
   init(game) {
@@ -34,6 +38,33 @@ export class Elevator {
 
     console.log(buttonUp); // REMOVE
     console.log(buttonDown); // REMOVE
+
+    // Start moving the elevator down
+    if (
+      agentInElevator &&
+      this.game.agent.action == "stand" &&
+      buttonDown &&
+      this.y < 2376
+    ) {
+      this.direction = "down";
+      if (!this.sound) {
+        // Play sound here?
+      }
+    }
+
+    // Move elevator down, stop at the bottom.
+    if (this.direction == "down") {
+      this.y += 8;
+
+      if (this.y > 2376) {
+        this.y = 2376;
+        this.direction = false;
+
+        if (this.sound) {
+          // stop the sound here?
+        }
+      }
+    }
   }
 
   animationRoutine() {
@@ -61,6 +92,10 @@ export class Elevator {
 
     // Top element (if needed).
     if (this.y < 10) this.utils.draw(708, 0, 64, 8, 128, 0 - this.y);
+
+    // Bottom element (if needed).
+    if (this.y > 2354)
+      this.utils.draw(708, 8, 64, 8, 128, 134 - (this.y - 2354));
 
     // Corridors.
     const leftRooms = this.game.map.rooms[this.x - 1];
