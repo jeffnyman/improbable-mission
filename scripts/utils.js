@@ -36,6 +36,10 @@ class Utils {
     return this.engine.animationFrameCounter;
   }
 
+  getSFC() {
+    return this.engine.scanFrameCounter;
+  }
+
   rnd(limit) {
     return Math.floor(Math.random() * limit) + 1;
   }

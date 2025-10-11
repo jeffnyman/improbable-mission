@@ -34,7 +34,7 @@ export class Game {
     this.engine = engine;
     this.scene = "anotherVisitor";
 
-    this.agent.init();
+    this.agent.init(this);
     this.elevator.init(this);
     this.pocketComputer.init(this);
 
@@ -57,6 +57,10 @@ export class Game {
 
   scanElevator() {
     this.elevator.scanRoutine();
+
+    if (!this.elevator.direction && this.pocketComputer.state == "map") {
+      this.agent.scanRoutine();
+    }
   }
 
   scanAnotherVisitor() {
@@ -144,8 +148,6 @@ export class Game {
   }
 
   togglePause(status) {
-    console.log(`game paused: ${status}`); // REMOVE
-
     if (status === undefined) {
       status = this.pause ? false : true;
     }

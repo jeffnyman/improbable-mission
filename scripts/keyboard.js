@@ -7,6 +7,8 @@ export class KeyboardManager {
       ESC: "Escape",
       UP: "ArrowUp",
       DOWN: "ArrowDown",
+      LEFT: "ArrowLeft",
+      RIGHT: "ArrowRight",
     };
   }
 
