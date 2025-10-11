@@ -67,7 +67,7 @@ export class PocketComputer {
             }
 
             // Is there a right room?
-            let rightRoomId = this.game.map.rooms[i - 1][j];
+            let rightRoomId = this.game.map.rooms[i][j];
 
             if (rightRoomId) {
               if (this.utils.hasLeftDoor(rightRoomId) == 1) {
