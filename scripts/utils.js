@@ -32,6 +32,10 @@ class Utils {
     );
   }
 
+  getAFC() {
+    return this.engine.animationFrameCounter;
+  }
+
   rnd(limit) {
     return Math.floor(Math.random() * limit) + 1;
   }

@@ -44,9 +44,62 @@ export class PocketComputer {
         for (var j = 0; j < 6; j++) {
           if (this.revealedMap[i][j]) {
             this.utils.rect(83 + (i - 1) * 16, 136 + j * 8, 2, 8, 0);
+
+            // Is there a left room?
+            let leftRoomId = this.game.map.rooms[i - 1][j];
+
+            if (leftRoomId) {
+              if (this.utils.hasRightDoor(leftRoomId) == 2) {
+                // Draw the right top corridor.
+                this.utils.rect(80 + (i - 1) * 16, 137 + j * 8, 3, 1, 0);
+              } else if (this.utils.hasRightDoor(leftRoomId) == 3) {
+                // Draw the right bottom corridor.
+                this.utils.rect(80 + (i - 1) * 16, 141 + j * 8, 3, 1, 0);
+              }
+
+              // Check if room is revealed.
+              if (
+                this.utils.hasRightDoor(leftRoomId) &&
+                this.game.rooms[leftRoomId].revealed
+              ) {
+                this.utils.rect(72 + (i - 1) * 16, 137 + j * 8, 8, 5, 0);
+              }
+            }
+
+            // Is there a right room?
+            let rightRoomId = this.game.map.rooms[i - 1][j];
+
+            if (rightRoomId) {
+              if (this.utils.hasLeftDoor(rightRoomId) == 1) {
+                // Draw the left top corridor.
+                this.utils.rect(85 + (i - 1) * 16, 137 + j * 8, 3, 1, 0);
+              } else if (this.utils.hasLeftDoor(rightRoomId) == 4) {
+                // Draw the left bottom corridor.
+                this.utils.rect(85 + (i - 1) * 16, 141 + j * 8, 3, 1, 0);
+              }
+
+              // Check if room is revealed.
+              if (
+                this.utils.hasLeftDoor(rightRoomId) &&
+                this.game.rooms[rightRoomId].revealed
+              ) {
+                this.utils.rect(88 + (i - 1) * 16, 137 + j * 8, 8, 5, 0);
+              }
+            }
           }
         }
       }
+
+      // Draw the elevator point.
+      this.utils.rect(
+        83 + (this.game.elevator.x - 1) * 16,
+        136 + Math.floor(this.game.elevator.y / 53),
+        2,
+        3,
+        [0, 11, 12, 15, 1, 15, 12, 11][
+          Math.floor((this.utils.getAFC() % 24) / 3)
+        ],
+      );
     }
   }
 }

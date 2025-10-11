@@ -25,6 +25,10 @@ export class Room {
     this.liftGroups = [];
     this.orbEnemy = false;
     this.robotEnemy = [];
+
+    // A room is revealed when the agent enters it.
+    // This acts as a flag for the pocket computer map.
+    this.revealed = false;
   }
 
   init() {
