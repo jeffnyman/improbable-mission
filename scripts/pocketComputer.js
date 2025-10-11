@@ -39,6 +39,14 @@ export class PocketComputer {
 
       // Map view
       this.utils.rect(64, 136, 152, 48, 5);
+
+      for (var i = 1; i <= 8; i++) {
+        for (var j = 0; j < 6; j++) {
+          if (this.revealedMap[i][j]) {
+            this.utils.rect(83 + (i - 1) * 16, 136 + j * 8, 2, 8, 0);
+          }
+        }
+      }
     }
   }
 }

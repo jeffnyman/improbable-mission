@@ -107,6 +107,12 @@ export class Elevator {
         this.sound = false;
         this.game.engine.audio.request({ name: "elevatorStop" });
       }
+
+      // Reveal the map portion on the pocket computer.
+      if (this.y % 216 === 0) {
+        let level = Math.floor(this.y / 216 / 2);
+        this.game.pocketComputer.revealedMap[this.x][level] = 1;
+      }
     }
   }
 
