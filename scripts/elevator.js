@@ -38,7 +38,7 @@ export class Elevator {
     console.log(buttonUp); // REMOVE
     console.log(buttonDown); // REMOVE
 
-    // Start moving the elevator down
+    // Start moving the elevator down or up.
     if (
       agentInElevator &&
       this.game.agent.action == "stand" &&
@@ -49,14 +49,34 @@ export class Elevator {
       if (!this.sound) {
         // Play sound here?
       }
+    } else if (
+      agentInElevator &&
+      this.game.agent.action == "stand" &&
+      buttonUp &&
+      this.y > 0
+    ) {
+      this.direction = "up";
+      // Stop playing sound here?
     }
 
     // Move elevator down, stop at the bottom.
+    // Move elevator up, stop at the top.
     if (this.direction == "down") {
       this.y += 8;
 
       if (this.y > 2376) {
         this.y = 2376;
+        this.direction = false;
+
+        if (this.sound) {
+          // stop the sound here?
+        }
+      }
+    } else if (this.direction == "up") {
+      this.y -= 8;
+
+      if (this.y < 0) {
+        this.y = 0;
         this.direction = false;
 
         if (this.sound) {
