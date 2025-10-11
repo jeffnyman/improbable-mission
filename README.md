@@ -4,6 +4,12 @@ _Stay a while ... stay forever._
 
 One of the classic game titles of the 1980s is ["Impossible Mission"](https://en.wikipedia.org/wiki/Impossible_Mission). This game is considered one of the best games ever made for the Commodore 64, ZX Spectrum, and other home computers of that era. This repository is my attempt to recreate that game in a JavaScript format.
 
+> [!TIP]
+> I have a [working implementation](https://jeffnyman.github.io/improbable-mission). This will always show my current work in progress which, at the moment, is quite sparse, but it's enough to show generated graphics and sounds as well as some movement.
+
+> [!NOTE]
+> I have a [concept document](/docs/CONCEPT.md) that talks about the general design of the original game. I also have a [design document](/docs/DESIGN.md) that shows some of the choices I'm making in my own implementation. Finally, I have a [references document](/docs/REFERENCES.md) that shows some of the basis for this work.
+
 ## 🛠️ Developing
 
 Make sure you have [Node.js](https://nodejs.org/en). The LTS version should be fine. You will also need the `npm` package manager, which comes with Node.js. A development environment or IDE with TypeScript/JavaScript support will help. [Visual Studio Code](https://code.visualstudio.com/) is a good choice.
