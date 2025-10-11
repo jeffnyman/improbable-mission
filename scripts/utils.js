@@ -47,6 +47,60 @@ class Utils {
     else if (roomDoors[roomId].indexOf(3) !== -1) return 3;
     return false;
   }
+
+  hasLeftCorridor(number, position) {
+    if (position % 216 !== 0) return false;
+
+    let level = Math.floor(position / 216 / 2);
+    let doorLevel = (position / 216) % 2 ? "bottom" : "top";
+    let leftRooms = this.engine.game.map.rooms[number - 1];
+    let connects = false;
+
+    if (
+      leftRooms[level] > 0 &&
+      doorLevel == "top" &&
+      this.hasRightDoor(leftRooms[level]) == 2
+    ) {
+      connects = true;
+    }
+
+    if (
+      leftRooms[level] > 0 &&
+      doorLevel == "bottom" &&
+      this.hasRightDoor(leftRooms[level]) == 3
+    ) {
+      connects = true;
+    }
+
+    return connects;
+  }
+
+  hasRightCorridor(number, position) {
+    if (position % 216 !== 0) return false;
+
+    let level = Math.floor(position / 216 / 2);
+    let doorLevel = (position / 216) % 2 ? "bottom" : "top";
+    let rightRooms = this.engine.game.map.rooms[number];
+    let connects = false;
+
+    if (
+      rightRooms[level] > 0 &&
+      doorLevel == "top" &&
+      this.hasLeftDoor(rightRooms[level]) == 1
+    ) {
+      connects = true;
+    }
+
+    if (
+      rightRooms[level] > 0 &&
+      doorLevel == "bottom" &&
+      this.hasLeftDoor(rightRooms[level]) == 4
+    ) {
+      connects = true;
+    }
+
+    return connects;
+  }
 }
 
 export const utils = new Utils();

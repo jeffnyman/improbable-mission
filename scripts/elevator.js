@@ -43,9 +43,9 @@ export class Elevator {
       this.y < 2376
     ) {
       this.direction = "down";
+
       if (!this.sound) {
         this.sound = this.game.engine.audio.request({ name: "elevatorStart" });
-        // console.log(`DEBUG: ${this.game.engine.audio}`); // REMOVE
       }
     } else if (
       agentInElevator &&
@@ -54,7 +54,10 @@ export class Elevator {
       this.y > 0
     ) {
       this.direction = "up";
-      this.sound = this.game.engine.audio.request({ name: "elevatorStart" });
+
+      if (!this.sound) {
+        this.sound = this.game.engine.audio.request({ name: "elevatorStart" });
+      }
     }
 
     // Move elevator down, stop at the bottom.
@@ -68,9 +71,9 @@ export class Elevator {
 
         if (this.sound) {
           this.game.engine.audio.stopAllSound();
-          this.sound = false;
         }
 
+        this.sound = false;
         this.game.engine.audio.request({ name: "elevatorStop" });
       }
     } else if (this.direction == "up") {
@@ -82,9 +85,26 @@ export class Elevator {
 
         if (this.sound) {
           this.game.engine.audio.stopAllSound();
-          this.sound = false;
         }
 
+        this.sound = false;
+        this.game.engine.audio.request({ name: "elevatorStop" });
+      }
+    }
+
+    // Stop at a corridor position.
+    if (this.y % 216 === 0 && this.direction && !buttonUp && !buttonDown) {
+      if (
+        this.utils.hasLeftCorridor(this.x, this.y) ||
+        this.utils.hasRightCorridor(this.x, this.y)
+      ) {
+        this.direction = false;
+
+        if (this.sound) {
+          this.game.engine.audio.stopAllSound();
+        }
+
+        this.sound = false;
         this.game.engine.audio.request({ name: "elevatorStop" });
       }
     }
