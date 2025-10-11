@@ -5,6 +5,10 @@ export class PocketComputer {
     this.game = null;
     this.utils = utils;
 
+    // This is done because the pocket computer should not be shown
+    // during the "Another visitor" dialogue.
+    this.visible = false;
+
     // Holds the revealed, and thus by definition, the unrevealed
     // areas of elevator system. The full map will always be
     // unrevealed at the start. The one exception to this is the
@@ -25,6 +29,8 @@ export class PocketComputer {
   }
 
   animationRoutine() {
+    if (!this.visible) return;
+
     this.utils.draw(0, 200, 320, 80, 0, 120);
 
     if (this.state == "map") {
