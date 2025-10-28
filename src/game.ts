@@ -1,8 +1,10 @@
 import { audio } from "./components/audio";
 import { Elevator } from "./components/elevator";
+import { PocketComputer } from "./components/pocketComputer";
 
 export class Game {
   private elevator: Elevator = new Elevator();
+  private pocketComputer: PocketComputer = new PocketComputer();
 
   private scene = "";
   private paused = false;
@@ -21,6 +23,7 @@ export class Game {
 
   animateElevator() {
     this.elevator.animationRoutine();
+    this.pocketComputer.animationRoutine();
   }
 
   isPaused(): boolean {
