@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <title>Improbable Mission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jeff Nyman">
+  <meta name="description" content="Impossible Mission recreation in JavaScript.">
+  <meta name="keywords" content="Impossible Mission, Commodore 64, retrogaming">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <link rel="prefetch" href="/fonts/c64-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/site/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/site/favicon.png">
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="/site/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/site/apple-touch-icon.png">
+  <link rel="manifest" href="/site/site.webmanifest">
+  <link rel="canonical" href="https://jeffnyman.github.io/improbable-mission">
+  <link rel="stylesheet" href="./styles/mission.css">
+  <script type="module" src="/src/missions.ts" defer></script>
+</head>
+<body>
+  <div id="mission" class="hidden">
+    <img class="mission-screen" src="/images/mission-screen.png" width="559" height="432" alt="Improbable Mission">
+
+    <p id="accept">
+      ACCEPT THE MISSION
+    </p>
+  </div>
+
+  <div id="loading" class="hidden">
+    <p>
+      Loading assets<br>
+      <span id="loaded">0</span> / <span id="required">0</span>
+    </p>
+  </div>
+
+  <div id="app" class="hidden">
+    <div id="toolbar">
+      <div class="item">
+        <a href="https://www.c64.com" target="_blank" rel="noreferrer">
+          <img src="/images/toolbar/commodoreIcon.png" width="18" height="18" alt="Commodore 64" title="C64.com">
+        </a>
+      </div>
+
+      <div class="item">
+        <span id="readDossier" class="clickable">Dossier</span>
+      </div>
+
+      <div class="item">
+        <img src="/images/toolbar/paletteIcon.png" width="18" height="18" alt="Game Colors" title="Palette">
+        <span class="clickable palette" data-palette="vice">VICE</span>
+        <span class="clickable palette" data-palette="c64s">C64S</span>
+        <span class="clickable palette" data-palette="pc64">PC64</span>
+        <span class="clickable palette" data-palette="c64hq">C64HQ</span>
+        <span class="clickable palette" data-palette="ccs64">CCS64</span>
+      </div>
+
+      <div class="item">
+        <img src="/images/toolbar/soundIcon.png" width="18" height="18" alt="Game Sounds" title="Sound">
+        <span class="clickable sound-on">on</span>
+        <span class="clickable sound-off">off</span>
+      </div>
+
+      <div class="item">
+        <span id="fullscreen" class="clickable">
+          <img src="/images/toolbar/fullscreenIcon.png" width="18" height="18" alt="Full Screen" title="Fullscreen">
+        </span>
+      </div>
+    </div>
+
+    <canvas id="game" width="960" height="600"></canvas>
+
+    <div id="overlay" class="hidden"></div>
+
+    <div id="dossier" class="modal hidden">
+      <div class="content">
+        <h2>MISSION DOSSIER</h2>
+
+        <p>Game instructions will go here.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="error" class="aborted-wrapper hidden">
+    <img src="/images/agent-thwarted.png" width="1022" height="412" alt="Mission Aborted!" class="aborted-bg">
+
+    <div id="message" class="aborted-container"></div>
+  </div>
+
+  <div id="unsupported" class="aborted-wrapper hidden">
+    <img src="/images/agent-thwarted.png" width="1022" height="412" alt="Mission Aborted!" class="aborted-bg">
+
+    <div class="aborted-container">
+      <p>Mission Aborted!</p>
+      <p>Mission stopped due to following reasons:</p>
+
+      <ul></ul>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="aborted-wrapper">
+      <img src="/images/agent-thwarted.png" width="1022" height="412" alt="Mission Aborted!" class="aborted-bg">
+
+      <div class="aborted-container">
+        <p>Mission Aborted!</p>
+        <p>You need JavaScript to accept the mission.</p>
+      </div>
+    </div>
+  </noscript>
+</body>
+</html>
