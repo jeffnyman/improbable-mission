@@ -1,8 +1,10 @@
 import { audio } from "./components/audio";
+import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
 import { PocketComputer } from "./components/pocketComputer";
 
 export class Game {
+  private agent: Agent = new Agent();
   private elevator: Elevator = new Elevator();
   private pocketComputer: PocketComputer = new PocketComputer();
 
@@ -24,6 +26,7 @@ export class Game {
   animateElevator() {
     this.elevator.animationRoutine();
     this.pocketComputer.animationRoutine();
+    this.agent.animationRoutine();
   }
 
   isPaused(): boolean {
