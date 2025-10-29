@@ -34,7 +34,7 @@ export class Game {
   generateRooms() {
     for (let i = 1; i <= 32; i++) {
       this.rooms[i] = new Room(i);
-      this.rooms[i].init();
+      this.rooms[i].init(this.map.rooms);
     }
   }
 
