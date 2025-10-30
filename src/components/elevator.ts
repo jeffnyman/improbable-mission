@@ -3,6 +3,10 @@ import { keyboard } from "./keyboard";
 import { audio } from "./audio";
 
 export class Elevator {
+  // There are 8 elevators in the system. The player always
+  // starts in the first one.
+  private x = 1;
+
   // Elevator vertical top position. This is the scroll position
   // of the world. The borders, walls, and corridors will all be
   // drawn with offsets calculated from this value.
@@ -14,6 +18,13 @@ export class Elevator {
 
   // Set whether the elevator sound should play.
   private sound: boolean | undefined = false;
+
+  // Map rooms data from the game.
+  private mapRooms!: Record<string, number[]>;
+
+  init(mapRooms: Record<string, number[]>) {
+    this.mapRooms = mapRooms;
+  }
 
   scanRoutine() {
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
@@ -104,5 +115,22 @@ export class Elevator {
 
     // Bottom of elevator shaft, if elevator is at bottom.
     if (this.y > 2354) graphics.draw(708, 8, 64, 8, 128, 134 - (this.y - 2354));
+
+    // Draw corridors.
+    const leftRooms = this.mapRooms[this.x - 1];
+    const rightRooms = this.mapRooms[this.x];
+
+    // Iterate through rooms, column-major format.
+    for (let j = 0; j < 6; j++) {
+      // Draw the left corridors.
+      if (leftRooms[j] > 0) {
+        // NOTE: Requires checking layout for RIGHT doors.
+      }
+
+      // Draw the right corridors.
+      if (rightRooms[j] > 0) {
+        // NOTE: Requires checking layout for LEFT doors.
+      }
+    }
   }
 }

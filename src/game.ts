@@ -28,6 +28,7 @@ export class Game {
     console.log(`Game.mapId: ${this.mapId}`); // REMOVE
     console.log(`Game.map: ${JSON.stringify(this.map)}`); // REMOVE
 
+    this.elevator.init(this.map.rooms);
     this.generateRooms();
   }
 
