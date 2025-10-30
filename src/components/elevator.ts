@@ -158,6 +158,11 @@ export class Elevator {
           // of the room that the corridor leads to.
           const roomColor = getRoomColor(roomId).bg;
           graphics.rect(0, 208 - offset, 136, 40, roomColor);
+
+          // Draw the wall lines.
+          for (let k = 0; k < 4; k++) {
+            graphics.rect(k * 32 + 22, 208 - offset, 2, 40, 12);
+          }
         }
       }
 
@@ -191,6 +196,11 @@ export class Elevator {
           // of the room that the corridor leads to.
           const roomColor = getRoomColor(roomId).bg;
           graphics.rect(184, 208 - offset, 136, 40, roomColor);
+
+          // Draw the wall lines.
+          for (let m = 0; m < 4; m++) {
+            graphics.rect(m * 32 + 200, 208 - offset, 2, 40, 12);
+          }
         }
       }
     }
