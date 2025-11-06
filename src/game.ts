@@ -26,10 +26,12 @@ export class Game {
     this.map = maps[this.mapId];
 
     console.log(`Game.mapId: ${this.mapId}`); // REMOVE
-    console.log(`Game.map: ${JSON.stringify(this.map)}`); // REMOVE
+    console.log(`Game.map.rooms: ${JSON.stringify(this.map.rooms)}`); // REMOVE
 
     this.elevator.init(this.map.rooms);
     this.generateRooms();
+
+    this.printRoomsByFloor(); // DEBUGGING
   }
 
   generateRooms() {
@@ -77,5 +79,31 @@ export class Game {
     }
 
     return status;
+  }
+
+  printRoomsByFloor() {
+    const byFloor: Record<number, Room[]> = {};
+
+    for (const roomId in this.rooms) {
+      const room = this.rooms[roomId];
+      // @ts-expect-error - Debug method, types not critical
+      if (!byFloor[room.floorLevel]) byFloor[room.floorLevel] = [];
+      // @ts-expect-error - Debug method, types not critical
+      byFloor[room.floorLevel].push(room);
+    }
+
+    console.log("\n=== ROOMS BY FLOOR ===");
+
+    Object.keys(byFloor)
+      .sort((a, b) => Number(a) - Number(b))
+      .forEach((floor) => {
+        console.log(`\nFloor ${floor}:`);
+        // @ts-expect-error - Debug method, types not critical
+        byFloor[floor].forEach((room) => {
+          console.log(
+            `  Room ${room.roomId}: ElevL=${room.elevatorLeft}, ElevR=${room.elevatorRight}`,
+          );
+        });
+      });
   }
 }
