@@ -29,6 +29,7 @@ export class Game {
     console.log(`Game.map.rooms: ${JSON.stringify(this.map.rooms)}`); // REMOVE
 
     this.elevator.init(this.map.rooms);
+    this.pocketComputer.init(this.map.rooms);
     this.generateRooms();
 
     this.printRoomsByFloor(); // DEBUGGING
