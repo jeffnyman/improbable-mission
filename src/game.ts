@@ -56,6 +56,14 @@ export class Game {
       const level = Math.floor(pos.y / 216 / 2);
       this.pocketComputer.revealMapSection(pos.x, level);
     }
+
+    if (
+      !this.elevator.getCurrentDirection() &&
+      this.pocketComputer.getState() === "map"
+    ) {
+      const pcState = this.pocketComputer.getState();
+      this.agent.scanRoutine(this.scene, pcState);
+    }
   }
 
   animateElevator() {

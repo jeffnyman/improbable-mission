@@ -32,6 +32,10 @@ export class Elevator {
     this.mapRooms = mapRooms;
   }
 
+  getCurrentDirection() {
+    return this.d;
+  }
+
   getCurrentPosition(): { x: number; y: number } {
     return { x: this.x, y: this.y };
   }

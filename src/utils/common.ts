@@ -1,5 +1,6 @@
 class CommonUtils {
   private animationFrameCounter = 0;
+  private scanFrameCounter = 0;
 
   setAnimationFrameCounter(counter: number) {
     this.animationFrameCounter = counter;
@@ -7,6 +8,14 @@ class CommonUtils {
 
   getAFC() {
     return this.animationFrameCounter;
+  }
+
+  setScanFrameCounter(counter: number) {
+    this.scanFrameCounter = counter;
+  }
+
+  getSFC() {
+    return this.scanFrameCounter;
   }
 
   setInterfaceText(id: string, text: string) {

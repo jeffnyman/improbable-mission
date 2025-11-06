@@ -32,6 +32,10 @@ export class PocketComputer {
     this.rooms = rooms;
   }
 
+  getState() {
+    return this.state;
+  }
+
   revealMapSection(elevatorNum: number, level: number) {
     this.revealedMap[elevatorNum][level] = 1;
   }

@@ -99,8 +99,8 @@ export class Engine {
   }
 
   scanRoutine() {
-    // CHECK: What am I going to use this for?
     this.scanFrameCounter++;
+    utils.setScanFrameCounter(this.scanFrameCounter);
 
     // Empty the audio request queue.
     audio.emptyRequestQueue();

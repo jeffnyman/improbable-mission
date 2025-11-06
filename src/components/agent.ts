@@ -1,4 +1,5 @@
 import { graphics } from "../utils/graphics";
+import { utils } from "../utils/common";
 
 interface AnimationFrame {
   x: number;
@@ -34,6 +35,19 @@ export class Agent {
         stand: [{ x: 35, y: 503 }],
       },
     };
+  }
+
+  scanElevatorScene(pocketComputerState: string) {
+    if (utils.getSFC() % 2) return;
+    if (pocketComputerState !== "map") return;
+
+    // NEXT UP: Add logic for moving the agent.
+  }
+
+  scanRoutine(scene: string, pocketComputerState: string) {
+    if (scene === "elevator") {
+      this.scanElevatorScene(pocketComputerState);
+    }
   }
 
   animationRoutine() {
