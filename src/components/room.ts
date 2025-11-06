@@ -24,6 +24,10 @@ export class Room {
   // @ts-expect-error - currently used for debugging
   private rightDoorPosition = "";
 
+  // A room is revealed when the agent enters it.
+  // This acts as a flag for the pocket computer map.
+  private revealed = false;
+
   constructor(roomId: number) {
     this.roomId = roomId;
   }
@@ -64,5 +68,9 @@ export class Room {
 
   getFloorLevel() {
     return this.floorLevel;
+  }
+
+  isRevealed() {
+    return this.revealed;
   }
 }

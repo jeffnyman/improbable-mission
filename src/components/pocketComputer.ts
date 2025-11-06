@@ -1,5 +1,6 @@
 import { checkLayout } from "../utils/checkLayout";
 import { graphics } from "../utils/graphics";
+import { Room } from "./room";
 
 export class PocketComputer {
   // The pocket computer has three states: map, puzzles, phone.
@@ -15,6 +16,9 @@ export class PocketComputer {
   // Map rooms data from the game.
   private mapRooms!: Record<string, number[]>;
 
+  // Room instances from the game.
+  private rooms!: Record<number, Room>;
+
   constructor() {
     for (let i = 1; i <= 8; i++) {
       this.revealedMap[i] = [0, 0, 0, 0, 0, 0];
@@ -22,8 +26,9 @@ export class PocketComputer {
     }
   }
 
-  init(mapRooms: Record<string, number[]>) {
+  init(mapRooms: Record<string, number[]>, rooms: Record<number, Room>) {
     this.mapRooms = mapRooms;
+    this.rooms = rooms;
   }
 
   revealMapSection(elevatorNum: number, level: number) {
@@ -60,6 +65,14 @@ export class PocketComputer {
                 // Draw the right bottom corridor.
                 graphics.rect(80 + (i - 1) * 16, 141 + j * 8, 3, 1, 0);
               }
+
+              // Check if the room is revealed.
+              if (
+                checkLayout.hasRightDoor(leftRoomId) &&
+                this.rooms[leftRoomId].isRevealed()
+              ) {
+                graphics.rect(72 + (i - 1) * 16, 137 + j * 8, 8, 5, 0);
+              }
             }
 
             // Is there a right room?
@@ -72,6 +85,14 @@ export class PocketComputer {
               } else if (checkLayout.hasLeftDoor(rightRoomId) === 4) {
                 // Draw the left bottom corridor.
                 graphics.rect(85 + (i - 1) * 16, 141 + j * 8, 3, 1, 0);
+              }
+
+              // Check if the room is revealed.
+              if (
+                checkLayout.hasLeftDoor(rightRoomId) &&
+                this.rooms[rightRoomId].isRevealed()
+              ) {
+                graphics.rect(88 + (i - 1) * 16, 137 + j * 8, 8, 5, 0);
               }
             }
           }
