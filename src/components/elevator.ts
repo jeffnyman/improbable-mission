@@ -81,6 +81,23 @@ export class Elevator {
         audio.request({ name: "elevatorStop" });
       }
     }
+
+    // Stop at a corridor position.
+    if (this.y % 216 === 0 && this.d && !actionUp && !actionDown) {
+      if (
+        checkLayout.hasRightCorridor(this.x, this.y, this.mapRooms) ||
+        checkLayout.hasLeftCorridor(this.x, this.y, this.mapRooms)
+      ) {
+        this.d = "";
+
+        if (this.sound) {
+          audio.stopAllSounds();
+          this.sound = false;
+        }
+
+        audio.request({ name: "elevatorStop" });
+      }
+    }
   }
 
   animationRoutine() {
@@ -206,3 +223,29 @@ export class Elevator {
     }
   }
 }
+
+/*
+COLUMN-MAJOR FORMAT:
+
+0: [27, 0, 28, 10, 0, 11],
+E1
+1: [25, 18, 13, 29, 30, 0],
+2: [20, 2, 0, 0, 0, 0],
+3: [0, 0, 5, 14, 0, 0],
+4: [3, 4, 26, 21, 12, 6],
+5: [16, 19, 32, 0, 22, 7],
+6: [8, 0, 1, 23, 0, 24],
+7: [9, 0, 15, 0, 0, 17],
+8: [0, 0, 0, 0, 0, 31],
+
+
+ROW-MAJOR FORMAT:
+
+     E1
+0: 27  25  20   0   3  16   8   9   0
+1:  0  18   2   0   4  19   0   0   0
+2: 28  13   0   5  26  32   1  15   0
+3: 10  29   0  14  21   0  23   0   0
+4:  0  30   0   0  12  22   0   0   0
+5: 11   0   0   0   6   7  24  17  31
+*/
