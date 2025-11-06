@@ -48,6 +48,14 @@ export class Game {
 
   scanElevator() {
     this.elevator.scanRoutine();
+
+    // Reveal the map portion on the pocket computer. This will
+    // show the level of the elevator system.
+    const pos = this.elevator.getCurrentPosition();
+    if (pos.y % 216 === 0) {
+      const level = Math.floor(pos.y / 216 / 2);
+      this.pocketComputer.revealMapSection(pos.x, level);
+    }
   }
 
   animateElevator() {

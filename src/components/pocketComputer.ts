@@ -26,6 +26,10 @@ export class PocketComputer {
     this.mapRooms = mapRooms;
   }
 
+  revealMapSection(elevatorNum: number, level: number) {
+    this.revealedMap[elevatorNum][level] = 1;
+  }
+
   animationRoutine() {
     // Draw the full interface.
     graphics.draw(0, 200, 320, 80, 0, 120);

@@ -32,6 +32,10 @@ export class Elevator {
     this.mapRooms = mapRooms;
   }
 
+  getCurrentPosition(): { x: number; y: number } {
+    return { x: this.x, y: this.y };
+  }
+
   scanRoutine() {
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
