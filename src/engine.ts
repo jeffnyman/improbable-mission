@@ -59,8 +59,8 @@ export class Engine {
   }
 
   animationRoutine() {
-    // CHECK: What am I going to use this for?
     this.animationFrameCounter++;
+    utils.setAnimationFrameCounter(this.animationFrameCounter);
 
     switch (this.game.currentScene()) {
       case "elevator":

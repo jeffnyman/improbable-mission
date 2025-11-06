@@ -1,4 +1,14 @@
 class CommonUtils {
+  private animationFrameCounter = 0;
+
+  setAnimationFrameCounter(counter: number) {
+    this.animationFrameCounter = counter;
+  }
+
+  getAFC() {
+    return this.animationFrameCounter;
+  }
+
   setInterfaceText(id: string, text: string) {
     const el = document.getElementById(id);
     if (el) el.textContent = text;

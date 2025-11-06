@@ -60,7 +60,8 @@ export class Game {
 
   animateElevator() {
     this.elevator.animationRoutine();
-    this.pocketComputer.animationRoutine();
+    const elevatorPos = this.elevator.getCurrentPosition();
+    this.pocketComputer.animationRoutine(elevatorPos);
     this.agent.animationRoutine();
   }
 

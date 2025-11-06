@@ -1,5 +1,6 @@
 import { checkLayout } from "../utils/checkLayout";
 import { graphics } from "../utils/graphics";
+import { utils } from "../utils/common";
 import { Room } from "./room";
 
 export class PocketComputer {
@@ -35,7 +36,7 @@ export class PocketComputer {
     this.revealedMap[elevatorNum][level] = 1;
   }
 
-  animationRoutine() {
+  animationRoutine(elevatorPosition?: { x: number; y: number }) {
     // Draw the full interface.
     graphics.draw(0, 200, 320, 80, 0, 120);
 
@@ -97,6 +98,17 @@ export class PocketComputer {
             }
           }
         }
+      }
+
+      // Draw the elevator point.
+      if (elevatorPosition) {
+        graphics.rect(
+          83 + (elevatorPosition.x - 1) * 16,
+          136 + Math.floor(elevatorPosition.y / 53),
+          2,
+          3,
+          [0, 11, 12, 15, 1, 15, 12, 11][Math.floor((utils.getAFC() % 24) / 3)],
+        );
       }
     }
   }
