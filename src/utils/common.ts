@@ -1,3 +1,5 @@
+import { keyboard } from "../components/keyboard";
+
 class CommonUtils {
   private animationFrameCounter = 0;
   private scanFrameCounter = 0;
@@ -16,6 +18,14 @@ class CommonUtils {
 
   getSFC() {
     return this.scanFrameCounter;
+  }
+
+  fire() {
+    return keyboard.isKeyPressed(keyboard.keys.SHIFT);
+  }
+
+  holdFire() {
+    keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
   }
 
   setInterfaceText(id: string, text: string) {

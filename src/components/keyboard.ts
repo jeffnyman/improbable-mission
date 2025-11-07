@@ -1,9 +1,12 @@
 export class KeyboardManager {
-  private pressedKeys: Record<string, boolean> = {};
+  private pressedKeys: Record<string, boolean | string> = {};
 
   public keys = {
     UP: "ArrowUp",
     DOWN: "ArrowDown",
+    LEFT: "ArrowLeft",
+    RIGHT: "ArrowRight",
+    SHIFT: "ShiftLeft",
   };
 
   init() {
@@ -27,6 +30,10 @@ export class KeyboardManager {
     const code = e.code;
 
     this.pressedKeys[code] = false;
+  }
+
+  setKeyState(code: string, state: boolean | string) {
+    this.pressedKeys[code] = state;
   }
 }
 
