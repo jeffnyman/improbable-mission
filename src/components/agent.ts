@@ -1,6 +1,7 @@
 import { graphics } from "../utils/graphics";
 import { utils } from "../utils/common";
 import { keyboard } from "./keyboard";
+import { audio } from "./audio";
 
 interface AnimationFrame {
   x: number;
@@ -182,6 +183,10 @@ export class Agent {
 
             if (this.actionPhase === 14) this.actionPhase = 0;
 
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "stepLeft" });
+            }
+
             this.x -= 5;
           }
         }
@@ -206,6 +211,10 @@ export class Agent {
             this.actionPhase++;
 
             if (this.actionPhase == 14) this.actionPhase = 0;
+
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "stepRight" });
+            }
 
             this.x += 5;
           }

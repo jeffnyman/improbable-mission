@@ -28,7 +28,12 @@ export class GameAudio {
   private activeSounds: ActiveSound[] = [];
 
   init() {
-    this.resources = ["elevatorStart.ogg", "elevatorStop.ogg"];
+    this.resources = [
+      "elevatorStart.ogg",
+      "elevatorStop.ogg",
+      "stepLeft.ogg",
+      "stepRight.ogg",
+    ];
 
     try {
       this.context = new AudioContext();
