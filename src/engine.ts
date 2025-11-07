@@ -427,6 +427,19 @@ export class Engine {
     keyboard.init();
 
     document.addEventListener("keydown", (evt) => {
+      if (
+        evt.code === "F5" ||
+        (evt.ctrlKey && evt.code === "KeyR") ||
+        (evt.metaKey && evt.code === "KeyR")
+      ) {
+        evt.preventDefault();
+      }
+
+      if (evt.code === "F12") {
+        evt.preventDefault();
+        return;
+      }
+
       const overlay = document.getElementById("overlay");
 
       if (evt.code === "Escape" && !overlay?.classList.contains("hidden")) {
