@@ -66,6 +66,12 @@ export class Agent {
   private correctRun = [11, 12, 9, 7, 9, 17, 14, 12, 12, 9, 7, 9, 17, 12];
   private correctJump = [8, 8, 10, 11, 12, 12, 12, 7, 0, 2, 8, 5];
 
+  // This is a vertical offset adjustment applied when drawing
+  // the agent sprite. This allows for shifting the agent's
+  // rendering position up or down without changing the logical
+  // game position.
+  private correctY = 0;
+
   // Collision boundaries calculated each frame based on action and phase
   private minX = 0;
   private maxX = 0;
@@ -310,7 +316,7 @@ export class Agent {
       if (!directionAnim) return;
 
       const g = directionAnim["stand"][0];
-      graphics.draw(g.x, g.y, 35, 41, this.x, this.y);
+      graphics.draw(g.x, g.y, 35, 41, this.x, this.y + this.correctY);
     } else {
       const currentAction = this.action;
       const currentPhase = this.actionPhase;
@@ -322,7 +328,7 @@ export class Agent {
       if (!actionFrames || !actionFrames[currentPhase]) return;
 
       const g = actionFrames[currentPhase];
-      graphics.draw(g.x, g.y, 35, 41, this.x, this.y);
+      graphics.draw(g.x, g.y, 35, 41, this.x, this.y + this.correctY);
     }
 
     // Make sure the agent appears behind the elevator border.
@@ -335,5 +341,6 @@ export class Agent {
   stand() {
     this.action = "stand";
     this.actionPhase = 0;
+    this.correctY = 0;
   }
 }
