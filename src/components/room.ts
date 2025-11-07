@@ -36,6 +36,10 @@ export class Room {
     this.setupRoomConnections(mapRooms);
   }
 
+  setRevealed(value: boolean) {
+    this.revealed = value;
+  }
+
   setupRoomConnections(mapRooms: Record<string, number[]>) {
     for (let columnIndex = 0; columnIndex < 9; columnIndex++) {
       const column = mapRooms[columnIndex];

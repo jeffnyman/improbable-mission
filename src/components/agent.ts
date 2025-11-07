@@ -60,6 +60,12 @@ export class Agent {
   //   stand:0
   private actionPhase = 0;
 
+  // This holds the direction that the agent has entered the
+  // from from. This can be either left or right. An empty
+  // string means the value hasn't been set so no room
+  // direction has been set.
+  private roomEnterDirection = "";
+
   // The following are per-frame horizontal collision boundary
   // adjustments. These values are used to calculate dynamic
   // collision boundaries.
@@ -155,6 +161,24 @@ export class Agent {
 
   getCurrentState(): { x: number; y: number; action: string } {
     return { x: this.x, y: this.y, action: this.action };
+  }
+
+  setRoomEnterDirection(direction: string) {
+    this.roomEnterDirection = direction;
+  }
+
+  setStartPosition(roomId: number) {
+    if (this.roomEnterDirection === "right") {
+      this.x = 4;
+      this.direction = "right";
+      this.y = checkLayout.hasLeftDoor(roomId) == 1 ? 9 : 153;
+    } else {
+      this.x = 283;
+      this.direction = "left";
+      this.y = checkLayout.hasRightDoor(roomId) == 2 ? 9 : 153;
+    }
+
+    this.stand();
   }
 
   scanElevatorScene(

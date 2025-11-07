@@ -14,6 +14,12 @@ export class Game {
   private paused = false;
 
   private rooms: Record<number, Room> = {};
+
+  // These variables will hold the actual room ID as well
+  // the actual room object.
+  private roomId!: number;
+  private room!: Room;
+
   private mapId!: number;
   private map!: {
     rooms: Record<string, number[]>;
@@ -108,7 +114,19 @@ export class Game {
   }
 
   enterRoom(direction: string) {
-    console.log(direction);
+    this.agent.setRoomEnterDirection(direction);
+
+    const elevatorPos = this.elevator.getCurrentPosition();
+    const rooms = this.map.rooms[elevatorPos.x - (direction == "left" ? 1 : 0)];
+    const level = Math.floor(elevatorPos.y / 216 / 2);
+
+    this.roomId = rooms[level];
+    this.room = this.rooms[this.roomId];
+
+    this.agent.setStartPosition(this.roomId);
+
+    this.room.setRevealed(true);
+    this.scene = "room";
   }
 
   startTransition(cb: () => void) {
