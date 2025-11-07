@@ -20,8 +20,8 @@ type ActionType =
 
 interface DirectionAnimations {
   stand: AnimationFrame[];
-  run?: AnimationFrame[];
-  jump?: AnimationFrame[];
+  run: AnimationFrame[];
+  jump: AnimationFrame[];
   search?: AnimationFrame[];
   fall?: AnimationFrame[];
   lift?: AnimationFrame[];
@@ -31,7 +31,7 @@ interface DirectionAnimations {
 
 interface Animation {
   left: DirectionAnimations;
-  right?: DirectionAnimations;
+  right: DirectionAnimations;
 }
 
 export class Agent {
