@@ -76,7 +76,7 @@ export class Game {
     this.elevator.animationRoutine();
     const elevatorPos = this.elevator.getCurrentPosition();
     this.pocketComputer.animationRoutine(elevatorPos);
-    this.agent.animationRoutine();
+    this.agent.animationRoutine(this.scene);
   }
 
   isPaused(): boolean {
