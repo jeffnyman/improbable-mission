@@ -47,7 +47,10 @@ export class Game {
   }
 
   scanElevator() {
-    this.elevator.scanRoutine();
+    this.elevator.scanRoutine(
+      this.pocketComputer.getState(),
+      this.agent.getCurrentState(),
+    );
 
     // Reveal the map portion on the pocket computer. This will
     // show the level of the elevator system.

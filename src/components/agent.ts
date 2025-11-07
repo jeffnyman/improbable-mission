@@ -132,6 +132,14 @@ export class Agent {
     };
   }
 
+  getCurrentPosition(): { x: number; y: number } {
+    return { x: this.x, y: this.y };
+  }
+
+  getCurrentState(): { x: number; y: number; action: string } {
+    return { x: this.x, y: this.y, action: this.action };
+  }
+
   scanElevatorScene(pocketComputerState: string) {
     if (utils.getSFC() % 2) return;
     if (pocketComputerState !== "map") return;

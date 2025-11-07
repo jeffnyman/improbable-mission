@@ -40,18 +40,43 @@ export class Elevator {
     return { x: this.x, y: this.y };
   }
 
-  scanRoutine() {
+  scanRoutine(
+    pocketComputerState: string,
+    agent: { x: number; y: number; action: string },
+  ) {
+    if (pocketComputerState != "map") return;
+
+    // Assume the agent is not in the elevator unless their
+    // coordinates line up. Without this in place, the agent
+    // could move the elevator up or down without actually
+    // being in it!
+    let agentInElevator = false;
+
+    if (agent.x >= 129 && agent.x <= 156) {
+      agentInElevator = true;
+    }
+
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
     // Determine which direction elevator should begin moving.
-    if (actionDown && this.y < 2376) {
+    if (
+      agentInElevator &&
+      agent.action == "stand" &&
+      actionDown &&
+      this.y < 2376
+    ) {
       this.d = "down";
 
       if (!this.sound) {
         this.sound = audio.request({ name: "elevatorStart" });
       }
-    } else if (actionUp && this.y > 0) {
+    } else if (
+      agentInElevator &&
+      agent.action == "stand" &&
+      actionUp &&
+      this.y > 0
+    ) {
       this.d = "up";
 
       if (!this.sound) {
