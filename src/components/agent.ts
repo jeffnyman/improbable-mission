@@ -1,3 +1,4 @@
+import { checkLayout } from "../utils/checkLayout";
 import { graphics } from "../utils/graphics";
 import { utils } from "../utils/common";
 import { keyboard } from "./keyboard";
@@ -58,6 +59,16 @@ export class Agent {
   //   fall:0
   //   stand:0
   private actionPhase = 0;
+
+  // The following are per-frame horizontal collision boundary
+  // adjustments. These values are used to calculate dynamic
+  // collision boundaries.
+  private correctRun = [11, 12, 9, 7, 9, 17, 14, 12, 12, 9, 7, 9, 17, 12];
+  private correctJump = [8, 8, 10, 11, 12, 12, 12, 7, 0, 2, 8, 5];
+
+  // Collision boundaries calculated each frame based on action and phase
+  private minX = 0;
+  private maxX = 0;
 
   private animation: Animation;
 
@@ -140,7 +151,10 @@ export class Agent {
     return { x: this.x, y: this.y, action: this.action };
   }
 
-  scanElevatorScene(pocketComputerState: string) {
+  scanElevatorScene(
+    pocketComputerState: string,
+    elevator: { x: number; y: number; mapRooms: Record<string, number[]> },
+  ) {
     if (utils.getSFC() % 2) return;
     if (pocketComputerState !== "map") return;
 
@@ -242,11 +256,51 @@ export class Agent {
         this.stand();
       }
     }
+
+    // Handle collisions with the elevator border. If this is not
+    // done, the agent can run right through the elevator and into
+    // the walls!
+    if (this.action === "stand") {
+      // Default collision boundaries for standing.
+      this.maxX = 142 + 11;
+      this.minX = 143 - 11;
+    }
+
+    if (this.action === "run") {
+      this.maxX = 142 + this.correctRun[this.actionPhase];
+      this.minX = 143 - this.correctRun[this.actionPhase];
+    }
+
+    if (this.action == "jump") {
+      this.maxX = 142 + this.correctJump[this.actionPhase];
+      this.minX = 143 - this.correctJump[this.actionPhase];
+    }
+
+    // These lines implement context-aware collision boundaries
+    // that enforce the elevator shaft limits only when there
+    // isn't a corridor opening at the current position.
+    if (
+      this.x < this.minX &&
+      !checkLayout.hasLeftCorridor(elevator.x, elevator.y, elevator.mapRooms)
+    ) {
+      this.x = this.minX;
+    }
+
+    if (
+      this.x > this.maxX &&
+      !checkLayout.hasRightCorridor(elevator.x, elevator.y, elevator.mapRooms)
+    ) {
+      this.x = this.maxX;
+    }
   }
 
-  scanRoutine(scene: string, pocketComputerState: string) {
+  scanRoutine(
+    scene: string,
+    pocketComputerState: string,
+    elevator: { x: number; y: number; mapRooms: Record<string, number[]> },
+  ) {
     if (scene === "elevator") {
-      this.scanElevatorScene(pocketComputerState);
+      this.scanElevatorScene(pocketComputerState, elevator);
     }
   }
 

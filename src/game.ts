@@ -65,7 +65,10 @@ export class Game {
       this.pocketComputer.getState() === "map"
     ) {
       const pcState = this.pocketComputer.getState();
-      this.agent.scanRoutine(this.scene, pcState);
+      this.agent.scanRoutine(this.scene, pcState, {
+        ...this.elevator.getCurrentPosition(),
+        mapRooms: this.map.rooms,
+      });
     }
   }
 
