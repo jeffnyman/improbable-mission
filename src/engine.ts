@@ -67,6 +67,13 @@ export class Engine {
         this.game.animateElevator();
         break;
     }
+
+    // This handles the transition between elevator shafts
+    // and the rooms.
+    if (this.game.getTransitionState()) {
+      graphics.rect(0, 100, 320, -this.game.getTransitionHeight(), 0);
+      graphics.rect(0, 100, 320, +this.game.getTransitionHeight(), 0);
+    }
   }
 
   animate() {
