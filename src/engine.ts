@@ -105,10 +105,27 @@ export class Engine {
     // Empty the audio request queue.
     audio.emptyRequestQueue();
 
-    switch (this.game.currentScene()) {
-      case "elevator":
-        this.game.scanElevator();
-        break;
+    if (this.game.getTransitionState()) {
+      if (this.game.getTransitionState() == "closed") {
+        this.game.setTransitionHeight(this.game.getTransitionHeight() + 7);
+
+        if (this.game.getTransitionHeight() >= 120) {
+          this.game.setTransitionState("open");
+          this.game.transitionFunction?.();
+        }
+      } else if (this.game.getTransitionState() == "open") {
+        this.game.setTransitionHeight(this.game.getTransitionHeight() - 7);
+
+        if (this.game.getTransitionHeight() <= 0) {
+          this.game.setTransitionState(false);
+        }
+      }
+    } else {
+      switch (this.game.currentScene()) {
+        case "elevator":
+          this.game.scanElevator();
+          break;
+      }
     }
 
     audio.playQueue();

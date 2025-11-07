@@ -43,6 +43,7 @@ export class Elevator {
   scanRoutine(
     pocketComputerState: string,
     agent: { x: number; y: number; action: string },
+    onEnterRoom: (direction: string) => void,
   ) {
     if (pocketComputerState != "map") return;
 
@@ -54,6 +55,12 @@ export class Elevator {
 
     if (agent.x >= 129 && agent.x <= 156) {
       agentInElevator = true;
+    }
+
+    // Handle the agent entering the room.
+    if (agent.x <= -25 || agent.x >= 315) {
+      const direction = agent.x <= -25 ? "left" : "right";
+      onEnterRoom(direction);
     }
 
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);

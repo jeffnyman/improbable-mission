@@ -19,6 +19,13 @@ export class Game {
     rooms: Record<string, number[]>;
   };
 
+  // The screen transition can be false (not happening),
+  // "opening," or "closing." The transition height can
+  // be a value from 0 to 100.
+  private transitionState: false | "closed" | "open" = false;
+  private transitionHeight = 0;
+  public transitionFunction?: () => void;
+
   init() {
     this.scene = "elevator";
 
@@ -46,10 +53,31 @@ export class Game {
     return this.scene;
   }
 
+  getTransitionState() {
+    return this.transitionState;
+  }
+
+  setTransitionState(state: false | "closed" | "open") {
+    this.transitionState = state;
+  }
+
+  getTransitionHeight() {
+    return this.transitionHeight;
+  }
+
+  setTransitionHeight(height: number) {
+    this.transitionHeight = height;
+  }
+
   scanElevator() {
     this.elevator.scanRoutine(
       this.pocketComputer.getState(),
       this.agent.getCurrentState(),
+      (direction) => {
+        this.startTransition(() => {
+          this.enterRoom(direction);
+        });
+      },
     );
 
     // Reveal the map portion on the pocket computer. This will
@@ -77,6 +105,18 @@ export class Game {
     const elevatorPos = this.elevator.getCurrentPosition();
     this.pocketComputer.animationRoutine(elevatorPos);
     this.agent.animationRoutine(this.scene);
+  }
+
+  enterRoom(direction: string) {
+    console.log(direction);
+  }
+
+  startTransition(cb: () => void) {
+    this.transitionState = "closed";
+    this.transitionHeight = 0;
+    this.transitionFunction = () => {
+      cb();
+    };
   }
 
   isPaused(): boolean {
