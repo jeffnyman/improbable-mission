@@ -19,7 +19,17 @@ export class KeyboardManager {
   }
 
   handleKeyDown(e: KeyboardEvent) {
-    const code = e.code;
+    let code = e.code;
+
+    if (
+      code === "Space" ||
+      code === "ControlLeft" ||
+      code === "ControlRight" ||
+      code === "ShiftLeft" ||
+      code === "ShiftRight"
+    ) {
+      code = "ShiftLeft";
+    }
 
     if (!this.pressedKeys[code]) {
       this.pressedKeys[code] = true;
@@ -27,7 +37,17 @@ export class KeyboardManager {
   }
 
   handleKeyUp(e: KeyboardEvent) {
-    const code = e.code;
+    let code = e.code;
+
+    if (
+      code === "Space" ||
+      code === "ControlLeft" ||
+      code === "ControlRight" ||
+      code === "ShiftLeft" ||
+      code === "ShiftRight"
+    ) {
+      code = "ShiftLeft";
+    }
 
     this.pressedKeys[code] = false;
   }
