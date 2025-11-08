@@ -77,6 +77,7 @@ export class Game {
   }
 
   scanAnotherVisitor() {
+    this.pocketComputer.setVisibleState(true);
     this.scene = "elevator";
   }
 

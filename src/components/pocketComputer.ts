@@ -4,6 +4,10 @@ import { utils } from "../utils/common";
 import { Room } from "./room";
 
 export class PocketComputer {
+  // This is done because the pocket computer should not be shown
+  // during the "Another visitor" dialogue.
+  private visible = false;
+
   // The pocket computer has three states: map, puzzles, phone.
   private state = "map";
 
@@ -36,11 +40,17 @@ export class PocketComputer {
     return this.state;
   }
 
+  setVisibleState(value: boolean) {
+    this.visible = value;
+  }
+
   revealMapSection(elevatorNum: number, level: number) {
     this.revealedMap[elevatorNum][level] = 1;
   }
 
   animationRoutine(elevatorPosition?: { x: number; y: number }) {
+    if (!this.visible) return;
+
     // Draw the full interface.
     graphics.draw(0, 200, 320, 80, 0, 120);
 
