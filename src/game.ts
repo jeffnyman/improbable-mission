@@ -4,6 +4,7 @@ import { Room } from "./components/room";
 import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
 import { PocketComputer } from "./components/pocketComputer";
+import { checkLayout } from "./utils/checkLayout";
 
 export class Game {
   private agent: Agent = new Agent();
@@ -81,10 +82,20 @@ export class Game {
 
   scanRoom() {
     this.room.scanRoutine();
-    this.agent.scanRoutine(this.scene, this.pocketComputer.getState(), {
-      ...this.elevator.getCurrentPosition(),
-      mapRooms: this.map.rooms,
-    });
+    this.agent.scanRoutine(
+      this.scene,
+      this.pocketComputer.getState(),
+      {
+        ...this.elevator.getCurrentPosition(),
+        mapRooms: this.map.rooms,
+      },
+      this.roomId,
+      (direction) => {
+        this.startTransition(() => {
+          this.leaveRoom(direction);
+        });
+      },
+    );
   }
 
   scanElevator() {
@@ -128,6 +139,44 @@ export class Game {
     const elevatorPos = this.elevator.getCurrentPosition();
     this.pocketComputer.animationRoutine(elevatorPos);
     this.agent.animationRoutine(this.scene);
+  }
+
+  leaveRoom(direction: string) {
+    console.log(direction);
+
+    if (direction === "left") {
+      this.elevator.change(this.room.getElevatorLeft());
+      this.elevator.setY(
+        this.room.getFloorLevel() * 432 +
+          (checkLayout.hasLeftDoor(this.roomId) === 1 ? 0 : 216),
+      );
+
+      this.agent.setDirection("left");
+      this.agent.setX(300);
+      this.agent.setY(45);
+    }
+
+    if (direction === "right") {
+      this.elevator.change(this.room.getElevatorRight());
+      this.elevator.setY(
+        this.room.getFloorLevel() * 432 +
+          (checkLayout.hasRightDoor(this.roomId) === 2 ? 0 : 216),
+      );
+
+      this.agent.setDirection("right");
+      this.agent.setX(-16);
+      this.agent.setY(45);
+    }
+
+    // Reset the elevator direction to ensure it's stationary.
+    // Reset the elevator sound as well since the elevator
+    // should not be moving.
+    this.elevator.setDirection("");
+    this.elevator.setSound(false);
+
+    this.agent.stand();
+
+    this.scene = "elevator";
   }
 
   enterRoom(direction: string) {

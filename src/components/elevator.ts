@@ -40,6 +40,25 @@ export class Elevator {
     return { x: this.x, y: this.y };
   }
 
+  change(id: number) {
+    if (id === this.x) return;
+
+    // Set the elevator number.
+    this.x = id;
+  }
+
+  setY(y: number) {
+    this.y = y;
+  }
+
+  setDirection(direction: "" | "up" | "down") {
+    this.d = direction;
+  }
+
+  setSound(sound: boolean | undefined) {
+    this.sound = sound;
+  }
+
   scanRoutine(
     pocketComputerState: string,
     agent: { x: number; y: number; action: string },

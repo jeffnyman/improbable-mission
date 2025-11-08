@@ -13,9 +13,7 @@ export class Room {
   // These refer to the left and right side elevator numbers.
   // The values can run from 1 to 8. A value of 0 indicates
   // that there is no elevator to the left or right.
-  // @ts-expect-error - currently used for debugging
   private elevatorLeft = 0;
-  // @ts-expect-error - currently used for debugging
   private elevatorRight = 0;
 
   // These refer to the location of the door out of the room,
@@ -36,6 +34,18 @@ export class Room {
 
   init(mapRooms: Record<string, number[]>) {
     this.setupRoomConnections(mapRooms);
+  }
+
+  getElevatorLeft() {
+    return this.elevatorLeft;
+  }
+
+  getElevatorRight() {
+    return this.elevatorRight;
+  }
+
+  getFloorLevel() {
+    return this.floorLevel;
   }
 
   scanRoutine() {
@@ -104,10 +114,6 @@ export class Room {
         break;
       }
     }
-  }
-
-  getFloorLevel() {
-    return this.floorLevel;
   }
 
   isRevealed() {

@@ -167,6 +167,18 @@ export class Agent {
     this.roomEnterDirection = direction;
   }
 
+  setDirection(direction: "left" | "right") {
+    this.direction = direction;
+  }
+
+  setX(x: number) {
+    this.x = x;
+  }
+
+  setY(y: number) {
+    this.y = y;
+  }
+
   setStartPosition(roomId: number) {
     if (this.roomEnterDirection === "right") {
       this.x = 4;
@@ -324,7 +336,7 @@ export class Agent {
     }
   }
 
-  scanRoomScene() {
+  scanRoomScene(roomId: number, onLeaveRoom: (direction: string) => void) {
     if (utils.getSFC() % 2) return;
 
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
@@ -422,19 +434,32 @@ export class Agent {
       // Handle not moving at all?
       // I do this in the elevator. Mirror it here?
     }
+
+    // Handle the agent leaving the room.
+    if (checkLayout.hasLeftDoor(roomId) && this.x < -28) {
+      audio.stopAllSounds();
+      onLeaveRoom("left");
+    }
+
+    if (checkLayout.hasRightDoor(roomId) && this.x > 314) {
+      audio.stopAllSounds();
+      onLeaveRoom("right");
+    }
   }
 
   scanRoutine(
     scene: string,
     pocketComputerState: string,
     elevator: { x: number; y: number; mapRooms: Record<string, number[]> },
+    roomId?: number,
+    onLeaveRoom?: (direction: string) => void,
   ) {
     if (scene === "elevator") {
       this.scanElevatorScene(pocketComputerState, elevator);
     }
 
-    if (scene === "room") {
-      this.scanRoomScene();
+    if (scene === "room" && roomId !== undefined && onLeaveRoom) {
+      this.scanRoomScene(roomId, onLeaveRoom);
     }
   }
 
