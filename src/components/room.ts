@@ -49,6 +49,23 @@ export class Room {
       graphics.draw(344, 200, 8, 8, 0, 0 + i * 8);
       graphics.draw(352, 200, 8, 8, 312, 0 + i * 8);
     }
+
+    // Cut out the doors from the borders.
+    if (checkLayout.hasLeftDoor(this.roomId) === 1) {
+      graphics.rect(0, 8, 8, 40, bg);
+    }
+
+    if (checkLayout.hasLeftDoor(this.roomId) === 4) {
+      graphics.rect(0, 152, 8, 48, bg);
+    }
+
+    if (checkLayout.hasRightDoor(this.roomId) === 2) {
+      graphics.rect(312, 8, 8, 40, bg);
+    }
+
+    if (checkLayout.hasRightDoor(this.roomId) === 3) {
+      graphics.rect(312, 152, 8, 48, bg);
+    }
   }
 
   setRevealed(value: boolean) {
