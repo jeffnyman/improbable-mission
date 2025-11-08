@@ -66,7 +66,11 @@ export const roomDoors = [
   [3],
 ];
 
-export const roomColors = {
+interface RoomColor {
+  bg: number;
+}
+
+export const roomColors: Record<number, RoomColor> = {
   1: { bg: 5 },
   2: { bg: 7 },
   3: { bg: 5 },

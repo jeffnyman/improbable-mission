@@ -1,4 +1,6 @@
 import { checkLayout } from "../utils/checkLayout";
+import { roomColors } from "../data/layout";
+import { graphics } from "../utils/graphics";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -34,6 +36,13 @@ export class Room {
 
   init(mapRooms: Record<string, number[]>) {
     this.setupRoomConnections(mapRooms);
+  }
+
+  animationRoutine() {
+    const bg = roomColors[this.roomId].bg;
+
+    // Show the room background.
+    graphics.rect(0, 0, 320, 200, bg);
   }
 
   setRevealed(value: boolean) {

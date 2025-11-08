@@ -66,6 +66,9 @@ export class Engine {
       case "elevator":
         this.game.animateElevator();
         break;
+      case "room":
+        this.game.animateRoom();
+        break;
     }
 
     // This handles the transition between elevator shafts

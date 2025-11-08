@@ -106,6 +106,10 @@ export class Game {
     }
   }
 
+  animateRoom() {
+    this.room.animationRoutine();
+  }
+
   animateElevator() {
     this.elevator.animationRoutine();
     const elevatorPos = this.elevator.getCurrentPosition();
