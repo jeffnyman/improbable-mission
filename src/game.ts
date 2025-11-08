@@ -79,6 +79,14 @@ export class Game {
     this.scene = "elevator";
   }
 
+  scanRoom() {
+    this.room.scanRoutine();
+    this.agent.scanRoutine(this.scene, this.pocketComputer.getState(), {
+      ...this.elevator.getCurrentPosition(),
+      mapRooms: this.map.rooms,
+    });
+  }
+
   scanElevator() {
     this.elevator.scanRoutine(
       this.pocketComputer.getState(),

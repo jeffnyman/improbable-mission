@@ -324,6 +324,10 @@ export class Agent {
     }
   }
 
+  scanRoomScene() {
+    // LOGIC GOES HERE EVENTUALLY
+  }
+
   scanRoutine(
     scene: string,
     pocketComputerState: string,
@@ -331,6 +335,10 @@ export class Agent {
   ) {
     if (scene === "elevator") {
       this.scanElevatorScene(pocketComputerState, elevator);
+    }
+
+    if (scene === "room") {
+      this.scanRoomScene();
     }
   }
 

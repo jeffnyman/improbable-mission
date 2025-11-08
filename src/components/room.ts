@@ -38,6 +38,10 @@ export class Room {
     this.setupRoomConnections(mapRooms);
   }
 
+  scanRoutine() {
+    // LOGIC GOES HERE EVENTUALLY
+  }
+
   animationRoutine() {
     const bg = roomColors[this.roomId].bg;
 

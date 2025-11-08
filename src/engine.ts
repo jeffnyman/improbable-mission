@@ -139,6 +139,9 @@ export class Engine {
         case "elevator":
           this.game.scanElevator();
           break;
+        case "room":
+          this.game.scanRoom();
+          break;
       }
     }
 
