@@ -1,8 +1,10 @@
 import { checkLayout } from "../utils/checkLayout";
 import { roomColors } from "../data/layout";
+import { elevatorColors } from "../data/layout";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "./keyboard";
 import { audio } from "./audio";
+import { replaceColorsInRegions } from "../utils/sprites";
 
 function getRoomColor(roomId: number) {
   return (roomColors as Record<number, { bg: number }>)[roomId];
@@ -28,8 +30,24 @@ export class Elevator {
   // Map rooms data from the game.
   private mapRooms!: Record<string, number[]>;
 
-  init(mapRooms: Record<string, number[]>) {
+  // Sprite data for color manipulation.
+  private sprites!: Record<string, HTMLImageElement>;
+  private baseSpritePixels!: Uint8ClampedArray;
+  private spriteWidth!: number;
+  private spriteHeight!: number;
+
+  init(
+    mapRooms: Record<string, number[]>,
+    sprites: Record<string, HTMLImageElement>,
+    baseSpritePixels: Uint8ClampedArray,
+    spriteWidth: number,
+    spriteHeight: number,
+  ) {
     this.mapRooms = mapRooms;
+    this.sprites = sprites;
+    this.baseSpritePixels = baseSpritePixels;
+    this.spriteWidth = spriteWidth;
+    this.spriteHeight = spriteHeight;
   }
 
   getCurrentDirection() {
@@ -45,6 +63,25 @@ export class Elevator {
 
     // Set the elevator number.
     this.x = id;
+
+    const area = [
+      { x: 708, y: 0, w: 64, h: 112 },
+      { x: 164, y: 280, w: 136, h: 32 },
+    ];
+
+    const replace = {
+      2: elevatorColors[id].bo,
+      10: elevatorColors[id].bg,
+    };
+
+    replaceColorsInRegions(
+      this.sprites,
+      this.baseSpritePixels,
+      this.spriteWidth,
+      this.spriteHeight,
+      area,
+      replace,
+    );
   }
 
   setY(y: number) {

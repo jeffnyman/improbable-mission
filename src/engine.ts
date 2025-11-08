@@ -4,6 +4,7 @@ import { utils } from "./utils/common";
 import { graphics } from "./utils/graphics";
 import { palette } from "./data/palette";
 import { keyboard } from "./components/keyboard";
+import { replaceColorsInRegions } from "./utils/sprites";
 import type { ProgressCallback } from "./utils/types";
 import type { PaletteArray } from "./utils/types";
 import type { GameOptions } from "./utils/types";
@@ -46,10 +47,20 @@ export class Engine {
       throw error;
     }
 
-    this.game.init();
+    this.processSprites();
+
+    if (!this.baseSpritePixels) {
+      throw new Error("Base sprite pixels not initialized.");
+    }
+
+    this.game.init(
+      this.sprites,
+      this.baseSpritePixels,
+      this.spriteWidth,
+      this.spriteHeight,
+    );
 
     this.setupOptions();
-    this.processSprites();
     this.setupInterface();
     this.startProcessingLoop();
   }
@@ -316,6 +327,24 @@ export class Engine {
 
     this.sprites[name] = new Image();
     this.sprites[name].src = outputCanvas.toDataURL("image/png");
+  }
+
+  replaceColorsInRegions(
+    regions: { x: number; y: number; w: number; h: number }[],
+    colorReplacements: Record<number, number>,
+  ) {
+    if (!this.baseSpritePixels) {
+      throw new Error("Base sprite pixels not initialized.");
+    }
+
+    replaceColorsInRegions(
+      this.sprites,
+      this.baseSpritePixels,
+      this.spriteWidth,
+      this.spriteHeight,
+      regions,
+      colorReplacements,
+    );
   }
 
   setupOptions() {

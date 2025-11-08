@@ -1,4 +1,5 @@
 import { keyboard } from "../components/keyboard";
+import { palette } from "../data/palette";
 
 class CommonUtils {
   private animationFrameCounter = 0;
@@ -26,6 +27,19 @@ class CommonUtils {
 
   holdFire() {
     keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
+  }
+
+  getColorIndex(r: number, g: number, b: number): number | false {
+    for (let j = 0; j < palette.source.length; j++) {
+      const c = palette.source[j];
+      const sr = parseInt(c[0] + c[1], 16);
+      const sg = parseInt(c[2] + c[3], 16);
+      const sb = parseInt(c[4] + c[5], 16);
+
+      if (r == sr && g == sg && b == sb) return j;
+    }
+
+    return false;
   }
 
   setInterfaceText(id: string, text: string) {

@@ -33,7 +33,12 @@ export class Game {
   private transitionHeight = 0;
   public transitionFunction?: () => void;
 
-  init() {
+  init(
+    sprites: Record<string, HTMLImageElement>,
+    baseSpritePixels: Uint8ClampedArray,
+    spriteWidth: number,
+    spriteHeight: number,
+  ) {
     this.scene = "anotherVisitor";
 
     this.mapId = maps.length - 1;
@@ -42,7 +47,13 @@ export class Game {
     console.log(`Game.mapId: ${this.mapId}`); // REMOVE
     console.log(`Game.map.rooms: ${JSON.stringify(this.map.rooms)}`); // REMOVE
 
-    this.elevator.init(this.map.rooms);
+    this.elevator.init(
+      this.map.rooms,
+      sprites,
+      baseSpritePixels,
+      spriteWidth,
+      spriteHeight,
+    );
     this.generateRooms();
     this.pocketComputer.init(this.map.rooms, this.rooms);
 

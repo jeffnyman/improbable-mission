@@ -70,6 +70,11 @@ interface RoomColor {
   bg: number;
 }
 
+interface ElevatorColor {
+  bg: number;
+  bo: number;
+}
+
 export const roomColors: Record<number, RoomColor> = {
   1: { bg: 5 },
   2: { bg: 7 },
@@ -103,4 +108,15 @@ export const roomColors: Record<number, RoomColor> = {
   30: { bg: 5 },
   31: { bg: 3 },
   32: { bg: 7 },
+};
+
+export const elevatorColors: Record<number, ElevatorColor> = {
+  1: { bg: 10, bo: 2 },
+  2: { bg: 7, bo: 4 },
+  3: { bg: 15, bo: 12 },
+  4: { bg: 1, bo: 13 },
+  5: { bg: 13, bo: 5 },
+  6: { bg: 3, bo: 6 },
+  7: { bg: 9, bo: 8 },
+  8: { bg: 7, bo: 14 },
 };
