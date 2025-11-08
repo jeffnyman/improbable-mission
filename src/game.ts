@@ -120,6 +120,7 @@ export class Game {
 
   animateRoom() {
     this.room.animationRoutine();
+    this.agent.animationRoutine(this.scene);
   }
 
   animateElevator() {
