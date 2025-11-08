@@ -33,7 +33,7 @@ export class Game {
   public transitionFunction?: () => void;
 
   init() {
-    this.scene = "elevator";
+    this.scene = "anotherVisitor";
 
     this.mapId = maps.length - 1;
     this.map = maps[this.mapId];
@@ -73,6 +73,10 @@ export class Game {
 
   setTransitionHeight(height: number) {
     this.transitionHeight = height;
+  }
+
+  scanAnotherVisitor() {
+    this.scene = "elevator";
   }
 
   scanElevator() {

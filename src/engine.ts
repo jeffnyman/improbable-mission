@@ -63,6 +63,7 @@ export class Engine {
     utils.setAnimationFrameCounter(this.animationFrameCounter);
 
     switch (this.game.currentScene()) {
+      case "anotherVisitor":
       case "elevator":
         this.game.animateElevator();
         break;
@@ -132,6 +133,9 @@ export class Engine {
       }
     } else {
       switch (this.game.currentScene()) {
+        case "anotherVisitor":
+          this.game.scanAnotherVisitor();
+          break;
         case "elevator":
           this.game.scanElevator();
           break;
