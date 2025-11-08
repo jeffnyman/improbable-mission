@@ -43,6 +43,12 @@ export class Room {
 
     // Show the room background.
     graphics.rect(0, 0, 320, 200, bg);
+
+    // Draw the room borders.
+    for (let i = 0; i < 25; i++) {
+      graphics.draw(344, 200, 8, 8, 0, 0 + i * 8);
+      graphics.draw(352, 200, 8, 8, 312, 0 + i * 8);
+    }
   }
 
   setRevealed(value: boolean) {
