@@ -1,6 +1,7 @@
 import { checkLayout } from "../utils/checkLayout";
-import { roomColors } from "../data/layout";
+import { roomColors, roomPlatforms } from "../data/layout";
 import { graphics } from "../utils/graphics";
+import type { RoomPlatform } from "../utils/types";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -54,6 +55,9 @@ export class Room {
 
   animationRoutine() {
     const bg = roomColors[this.roomId].bg;
+    const platforms: RoomPlatform[] = (
+      roomPlatforms as Record<number, RoomPlatform[]>
+    )[this.roomId];
 
     // Show the room background.
     graphics.rect(0, 0, 320, 200, bg);
@@ -79,6 +83,25 @@ export class Room {
 
     if (checkLayout.hasRightDoor(this.roomId) === 3) {
       graphics.rect(312, 152, 8, 48, bg);
+    }
+
+    // Draw the platforms.
+    for (const platform of platforms) {
+      for (let segment = 0; segment < platform.l; segment++) {
+        let spriteX = 344;
+
+        if (platform.p && segment % 2) spriteX = 352;
+        if (!platform.p && !(segment % 2)) spriteX = 352;
+
+        graphics.draw(
+          spriteX,
+          208,
+          8,
+          8,
+          platform.x * 8 + segment * 8,
+          platform.y * 8,
+        );
+      }
     }
   }
 

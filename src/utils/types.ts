@@ -9,3 +9,10 @@ export interface GameOptions {
   palette: string;
   sound: string;
 }
+
+export interface RoomPlatform {
+  x: number;
+  y: number;
+  l: number;
+  p: number;
+}
