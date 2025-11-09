@@ -16,3 +16,8 @@ export interface RoomPlatform {
   l: number;
   p: number;
 }
+
+export interface InnerLiftData {
+  l: number;
+  s: number[];
+}

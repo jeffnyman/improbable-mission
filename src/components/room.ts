@@ -1,7 +1,8 @@
 import { checkLayout } from "../utils/checkLayout";
-import { roomColors, roomPlatforms } from "../data/layout";
+import { roomColors, roomPlatforms, innerLifts } from "../data/layout";
 import { graphics } from "../utils/graphics";
-import type { RoomPlatform } from "../utils/types";
+import type { RoomPlatform, InnerLiftData } from "../utils/types";
+import { InnerLift } from "./innerLift";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -29,12 +30,16 @@ export class Room {
   // This acts as a flag for the pocket computer map.
   private revealed = false;
 
+  // Holds all the inner lift objects for the room.
+  private liftGroups: InnerLift[] = [];
+
   constructor(roomId: number) {
     this.roomId = roomId;
   }
 
   init(mapRooms: Record<string, number[]>) {
     this.setupRoomConnections(mapRooms);
+    this.setupInnerLifts();
   }
 
   getElevatorLeft() {
@@ -103,10 +108,29 @@ export class Room {
         );
       }
     }
+
+    // Draw the inner lifts.
+    for (const lift of this.liftGroups) {
+      lift.animationRoutine();
+    }
   }
 
   setRevealed(value: boolean) {
     this.revealed = value;
+  }
+
+  setupInnerLifts() {
+    const lifts: InnerLiftData[] = (
+      innerLifts as Record<number, InnerLiftData[]>
+    )[this.roomId];
+
+    if (!lifts) return;
+
+    for (let i = 0; i < lifts.length; i++) {
+      const lift = lifts[i];
+      this.liftGroups[i] = new InnerLift(this.roomId, lift.l);
+      this.liftGroups[i].init(lift.s);
+    }
   }
 
   setupRoomConnections(mapRooms: Record<string, number[]>) {
