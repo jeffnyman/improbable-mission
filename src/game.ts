@@ -38,6 +38,8 @@ export class Game {
     baseSpritePixels: Uint8ClampedArray,
     spriteWidth: number,
     spriteHeight: number,
+    gameSprites: HTMLImageElement,
+    paletteName: string,
   ) {
     this.scene = "anotherVisitor";
 
@@ -54,16 +56,16 @@ export class Game {
       spriteWidth,
       spriteHeight,
     );
-    this.generateRooms();
+    this.generateRooms(gameSprites, paletteName);
     this.pocketComputer.init(this.map.rooms, this.rooms);
 
     this.printRoomsByFloor(); // DEBUGGING
   }
 
-  generateRooms() {
+  generateRooms(gameSprites: HTMLImageElement, paletteName: string) {
     for (let i = 1; i <= 32; i++) {
       this.rooms[i] = new Room(i);
-      this.rooms[i].init(this.map.rooms);
+      this.rooms[i].init(this.map.rooms, gameSprites, paletteName);
     }
   }
 

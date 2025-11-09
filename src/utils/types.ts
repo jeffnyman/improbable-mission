@@ -21,3 +21,18 @@ export interface InnerLiftData {
   l: number;
   s: number[];
 }
+
+export interface FurnitureItemData {
+  kind: string;
+  l: number;
+  b: number;
+}
+
+export interface FurnitureProperties {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  s: number;
+  r: Record<number, Record<number, number>>;
+}

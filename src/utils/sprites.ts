@@ -1,7 +1,22 @@
 import { palette } from "../data/palette";
 import { graphics } from "./graphics";
 import { utils } from "./common";
-import type { PaletteKey } from "./types";
+import type { PaletteKey, PaletteArray } from "./types";
+
+export function getActualPalette(paletteName: string): PaletteArray {
+  switch (paletteName) {
+    case "ccs64":
+      return palette.ccs64;
+    case "c64hq":
+      return palette.c64hq;
+    case "pc64":
+      return palette.pc64;
+    case "c64s":
+      return palette.c64s;
+    default:
+      return palette.vice;
+  }
+}
 
 export function replaceColorsInRegions(
   sprites: Record<string, HTMLImageElement>,

@@ -1,8 +1,18 @@
 import { checkLayout } from "../utils/checkLayout";
-import { roomColors, roomPlatforms, innerLifts } from "../data/layout";
+import {
+  roomColors,
+  roomPlatforms,
+  roomFurnitureItems,
+  innerLifts,
+} from "../data/layout";
 import { graphics } from "../utils/graphics";
-import type { RoomPlatform, InnerLiftData } from "../utils/types";
+import type {
+  RoomPlatform,
+  InnerLiftData,
+  FurnitureItemData,
+} from "../utils/types";
 import { InnerLift } from "./innerLift";
+import { Furniture } from "./furniture";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -33,13 +43,29 @@ export class Room {
   // Holds all the inner lift objects for the room.
   private liftGroups: InnerLift[] = [];
 
+  // Holds all the furniture objects for the room.
+  private furnitureItems: Furniture[] = [];
+
+  // Base sprite image for furniture rendering.
+  private gameSprites!: HTMLImageElement;
+
+  // Current palette name for color rendering.
+  private paletteName!: string;
+
   constructor(roomId: number) {
     this.roomId = roomId;
   }
 
-  init(mapRooms: Record<string, number[]>) {
+  init(
+    mapRooms: Record<string, number[]>,
+    gameSprites: HTMLImageElement,
+    paletteName: string,
+  ) {
+    this.gameSprites = gameSprites;
+    this.paletteName = paletteName;
     this.setupRoomConnections(mapRooms);
     this.setupInnerLifts();
+    this.setupFurnitureItems();
   }
 
   getElevatorLeft() {
@@ -113,10 +139,38 @@ export class Room {
     for (const lift of this.liftGroups) {
       lift.animationRoutine();
     }
+
+    // Draw the furniture items.
+    for (const furnitureItem of this.furnitureItems) {
+      furnitureItem.draw();
+    }
   }
 
   setRevealed(value: boolean) {
     this.revealed = value;
+  }
+
+  setupFurnitureItems() {
+    const items: FurnitureItemData[] = (
+      roomFurnitureItems as Record<number, FurnitureItemData[]>
+    )[this.roomId];
+
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      this.furnitureItems[i] = new Furniture(
+        this.roomId,
+        item.kind,
+        item.l,
+        item.b,
+        this.gameSprites,
+        this.paletteName,
+      );
+
+      this.furnitureItems[i].init();
+    }
   }
 
   setupInnerLifts() {

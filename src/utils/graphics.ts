@@ -41,6 +41,22 @@ class Graphics {
     );
   }
 
+  drawImage(
+    image: HTMLImageElement,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ) {
+    if (!this.ctx) throw new Error("Graphics not initialized.");
+
+    this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+
   fillStyle(colorIndex: number) {
     if (!this.ctx || !this.getColors)
       throw new Error("Graphics not initialized.");

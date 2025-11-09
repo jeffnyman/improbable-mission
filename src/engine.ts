@@ -49,7 +49,7 @@ export class Engine {
 
     this.processSprites();
 
-    if (!this.baseSpritePixels) {
+    if (!this.baseSpritePixels || !this.gameSprites) {
       throw new Error("Base sprite pixels not initialized.");
     }
 
@@ -58,6 +58,8 @@ export class Engine {
       this.baseSpritePixels,
       this.spriteWidth,
       this.spriteHeight,
+      this.gameSprites,
+      this.options.palette,
     );
 
     this.setupOptions();
