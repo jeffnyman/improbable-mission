@@ -1,7 +1,7 @@
 import { graphics } from "../utils/graphics";
 
 export class InnerLift {
-  // NOTE: Am I going to need this?
+  // @ts-expect-error - Am I going to need this?
   private roomId: number;
 
   // This is the left coordinate, from 0 to 39.
