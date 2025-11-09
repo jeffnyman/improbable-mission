@@ -6,6 +6,7 @@ import {
   roomTerminalItems,
   innerLifts,
   orbEnemies,
+  robotEnemies,
 } from "../data/layout";
 import { graphics } from "../utils/graphics";
 import type {
@@ -14,11 +15,13 @@ import type {
   FurnitureItemData,
   TerminalItemData,
   OrbEnemyData,
+  RobotEnemyData,
 } from "../utils/types";
 import { InnerLift } from "./innerLift";
 import { Furniture } from "./furniture";
 import { Terminal } from "./terminal";
 import { Orb } from "./orb";
+import { Robot } from "./robot";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -59,6 +62,9 @@ export class Room {
   // null if the room has no orb enemy.
   private orbEnemy: Orb | null = null;
 
+  // Holds all the robot enemies for the room.
+  private robotEnemies: Robot[] = [];
+
   // Base sprite image for furniture rendering.
   private gameSprites!: HTMLImageElement;
 
@@ -81,6 +87,7 @@ export class Room {
     this.setupFurnitureItems();
     this.setupTerminalItems();
     this.setupOrbEnemies();
+    this.setupRobotEnemies();
   }
 
   getElevatorLeft() {
@@ -169,10 +176,30 @@ export class Room {
     if (this.orbEnemy) {
       this.orbEnemy.animationRoutine();
     }
+
+    // Draw any robot enemies in the room.
+    for (const robot of this.robotEnemies) {
+      robot.animationRoutine();
+    }
   }
 
   setRevealed(value: boolean) {
     this.revealed = value;
+  }
+
+  setupRobotEnemies() {
+    const items: RobotEnemyData[] = (
+      robotEnemies as Record<number, RobotEnemyData[]>
+    )[this.roomId];
+
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      this.robotEnemies[i] = new Robot(this.roomId, item.l, item.b);
+      this.robotEnemies[i].init();
+    }
   }
 
   setupOrbEnemies() {

@@ -46,3 +46,8 @@ export interface OrbEnemyData {
   x: number;
   y: number;
 }
+
+export interface RobotEnemyData {
+  l: number;
+  b: number;
+}
