@@ -41,3 +41,8 @@ export interface TerminalItemData {
   l: number;
   b: number;
 }
+
+export interface OrbEnemyData {
+  x: number;
+  y: number;
+}

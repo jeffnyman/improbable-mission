@@ -1,48 +1,55 @@
-import { utils } from "../utils/common";
+import { orbEnemies } from "../data/layout";
 import { graphics } from "../utils/graphics";
-import { roomColors } from "../data/layout";
 import { getActualPalette } from "../utils/sprites";
+import { roomColors } from "../data/layout";
+import { utils } from "../utils/common";
+import type { OrbEnemyData } from "../utils/types";
 import type { RoomColor } from "../data/layout";
 
-export class Terminal {
+export class Orb {
   private roomId: number;
-  private left: number;
-  private bottom: number;
+  private x: number;
+  private y: number;
   private gameSprites: HTMLImageElement;
   private paletteName: string;
 
-  // Colored imageData for drawing the terminal.
+  // Colored imageData for drawing the orb.
   private imageData: HTMLImageElement | null = null;
 
   constructor(
     roomId: number,
-    l: number,
-    b: number,
     gameSprites: HTMLImageElement,
     paletteName: string,
   ) {
     this.roomId = roomId;
-    this.left = l;
-    this.bottom = b;
+
+    // x is the horizontal position (in pixels).
+    // y is the vertical position (in pixels).
+    this.x = -1;
+    this.y = -1;
+
     this.gameSprites = gameSprites;
     this.paletteName = paletteName;
   }
 
   init() {
+    const orbData = (orbEnemies as Record<number, OrbEnemyData>)[this.roomId];
+    this.x = orbData.x;
+    this.y = orbData.y;
     this.generateImage();
   }
 
   generateImage() {
     const canvas = document.createElement("canvas");
     canvas.width = 24;
-    canvas.height = 22;
+    canvas.height = 19;
 
     const context = graphics.getRenderingContext2D(canvas);
-    context.drawImage(this.gameSprites, 589, 544, 24, 22, 0, 0, 24, 22);
+    context.drawImage(this.gameSprites, 0, 581, 24, 19, 0, 0, 24, 19);
 
-    const baseSpriteData = context.getImageData(0, 0, 24, 22);
+    const baseSpriteData = context.getImageData(0, 0, 24, 19);
     const baseSpritePixels = baseSpriteData.data;
-    const newImageData = context.createImageData(24, 22);
+    const newImageData = context.createImageData(24, 19);
 
     const rcp = getActualPalette(this.paletteName);
     const roomColor = (roomColors as Record<number, RoomColor>)[this.roomId];
@@ -63,14 +70,10 @@ export class Terminal {
         continue;
       }
 
-      let rc;
-      if (colorIndex === 14 && roomColor.pg !== undefined) {
-        rc = rcp[roomColor.pg];
-      } else if (colorIndex === 1 && roomColor.ps !== undefined) {
-        rc = rcp[roomColor.ps];
-      } else {
-        rc = rcp[colorIndex];
-      }
+      const rc =
+        colorIndex === 1 && roomColor.pb !== undefined
+          ? rcp[roomColor.pb]
+          : rcp[colorIndex];
 
       newImageData.data[i] = parseInt(rc[0] + rc[1], 16);
       newImageData.data[i + 1] = parseInt(rc[2] + rc[3], 16);
@@ -80,7 +83,7 @@ export class Terminal {
 
     const tmpCanvas = document.createElement("canvas");
     tmpCanvas.width = 24;
-    tmpCanvas.height = 22;
+    tmpCanvas.height = 19;
 
     const tmpContext = graphics.getRenderingContext2D(tmpCanvas);
     tmpContext.putImageData(newImageData, 0, 0);
@@ -89,7 +92,9 @@ export class Terminal {
     this.imageData.src = tmpCanvas.toDataURL("image/png");
   }
 
-  draw() {
+  // NOTE: Should this just be draw() to be consistent with
+  // others, like furniture and terminal?
+  animationRoutine() {
     if (!this.imageData) return;
 
     graphics.drawImage(
@@ -97,11 +102,11 @@ export class Terminal {
       0,
       0,
       24,
-      22,
-      this.left * 8 * 3,
-      ((this.bottom + 1) * 8 - 22) * 3,
+      19,
+      this.x * 3,
+      this.y * 3,
       24 * 3,
-      22 * 3,
+      19 * 3,
     );
   }
 }

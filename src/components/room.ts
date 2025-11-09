@@ -5,6 +5,7 @@ import {
   roomFurnitureItems,
   roomTerminalItems,
   innerLifts,
+  orbEnemies,
 } from "../data/layout";
 import { graphics } from "../utils/graphics";
 import type {
@@ -12,10 +13,12 @@ import type {
   InnerLiftData,
   FurnitureItemData,
   TerminalItemData,
+  OrbEnemyData,
 } from "../utils/types";
 import { InnerLift } from "./innerLift";
 import { Furniture } from "./furniture";
 import { Terminal } from "./terminal";
+import { Orb } from "./orb";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -52,6 +55,10 @@ export class Room {
   // Holds all the terminal items for the room.
   private terminalItems: Terminal[] = [];
 
+  // Holds the orb enemy for the room. This can be
+  // null if the room has no orb enemy.
+  private orbEnemy: Orb | null = null;
+
   // Base sprite image for furniture rendering.
   private gameSprites!: HTMLImageElement;
 
@@ -73,6 +80,7 @@ export class Room {
     this.setupInnerLifts();
     this.setupFurnitureItems();
     this.setupTerminalItems();
+    this.setupOrbEnemies();
   }
 
   getElevatorLeft() {
@@ -156,10 +164,23 @@ export class Room {
     for (const terminalItem of this.terminalItems) {
       terminalItem.draw();
     }
+
+    // Draw the orb, if one exists for the room.
+    if (this.orbEnemy) {
+      this.orbEnemy.animationRoutine();
+    }
   }
 
   setRevealed(value: boolean) {
     this.revealed = value;
+  }
+
+  setupOrbEnemies() {
+    const orbData = (orbEnemies as Record<number, OrbEnemyData>)[this.roomId];
+    if (orbData) {
+      this.orbEnemy = new Orb(this.roomId, this.gameSprites, this.paletteName);
+      this.orbEnemy.init();
+    }
   }
 
   setupTerminalItems() {
