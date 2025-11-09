@@ -156,8 +156,6 @@ export class Game {
   }
 
   leaveRoom(direction: string) {
-    console.log(direction);
-
     if (direction === "left") {
       this.elevator.change(this.room.getElevatorLeft());
       this.elevator.setY(

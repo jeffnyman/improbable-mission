@@ -3,6 +3,7 @@ import {
   roomColors,
   roomPlatforms,
   roomFurnitureItems,
+  roomTerminalItems,
   innerLifts,
 } from "../data/layout";
 import { graphics } from "../utils/graphics";
@@ -10,9 +11,11 @@ import type {
   RoomPlatform,
   InnerLiftData,
   FurnitureItemData,
+  TerminalItemData,
 } from "../utils/types";
 import { InnerLift } from "./innerLift";
 import { Furniture } from "./furniture";
+import { Terminal } from "./terminal";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -46,6 +49,9 @@ export class Room {
   // Holds all the furniture objects for the room.
   private furnitureItems: Furniture[] = [];
 
+  // Holds all the terminal items for the room.
+  private terminalItems: Terminal[] = [];
+
   // Base sprite image for furniture rendering.
   private gameSprites!: HTMLImageElement;
 
@@ -66,6 +72,7 @@ export class Room {
     this.setupRoomConnections(mapRooms);
     this.setupInnerLifts();
     this.setupFurnitureItems();
+    this.setupTerminalItems();
   }
 
   getElevatorLeft() {
@@ -144,10 +151,37 @@ export class Room {
     for (const furnitureItem of this.furnitureItems) {
       furnitureItem.draw();
     }
+
+    // Draw the terminals.
+    for (const terminalItem of this.terminalItems) {
+      terminalItem.draw();
+    }
   }
 
   setRevealed(value: boolean) {
     this.revealed = value;
+  }
+
+  setupTerminalItems() {
+    const items: TerminalItemData[] = (
+      roomTerminalItems as Record<number, TerminalItemData[]>
+    )[this.roomId];
+
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      this.terminalItems[i] = new Terminal(
+        this.roomId,
+        item.l,
+        item.b,
+        this.gameSprites,
+        this.paletteName,
+      );
+
+      this.terminalItems[i].init();
+    }
   }
 
   setupFurnitureItems() {

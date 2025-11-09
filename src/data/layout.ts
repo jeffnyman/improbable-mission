@@ -66,8 +66,11 @@ export const roomDoors = [
   [3],
 ];
 
-interface RoomColor {
+export interface RoomColor {
   bg: number;
+  pb?: number;
+  pg?: number;
+  ps?: number;
 }
 
 interface ElevatorColor {
@@ -75,39 +78,43 @@ interface ElevatorColor {
   bo: number;
 }
 
+// bg: background
+// pb: platform border
+// pg: platform background
+// ps: platform surface
 export const roomColors: Record<number, RoomColor> = {
-  1: { bg: 5 },
-  2: { bg: 7 },
-  3: { bg: 5 },
-  4: { bg: 7 },
-  5: { bg: 3 },
-  6: { bg: 7 },
-  7: { bg: 5 },
-  8: { bg: 7 },
-  9: { bg: 5 },
-  10: { bg: 5 },
-  11: { bg: 7 },
-  12: { bg: 3 },
-  13: { bg: 3 },
-  14: { bg: 5 },
-  15: { bg: 3 },
-  16: { bg: 7 },
-  17: { bg: 3 },
-  18: { bg: 3 },
-  19: { bg: 3 },
-  20: { bg: 3 },
-  21: { bg: 5 },
-  22: { bg: 3 },
-  23: { bg: 5 },
-  24: { bg: 7 },
-  25: { bg: 3 },
-  26: { bg: 3 },
-  27: { bg: 3 },
-  28: { bg: 5 },
-  29: { bg: 7 },
-  30: { bg: 5 },
-  31: { bg: 3 },
-  32: { bg: 7 },
+  1: { bg: 5, pb: 7, pg: 14, ps: 1 },
+  2: { bg: 7, pb: 2, pg: 8, ps: 1 },
+  3: { bg: 5, pb: 1, pg: 12, ps: 7 },
+  4: { bg: 7, pb: 3, pg: 14, ps: 1 },
+  5: { bg: 3, pb: 4, pg: 14, ps: 1 },
+  6: { bg: 7, pb: 2, pg: 10, ps: 8 },
+  7: { bg: 5, pb: 6, pg: 14, ps: 15 },
+  8: { bg: 7, pb: 6, pg: 14, ps: 1 },
+  9: { bg: 5, pb: 7, pg: 9, ps: 15 },
+  10: { bg: 5, pb: 6, pg: 14, ps: 1 },
+  11: { bg: 7, pb: 3, pg: 12, ps: 1 },
+  12: { bg: 3, pb: 4, pg: 10, ps: 1 },
+  13: { bg: 3, pb: 7, pg: 9, ps: 1 },
+  14: { bg: 5, pb: 3, pg: 14, ps: 1 },
+  15: { bg: 3, pb: 7, pg: 14, ps: 1 },
+  16: { bg: 7, pb: 4, pg: 2, ps: 15 },
+  17: { bg: 3, pb: 7, pg: 9, ps: 14 },
+  18: { bg: 3, pb: 0, pg: 12, ps: 14 },
+  19: { bg: 3, pb: 2, pg: 8, ps: 1 },
+  20: { bg: 3, pb: 7, pg: 9, ps: 1 },
+  21: { bg: 5, pb: 6, pg: 15, ps: 1 },
+  22: { bg: 3, pb: 7, pg: 8, ps: 1 },
+  23: { bg: 5, pb: 7, pg: 2, ps: 12 },
+  24: { bg: 7, pb: 0, pg: 2, ps: 12 },
+  25: { bg: 3, pb: 4, pg: 14, ps: 1 },
+  26: { bg: 3, pb: 1, pg: 5, ps: 13 },
+  27: { bg: 3, pb: 1, pg: 9, ps: 15 },
+  28: { bg: 5, pb: 3, pg: 14, ps: 1 },
+  29: { bg: 7, pb: 2, pg: 10, ps: 1 },
+  30: { bg: 5, pb: 6, pg: 14, ps: 13 },
+  31: { bg: 3, pb: 6, pg: 12, ps: 14 },
+  32: { bg: 7, pb: 6, pg: 12, ps: 14 },
 };
 
 // Elevator color schemes for each of the 8 elevator shafts.
@@ -1022,4 +1029,79 @@ export const furnitureProperties = {
     s: 26,
     r: { 17: { 12: 14 }, 25: { 12: 1 }, 30: { 12: 13 } },
   },
+};
+
+export const roomTerminalItems = {
+  1: [
+    { l: 10, b: 11 },
+    { l: 32, b: 23 },
+  ],
+  2: [
+    { l: 32, b: 5 },
+    { l: 1, b: 23 },
+  ],
+  3: [{ l: 34, b: 23 }],
+  4: [{ l: 2, b: 5 }],
+  5: [
+    { l: 33, b: 5 },
+    { l: 7, b: 23 },
+  ],
+  6: [{ l: 3, b: 5 }],
+  7: [{ l: 8, b: 23 }],
+  8: [
+    { l: 25, b: 5 },
+    { l: 22, b: 23 },
+  ],
+  9: [{ l: 5, b: 23 }],
+  10: [
+    { l: 34, b: 5 },
+    { l: 18, b: 23 },
+    { l: 29, b: 23 },
+  ],
+  11: [{ l: 32, b: 23 }],
+  12: [
+    { l: 10, b: 11 },
+    { l: 5, b: 23 },
+  ],
+  13: [
+    { l: 1, b: 5 },
+    { l: 35, b: 23 },
+  ],
+  14: [{ l: 5, b: 23 }],
+  15: [
+    { l: 14, b: 5 },
+    { l: 31, b: 23 },
+  ],
+  16: [{ l: 6, b: 23 }],
+  17: [
+    { l: 5, b: 5 },
+    { l: 32, b: 23 },
+  ],
+  18: [{ l: 1, b: 5 }],
+  19: [{ l: 7, b: 23 }],
+  20: [{ l: 11, b: 5 }],
+  21: [
+    { l: 5, b: 5 },
+    { l: 10, b: 23 },
+  ],
+  22: [
+    { l: 2, b: 5 },
+    { l: 35, b: 23 },
+  ],
+  23: [
+    { l: 3, b: 5 },
+    { l: 7, b: 23 },
+  ],
+  24: [{ l: 25, b: 23 }],
+  25: [{ l: 6, b: 23 }],
+  26: [{ l: 7, b: 5 }],
+  27: [{ l: 32, b: 23 }],
+  28: [{ l: 35, b: 5 }],
+  29: [{ l: 13, b: 23 }],
+  30: [
+    { l: 2, b: 23 },
+    { l: 35, b: 23 },
+  ],
+  31: [],
+  32: [],
 };

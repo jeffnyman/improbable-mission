@@ -36,3 +36,8 @@ export interface FurnitureProperties {
   s: number;
   r: Record<number, Record<number, number>>;
 }
+
+export interface TerminalItemData {
+  l: number;
+  b: number;
+}
