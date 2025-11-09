@@ -110,6 +110,9 @@ export const roomColors: Record<number, RoomColor> = {
   32: { bg: 7 },
 };
 
+// Elevator color schemes for each of the 8 elevator shafts.
+// bg: Background color index
+// bo: Border color index
 export const elevatorColors: Record<number, ElevatorColor> = {
   1: { bg: 10, bo: 2 },
   2: { bg: 7, bo: 4 },
@@ -121,6 +124,10 @@ export const elevatorColors: Record<number, ElevatorColor> = {
   8: { bg: 7, bo: 14 },
 };
 
+// Platform definitions for each room.
+// x, y: Position in grid coordinates (multiply by 8 for pixels)
+// l: Length in segments (how many 8x8 tiles)
+// p: Pattern (0 or 1, determines alternating sprite tiles)
 export const roomPlatforms = {
   1: [
     { x: 4, y: 6, l: 15, p: 1 },
@@ -560,6 +567,10 @@ export const roomPlatforms = {
   32: [{ x: 1, y: 24, l: 39, p: 0 }],
 };
 
+// Inner lift definitions for each room.
+// l: Left coordinate (0-39, horizontal position)
+// s: Stations (vertical positions where lifts can stop;
+// negative values indicate starting positions without a lift)
 export const innerLifts = {
   1: [
     { l: 1, s: [6, 12, -18, -24] },
