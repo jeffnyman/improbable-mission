@@ -33,5 +33,13 @@
     "email": "jeffnyman@gmail.com",
     "url": "https://github.com/jeffnyman/improbable-mission/issues"
   },
-  "homepage": "https://jeffnyman.github.io/improbable-mission"
+  "homepage": "https://jeffnyman.github.io/improbable-mission",
+  "scripts": {
+    "dev": "vite --host --open",
+    "build": "vite build",
+    "preview": "vite preview --host --open"
+  },
+  "devDependencies": {
+    "vite": "^7.2.4"
+  }
 }
