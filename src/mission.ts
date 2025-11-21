@@ -1,4 +1,4 @@
-console.log("Mission Improbable");
+console.log(import.meta.env.VITE_APP_TITLE);
 
 document.documentElement.classList.replace("no-js", "js");
 
