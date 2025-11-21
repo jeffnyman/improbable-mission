@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
+import webfontDownload from "vite-plugin-webfont-dl";
 
 export default defineConfig({
   base: "/improbable-mission/",
@@ -21,5 +22,15 @@ export default defineConfig({
         lintCommand: 'stylelint "styles/**/*.css"',
       },
     }),
+
+    webfontDownload(
+      [
+        "https://fonts.googleapis.com/css2?family=Sixtyfour:SCAN@18&display=swap",
+      ],
+      {
+        throwError: true,
+        assetsSubfolder: "fonts",
+      },
+    ),
   ],
 });
