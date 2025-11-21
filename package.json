@@ -40,6 +40,8 @@
     "preview": "vite preview --host --open",
     "check": "tsc --noEmit && eslint . && stylelint ./**/*.css && prettier . --check",
     "fix": "eslint --fix . && stylelint ./**/*.css --fix && prettier . --write",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -52,11 +54,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@release-it/conventional-changelog": "^10.0.2",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "3.6.2",
+    "release-it": "^19.0.6",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
     "typescript": "^5.9.3",
