@@ -38,11 +38,8 @@
     "dev": "vite --host --open",
     "build": "tsc && vite build",
     "preview": "vite preview --host --open",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier . --check",
-    "format:styles": "stylelint ./**/*.css --ignore-path .gitignore"
+    "check": "tsc --noEmit && eslint . && stylelint ./**/*.css && prettier . --check",
+    "fix": "eslint --fix . && stylelint ./**/*.css --fix && prettier . --write"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

@@ -3,6 +3,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ["stylelint-config-standard"],
+  ignoreFiles: ["**/node_modules/**", "**/dist/**"],
   rules: {
     "color-no-invalid-hex": true,
     "no-unknown-animations": true,
