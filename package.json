@@ -39,12 +39,23 @@
     "build": "tsc && vite build",
     "preview": "vite preview --host --open",
     "check": "tsc --noEmit && eslint . && stylelint ./**/*.css && prettier . --check",
-    "fix": "eslint --fix . && stylelint ./**/*.css --fix && prettier . --write"
+    "fix": "eslint --fix . && stylelint ./**/*.css --fix && prettier . --write",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{ts,js}": [
+      "eslint --quiet --max-warnings=0 --fix --cache --cache-location .eslintcache"
+    ],
+    "**/*.{css,md,json}": [
+      "prettier --write --ignore-unknown"
+    ]
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "3.6.2",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
