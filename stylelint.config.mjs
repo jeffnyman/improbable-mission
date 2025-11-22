@@ -5,6 +5,9 @@ export default {
   extends: ["stylelint-config-standard"],
   ignoreFiles: ["**/node_modules/**", "**/dist/**"],
   rules: {
+    // Disabled: triggers false positives on conditional classes
+    "no-descending-specificity": null,
+
     "color-no-invalid-hex": true,
     "no-unknown-animations": true,
     "no-unknown-custom-media": true,

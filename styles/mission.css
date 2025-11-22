@@ -18,6 +18,14 @@ html {
   background-color: hsl(0deg 0% 0% / 100%);
 }
 
+html.no-js {
+  background-color: hsl(34deg 44% 68%);
+
+  body {
+    background: transparent;
+  }
+}
+
 body {
   background-color: hsl(0deg 0% 0% / 100%);
   color: hsl(0deg 0% 100% / 100%);
