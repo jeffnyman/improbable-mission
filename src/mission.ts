@@ -24,4 +24,6 @@ function missionAccepted() {
 
   accept.removeEventListener("click", missionAccepted);
   mission.remove();
+
+  browser.requireElement("app").classList.remove("hidden");
 }
