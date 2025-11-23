@@ -1,6 +1,18 @@
 import agentThwartedImg from "/images/agent-thwarted.png";
 
 class Browser {
+  requireElement<T extends HTMLElement = HTMLElement>(id: string): T {
+    const el = document.getElementById(id);
+    const errorMessage = `Required element #${id} not found in DOM`;
+
+    if (!el) {
+      this.showError(errorMessage);
+      throw new Error(errorMessage);
+    }
+
+    return el as T;
+  }
+
   showError(message: string, listItems?: string[]) {
     document.body.style.backgroundColor = "hsl(34deg 44% 68%)";
 

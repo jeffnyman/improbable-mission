@@ -12,3 +12,6 @@ if (document.location.search) {
 browser.check();
 
 log("Browser ready; mission provided.");
+
+const mission = browser.requireElement("mission");
+mission.classList.remove("hidden");
