@@ -1,5 +1,6 @@
 import { log } from "./utils/logger";
 import { browser } from "./utils/browser";
+import { Engine } from "./engine";
 
 log(import.meta.env.VITE_APP_TITLE);
 
@@ -25,5 +26,5 @@ function missionAccepted() {
   accept.removeEventListener("click", missionAccepted);
   mission.remove();
 
-  browser.requireElement("app").classList.remove("hidden");
+  new Engine().init();
 }
