@@ -14,6 +14,7 @@ class Browser {
   }
 
   showError(message: string, listItems?: string[]) {
+    this.requireElement("app").classList.add("hidden");
     document.body.style.backgroundColor = "hsl(34deg 44% 68%)";
 
     const errorDiv = document.createElement("div");
