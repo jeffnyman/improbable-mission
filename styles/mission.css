@@ -49,6 +49,7 @@ body {
     color: hsl(211deg 100% 50%);
     letter-spacing: 0.2ch;
     word-spacing: 1ch;
+    cursor: pointer;
   }
 }
 
