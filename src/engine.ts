@@ -2,7 +2,7 @@ import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
-import { log } from "./utils/logger";
+import { logOnce } from "./utils/logger";
 
 export class Engine {
   private animationFrameTime = 0;
@@ -21,7 +21,7 @@ export class Engine {
   }
 
   private animationRoutine() {
-    log("In animation loop..."); // REMOVE
+    logOnce("In animation loop..."); // REMOVE
   }
 
   private animate() {
