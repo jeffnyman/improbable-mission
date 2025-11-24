@@ -2,9 +2,10 @@ import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
-import { logOnce } from "./utils/logger";
+import { Game } from "./game";
 
 export class Engine {
+  private game: Game = new Game();
   private animationFrameTime = 0;
   private readonly FRAME_INTERVAL = 30;
 
@@ -21,7 +22,7 @@ export class Engine {
   }
 
   private animationRoutine() {
-    logOnce("In animation loop..."); // REMOVE
+    this.game.updateAnimation();
   }
 
   private animate() {
