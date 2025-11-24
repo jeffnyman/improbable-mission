@@ -2,19 +2,22 @@ import { browser } from "../utils/browser";
 import { log } from "../utils/logger";
 
 class Sprites {
-  loadSprites() {
-    const spriteSheet = new Image();
+  async loadSprites() {
+    return new Promise<void>((resolve, reject) => {
+      const spriteSheet = new Image();
 
-    spriteSheet.onload = () => {
-      log(spriteSheet); // TEMPORARY
-    };
+      spriteSheet.onload = () => {
+        log(spriteSheet); // TEMPORARY
+        resolve();
+      };
 
-    spriteSheet.onerror = () => {
-      browser.showError("Unable to load sprite sheet.");
-      throw new Error("Unable to load sprite sheet.");
-    };
+      spriteSheet.onerror = () => {
+        browser.showError("Unable to load sprite sheet.");
+        reject(new Error("Unable to load sprite sheet."));
+      };
 
-    spriteSheet.src = `${import.meta.env.BASE_URL}images/sprites.png`;
+      spriteSheet.src = `${import.meta.env.BASE_URL}images/sprites.png`;
+    });
   }
 }
 

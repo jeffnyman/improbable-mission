@@ -4,8 +4,8 @@ import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 
 export class Engine {
-  init() {
-    sprites.loadSprites();
+  async init() {
+    await sprites.loadSprites();
 
     graphics.init("game");
 
