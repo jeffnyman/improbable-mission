@@ -1,7 +1,8 @@
-import { logOnce } from "../utils/logger";
+import { graphics } from "../utils/graphics";
 
 export class Elevator {
   animationRoutine() {
-    logOnce("In animation loop..."); // REMOVE
+    // Draw the elevator shaft.
+    graphics.rect(128, 0, 64, 200);
   }
 }
