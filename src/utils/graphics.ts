@@ -4,11 +4,13 @@ import { sprites } from "../components/sprites";
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
+  private palette: string | null = null;
 
-  init(canvasId: string) {
+  init(canvasId: string, paletteName: string) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
+    this.palette = paletteName;
   }
 
   getCanvas(): HTMLCanvasElement {
@@ -30,14 +32,35 @@ class Graphics {
   }
 
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
-    if (!this.ctx) {
+    if (!this.ctx || !this.palette) {
       browser.showError("Graphics not initialized.");
       throw new Error("Graphics not initialized.");
     }
 
     const sprite = sprites.getGameSprites();
 
-    this.ctx.drawImage(sprite, sx, sy, sw, sh, dx * 3, dy * 3, sw * 3, sh * 3);
+    this.ctx.drawImage(
+      sprite[this.palette],
+      sx,
+      sy,
+      sw,
+      sh,
+      dx * 3,
+      dy * 3,
+      sw * 3,
+      sh * 3,
+    );
+  }
+
+  getRenderingContext2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+      browser.showError("Failed to get 2D rendering context.");
+      throw new Error("Failed to get 2D rendering context.");
+    }
+
+    return ctx;
   }
 
   private getCanvasById(id: string): HTMLCanvasElement {
@@ -49,19 +72,6 @@ class Graphics {
     }
 
     return element;
-  }
-
-  private getRenderingContext2D(
-    canvas: HTMLCanvasElement,
-  ): CanvasRenderingContext2D {
-    const ctx = canvas.getContext("2d");
-
-    if (!ctx) {
-      browser.showError("Failed to get 2D rendering context.");
-      throw new Error("Failed to get 2D rendering context.");
-    }
-
-    return ctx;
   }
 }
 

@@ -1,7 +1,11 @@
 import { browser } from "../utils/browser";
+import { graphics } from "../utils/graphics";
 
 class Sprites {
   private spriteSheet: HTMLImageElement | null = null;
+  private gameSprites: Record<string, HTMLImageElement> = {};
+  private spriteWidth = 0;
+  private spriteHeight = 0;
 
   async loadSprites() {
     return new Promise<void>((resolve, reject) => {
@@ -22,12 +26,41 @@ class Sprites {
   }
 
   getGameSprites() {
+    return this.gameSprites;
+  }
+
+  initializeSprites() {
     if (!this.spriteSheet) {
       browser.showError("Sprite sheet not loaded.");
       throw new Error("Sprite sheet not loaded.");
     }
 
-    return this.spriteSheet;
+    this.spriteWidth = this.spriteSheet.naturalWidth;
+    this.spriteHeight = this.spriteSheet.naturalHeight;
+
+    const baseSpriteCanvas = document.createElement("canvas");
+    baseSpriteCanvas.width = this.spriteWidth;
+    baseSpriteCanvas.height = this.spriteHeight;
+
+    const baseSpriteContext = graphics.getRenderingContext2D(baseSpriteCanvas);
+    baseSpriteContext.drawImage(this.spriteSheet, 0, 0);
+
+    const baseSpriteData = baseSpriteContext.getImageData(
+      0,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+    );
+
+    const outputCanvas = document.createElement("canvas");
+    outputCanvas.width = this.spriteWidth;
+    outputCanvas.height = this.spriteHeight;
+
+    const outputContext = graphics.getRenderingContext2D(outputCanvas);
+    outputContext.putImageData(baseSpriteData, 0, 0);
+
+    this.gameSprites["source"] = new Image();
+    this.gameSprites["source"].src = outputCanvas.toDataURL("image/png");
   }
 }
 

@@ -11,8 +11,9 @@ export class Engine {
 
   async init() {
     await sprites.loadSprites();
+    sprites.initializeSprites();
 
-    graphics.init("game");
+    graphics.init("game", "source");
 
     browser.requireElement("app").classList.remove("hidden");
 
