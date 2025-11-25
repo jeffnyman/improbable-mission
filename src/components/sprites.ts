@@ -9,6 +9,7 @@ class Sprites {
   private outputSpriteData: ImageData | null = null;
   private spriteWidth = 0;
   private spriteHeight = 0;
+  private parsedSourcePalette: number[][] = [];
 
   async loadSprites() {
     return new Promise<void>((resolve, reject) => {
@@ -37,6 +38,8 @@ class Sprites {
       browser.showError("Sprite sheet not loaded.");
       throw new Error("Sprite sheet not loaded.");
     }
+
+    this.parsePalette();
 
     this.spriteWidth = this.spriteSheet.naturalWidth;
     this.spriteHeight = this.spriteSheet.naturalHeight;
@@ -73,7 +76,13 @@ class Sprites {
       throw new Error("Sprite data is not initialized.");
     }
 
-    const newImageData = this.outputSpriteData;
+    // Generate a new image, so copy the blank ImageData structure
+    // to prevent mixing pixels from a previous palette iteration.
+    const newImageData = new ImageData(
+      this.outputSpriteData.data.slice(),
+      this.spriteWidth,
+      this.spriteHeight,
+    );
 
     // Iterate through every pixel in the sprite sheet
     // (RGBA = 4 bytes per pixel)
@@ -89,10 +98,8 @@ class Sprites {
 
       // Search through the 16-color source palette to find a match.
       for (let colorIndex = 0; colorIndex < 16; colorIndex++) {
-        const sourceColor = palette.source[colorIndex];
-        const sourceRed = parseInt(sourceColor[0] + sourceColor[1], 16);
-        const sourceGreen = parseInt(sourceColor[2] + sourceColor[3], 16);
-        const sourceBlue = parseInt(sourceColor[4] + sourceColor[5], 16);
+        const [sourceRed, sourceGreen, sourceBlue] =
+          this.parsedSourcePalette[colorIndex];
 
         // Check if current pixel matches this palette color.
         if (
@@ -105,17 +112,17 @@ class Sprites {
           const targetColor = targetPalette[colorIndex];
 
           newImageData.data[pixelIndex] = parseInt(
-            targetColor[0] + targetColor[1],
+            targetColor.substring(0, 2),
             16,
           );
 
           newImageData.data[pixelIndex + 1] = parseInt(
-            targetColor[2] + targetColor[3],
+            targetColor.substring(2, 4),
             16,
           );
 
           newImageData.data[pixelIndex + 2] = parseInt(
-            targetColor[4] + targetColor[5],
+            targetColor.substring(4, 6),
             16,
           );
 
@@ -138,6 +145,15 @@ class Sprites {
 
     this.gameSprites[name] = new Image();
     this.gameSprites[name].src = outputCanvas.toDataURL("image/png");
+  }
+
+  private parsePalette() {
+    this.parsedSourcePalette = palette.source.map((hexColor) => {
+      const red = parseInt(hexColor.substring(0, 2), 16);
+      const green = parseInt(hexColor.substring(2, 4), 16);
+      const blue = parseInt(hexColor.substring(4, 6), 16);
+      return [red, green, blue];
+    });
   }
 }
 
