@@ -1,7 +1,12 @@
-import { logOnce } from "./utils/logger";
+import { sceneManager } from "./components/sceneManager";
+import { Elevator } from "./components/elevator";
 
 export class Game {
+  private elevator: Elevator = new Elevator();
+
   updateAnimation() {
-    logOnce("In animation loop..."); // REMOVE
+    if (sceneManager.getScene() === "elevator") {
+      this.elevator.animationRoutine();
+    }
   }
 }
