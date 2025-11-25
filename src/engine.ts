@@ -13,7 +13,7 @@ export class Engine {
     await sprites.loadSprites();
     sprites.initializeSprites();
 
-    graphics.init("game", "source");
+    graphics.init("game", "vice");
 
     browser.requireElement("app").classList.remove("hidden");
 
