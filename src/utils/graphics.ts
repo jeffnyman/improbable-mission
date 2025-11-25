@@ -1,4 +1,5 @@
 import { browser } from "./browser";
+import { sprites } from "../components/sprites";
 
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
@@ -26,6 +27,17 @@ class Graphics {
     }
 
     this.ctx.fillRect(x * 3, y * 3, w * 3, h * 3);
+  }
+
+  draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
+    if (!this.ctx) {
+      browser.showError("Graphics not initialized.");
+      throw new Error("Graphics not initialized.");
+    }
+
+    const sprite = sprites.getGameSprites();
+
+    this.ctx.drawImage(sprite, sx, sy, sw, sh, dx * 3, dy * 3, sw * 3, sh * 3);
   }
 
   private getCanvasById(id: string): HTMLCanvasElement {

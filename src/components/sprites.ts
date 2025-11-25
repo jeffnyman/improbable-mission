@@ -1,13 +1,14 @@
 import { browser } from "../utils/browser";
-import { log } from "../utils/logger";
 
 class Sprites {
+  private spriteSheet: HTMLImageElement | null = null;
+
   async loadSprites() {
     return new Promise<void>((resolve, reject) => {
       const spriteSheet = new Image();
 
       spriteSheet.onload = () => {
-        log(spriteSheet); // TEMPORARY
+        this.spriteSheet = spriteSheet;
         resolve();
       };
 
@@ -18,6 +19,15 @@ class Sprites {
 
       spriteSheet.src = `${import.meta.env.BASE_URL}images/sprites.png`;
     });
+  }
+
+  getGameSprites() {
+    if (!this.spriteSheet) {
+      browser.showError("Sprite sheet not loaded.");
+      throw new Error("Sprite sheet not loaded.");
+    }
+
+    return this.spriteSheet;
   }
 }
 
