@@ -1,3 +1,6 @@
+import { browser } from "../utils/browser";
+import { palette } from "../data/palette";
+
 export class PaletteSelector {
   init() {
     this.setupPaletteItems();
@@ -12,9 +15,18 @@ export class PaletteSelector {
 
         if (!paletteChoice) return;
 
+        this.applyPalette(paletteChoice);
         this.setActiveItem(item);
       });
     });
+  }
+
+  private applyPalette(paletteName: string) {
+    const colors = (palette as Record<string, string[]>)[paletteName];
+
+    if (!colors) return;
+
+    browser.requireElement("app").style.background = "#" + colors[0];
   }
 
   private setActiveItem(itemClicked: HTMLElement) {
