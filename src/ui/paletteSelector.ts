@@ -1,10 +1,17 @@
 import { browser } from "../utils/browser";
 import { options } from "../utils/options";
 import { palette } from "../data/palette";
+import type { PaletteArray } from "../utils/types";
 
 export class PaletteSelector {
+  private gameColors: PaletteArray | null = null;
+
   init() {
     this.setupPaletteItems();
+  }
+
+  getGameColors() {
+    return this.gameColors;
   }
 
   private setupPaletteItems() {
@@ -37,7 +44,9 @@ export class PaletteSelector {
 
     if (!colors) return;
 
-    browser.requireElement("app").style.background = "#" + colors[0];
+    this.gameColors = colors;
+
+    browser.requireElement("app").style.background = "#" + this.gameColors[0];
   }
 
   private setActiveItem(itemClicked: HTMLElement) {

@@ -4,9 +4,11 @@ import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 import { PaletteSelector } from "./ui/paletteSelector";
 import { Game } from "./game";
+import { palette } from "./data/palette";
 
 export class Engine {
   private game: Game = new Game();
+  private paletteSelector: PaletteSelector = new PaletteSelector();
   private animationFrameTime = 0;
   private readonly FRAME_INTERVAL = 30;
 
@@ -14,14 +16,18 @@ export class Engine {
     await sprites.loadSprites();
     sprites.initializeSprites();
 
-    graphics.init("game", "vice");
+    graphics.init("game", () => this.currentGameColors(), "vice");
 
     browser.requireElement("app").classList.remove("hidden");
 
     new CanvasResizer().init();
-    new PaletteSelector().init();
+    this.paletteSelector.init();
 
     this.animate();
+  }
+
+  private currentGameColors(): string[] {
+    return this.paletteSelector.getGameColors() || palette.vice;
   }
 
   private animationRoutine() {

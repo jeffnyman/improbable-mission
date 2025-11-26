@@ -4,12 +4,14 @@ import { sprites } from "../components/sprites";
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
+  private getColors: (() => string[]) | null = null;
   private palette: string | null = null;
 
-  init(canvasId: string, paletteName: string) {
+  init(canvasId: string, colorGetter: () => string[], paletteName: string) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
+    this.getColors = colorGetter;
     this.palette = paletteName;
   }
 
@@ -23,11 +25,12 @@ class Graphics {
   }
 
   rect(x: number, y: number, w: number, h: number) {
-    if (!this.ctx) {
+    if (!this.ctx || !this.getColors) {
       browser.showError("Graphics not initialized.");
       throw new Error("Graphics not initialized.");
     }
 
+    this.ctx.fillStyle = "#" + this.getColors()[0];
     this.ctx.fillRect(x * 3, y * 3, w * 3, h * 3);
   }
 
