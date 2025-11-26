@@ -112,7 +112,6 @@ a {
     width: 320px;
     height: 200px;
     image-rendering: crisp-edges;
-    background-color: red; /* TEMPORARY */
   }
 }
 
