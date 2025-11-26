@@ -17,6 +17,10 @@ class Options {
     }
   }
 
+  getPaletteOption() {
+    return this.gameOptions.palette;
+  }
+
   setPaletteOption(targetPalette: string) {
     this.gameOptions.palette = targetPalette;
     localStorage.setItem("palette", targetPalette);

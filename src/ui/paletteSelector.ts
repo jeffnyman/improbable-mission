@@ -21,6 +21,15 @@ export class PaletteSelector {
         this.setActiveItem(item);
       });
     });
+
+    const paletteItem = document.querySelector(
+      `.palette[data-palette="${options.getPaletteOption()}"]`,
+    ) as HTMLElement;
+
+    if (paletteItem) {
+      this.applyPalette(options.getPaletteOption());
+      this.setActiveItem(paletteItem);
+    }
   }
 
   private applyPalette(paletteName: string) {
