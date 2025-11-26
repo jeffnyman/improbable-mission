@@ -24,13 +24,22 @@ class Graphics {
     return this.canvas;
   }
 
-  rect(x: number, y: number, w: number, h: number) {
+  fillStyle(colorIndex: number) {
     if (!this.ctx || !this.getColors) {
       browser.showError("Graphics not initialized.");
       throw new Error("Graphics not initialized.");
     }
 
-    this.ctx.fillStyle = "#" + this.getColors()[0];
+    this.ctx.fillStyle = "#" + this.getColors()[colorIndex];
+  }
+
+  rect(x: number, y: number, w: number, h: number, colorIndex: number) {
+    if (!this.ctx) {
+      browser.showError("Graphics not initialized.");
+      throw new Error("Graphics not initialized.");
+    }
+
+    this.fillStyle(colorIndex);
     this.ctx.fillRect(x * 3, y * 3, w * 3, h * 3);
   }
 
