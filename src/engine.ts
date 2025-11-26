@@ -1,5 +1,6 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
+import { options } from "./utils/options";
 import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 import { PaletteSelector } from "./ui/paletteSelector";
@@ -16,7 +17,11 @@ export class Engine {
     await sprites.loadSprites();
     sprites.initializeSprites();
 
-    graphics.init("game", () => this.currentGameColors(), "vice");
+    graphics.init(
+      "game",
+      () => this.currentGameColors(),
+      () => options.getPaletteOption(),
+    );
 
     browser.requireElement("app").classList.remove("hidden");
 

@@ -5,14 +5,18 @@ class Graphics {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private getColors: (() => string[]) | null = null;
-  private palette: string | null = null;
+  private getPaletteName: (() => string) | null = null;
 
-  init(canvasId: string, colorGetter: () => string[], paletteName: string) {
+  init(
+    canvasId: string,
+    colorGetter: () => string[],
+    paletteNameGetter: () => string,
+  ) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
     this.getColors = colorGetter;
-    this.palette = paletteName;
+    this.getPaletteName = paletteNameGetter;
   }
 
   getCanvas(): HTMLCanvasElement {
@@ -44,15 +48,16 @@ class Graphics {
   }
 
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
-    if (!this.ctx || !this.palette) {
+    if (!this.ctx || !this.getPaletteName) {
       browser.showError("Graphics not initialized.");
       throw new Error("Graphics not initialized.");
     }
 
     const sprite = sprites.getGameSprites();
+    const paletteName = this.getPaletteName();
 
     this.ctx.drawImage(
-      sprite[this.palette],
+      sprite[paletteName],
       sx,
       sy,
       sw,
