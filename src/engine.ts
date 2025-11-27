@@ -27,6 +27,7 @@ export class Engine {
 
     new CanvasResizer().init();
     this.paletteSelector.init();
+    this.setupInputHandling();
 
     this.animate();
   }
@@ -47,6 +48,18 @@ export class Engine {
       }
 
       this.animate();
+    });
+  }
+
+  private setupInputHandling() {
+    const app = browser.requireElement("app");
+
+    document.addEventListener("keydown", () => {
+      if (app) app.style.cursor = "none";
+    });
+
+    document.addEventListener("mousemove", () => {
+      if (app) app.style.cursor = "";
     });
   }
 }
