@@ -30,10 +30,21 @@ export class Engine {
     this.setupInputHandling();
 
     this.animate();
+    this.scan();
   }
 
   private currentGameColors(): string[] {
     return this.paletteSelector.getGameColors() || palette.vice;
+  }
+
+  private scanRoutine() {
+    this.game.updateScan();
+  }
+
+  private scan() {
+    setInterval(() => {
+      this.scanRoutine();
+    }, 27);
   }
 
   private animationRoutine() {
