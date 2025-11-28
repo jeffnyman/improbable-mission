@@ -21,6 +21,10 @@ export class GameAudio {
     return this.context;
   }
 
+  emptyRequestQueue() {
+    this.queue = [];
+  }
+
   request(audio: AudioRequest) {
     log(`Requesting: ${audio.name}`);
 
