@@ -9,7 +9,7 @@ export class GameAudio {
 
   constructor() {
     this.context = new AudioContext();
-    this.resources = [];
+    this.resources = ["elevatorStart.ogg", "elevatorStop.ogg"];
   }
 
   getContext() {
