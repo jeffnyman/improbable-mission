@@ -7,6 +7,10 @@ export class Game {
 
   updateScan() {
     logOnce("Scan routine on game...");
+
+    if (sceneManager.getScene() === "elevator") {
+      this.elevator.scanRoutine();
+    }
   }
 
   updateAnimation() {

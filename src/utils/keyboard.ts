@@ -1,7 +1,10 @@
 export class KeyboardManager {
   private pressedKeys: Record<string, boolean> = {};
 
-  public keys = {};
+  public keys = {
+    UP: "ArrowUp",
+    DOWN: "ArrowDown",
+  };
 
   constructor() {
     document.addEventListener("keydown", (e) => this.handleKeyDown(e));
