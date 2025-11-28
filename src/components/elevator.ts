@@ -1,3 +1,4 @@
+import { audio } from "./audio";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
 
@@ -11,6 +12,9 @@ export class Elevator {
   // An empty string means the elevator is not moving.
   private direction = "";
 
+  // Set whether the elevator sound should play.
+  private sound: boolean | undefined = false;
+
   scanRoutine() {
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
@@ -18,8 +22,16 @@ export class Elevator {
     // Determine which direction elevator should begin moving.
     if (actionDown && this.y < 2376) {
       this.direction = "down";
+
+      if (!this.sound) {
+        this.sound = audio.request({ name: "elevatorStart" });
+      }
     } else if (actionUp && this.y > 0) {
       this.direction = "up";
+
+      if (!this.sound) {
+        this.sound = audio.request({ name: "elevatorStart" });
+      }
     }
 
     // Move elevator up or down.
@@ -29,6 +41,11 @@ export class Elevator {
       if (this.y > 2376) {
         this.y = 2376;
         this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.request({ name: "elevatorStop" });
+        }
       }
     } else if (this.direction === "up") {
       this.y -= 8;
@@ -36,6 +53,11 @@ export class Elevator {
       if (this.y < 0) {
         this.y = 0;
         this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.request({ name: "elevatorStop" });
+        }
       }
     }
   }

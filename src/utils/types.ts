@@ -1,5 +1,9 @@
 import { palette } from "../data/palette";
 
+export interface AudioRequest {
+  name: string;
+}
+
 export interface GameOptions {
   palette: string;
 }

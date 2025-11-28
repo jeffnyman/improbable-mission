@@ -1,3 +1,4 @@
+import type { AudioRequest } from "../utils/types";
 import { log } from "../utils/logger";
 
 export class GameAudio {
@@ -7,6 +8,10 @@ export class GameAudio {
   // Holds the decoded and buffered sounds.
   private sounds: Record<string, AudioBuffer> = {};
 
+  // Hold requested sound effects in a given scan frame.
+  // This should be emptied before every frame.
+  private queue: AudioRequest[] = [];
+
   constructor() {
     this.context = new AudioContext();
     this.resources = ["elevatorStart.ogg", "elevatorStop.ogg"];
@@ -14,6 +19,20 @@ export class GameAudio {
 
   getContext() {
     return this.context;
+  }
+
+  request(audio: AudioRequest) {
+    log(`Requesting: ${audio.name}`);
+
+    if (!this.context) return;
+
+    for (const queuedAudio of this.queue) {
+      if (queuedAudio.name === audio.name) return;
+    }
+
+    this.queue.push(audio);
+
+    return true;
   }
 
   async loadSounds() {
