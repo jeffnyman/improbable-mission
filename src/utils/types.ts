@@ -4,6 +4,11 @@ export interface AudioRequest {
   name: string;
 }
 
+export interface ActiveSound {
+  name: string;
+  bufferSource: AudioBufferSourceNode | false;
+}
+
 export interface GameOptions {
   palette: string;
 }

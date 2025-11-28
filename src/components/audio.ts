@@ -1,4 +1,4 @@
-import type { AudioRequest } from "../utils/types";
+import type { AudioRequest, ActiveSound } from "../utils/types";
 import { log } from "../utils/logger";
 
 export class GameAudio {
@@ -12,6 +12,10 @@ export class GameAudio {
   // This should be emptied before every frame.
   private queue: AudioRequest[] = [];
 
+  // Buffer source objects of sounds that have been played.
+  // This needs to be stopped.
+  private activeSounds: ActiveSound[] = [];
+
   constructor() {
     this.context = new AudioContext();
     this.resources = ["elevatorStart.ogg", "elevatorStop.ogg"];
@@ -23,6 +27,34 @@ export class GameAudio {
 
   emptyRequestQueue() {
     this.queue = [];
+  }
+
+  playQueue() {
+    for (const req of this.queue) {
+      if (!req.name) continue;
+
+      this.activeSounds.push({
+        name: req.name,
+        bufferSource: this.play(req.name),
+      });
+    }
+  }
+
+  play(name: string): AudioBufferSourceNode | false {
+    let source: AudioBufferSourceNode | undefined;
+
+    if (this.context) {
+      source = this.context.createBufferSource();
+      source.buffer = this.sounds[name];
+      source.connect(this.context.destination);
+
+      const bufferSource = source;
+      bufferSource.start(0);
+
+      return bufferSource;
+    }
+
+    return false;
   }
 
   request(audio: AudioRequest) {
