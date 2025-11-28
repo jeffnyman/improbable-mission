@@ -1,6 +1,7 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { options } from "./utils/options";
+import { audio } from "./components/audio";
 import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 import { PaletteSelector } from "./ui/paletteSelector";
@@ -14,6 +15,7 @@ export class Engine {
   private readonly FRAME_INTERVAL = 30;
 
   async init() {
+    await audio.loadSounds();
     await sprites.loadSprites();
     sprites.initializeSprites();
 
