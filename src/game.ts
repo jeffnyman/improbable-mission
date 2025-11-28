@@ -1,9 +1,11 @@
 import { sceneManager } from "./components/sceneManager";
 import { Elevator } from "./components/elevator";
+import { PocketComputer } from "./components/pocketComputer";
 import { logOnce } from "./utils/logger";
 
 export class Game {
   private elevator: Elevator = new Elevator();
+  private pocketComputer: PocketComputer = new PocketComputer();
 
   updateScan() {
     logOnce("Scan routine on game...");
@@ -16,6 +18,7 @@ export class Game {
   updateAnimation() {
     if (sceneManager.getScene() === "elevator") {
       this.elevator.animationRoutine();
+      this.pocketComputer.animationRoutine();
     }
   }
 }
