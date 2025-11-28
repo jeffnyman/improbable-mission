@@ -72,5 +72,11 @@ export class Elevator {
 
     // Bottom right.
     graphics.draw(320, 0, 128, 200, 192, 200 - wallOffset);
+
+    // Top of elevator shaft, if elevator is at top.
+    if (this.y < 10) graphics.draw(708, 0, 64, 8, 128, 0 - this.y);
+
+    // Bottom of elevator shaft, if elevator is at bottom.
+    if (this.y > 2354) graphics.draw(708, 8, 64, 8, 128, 134 - (this.y - 2354));
   }
 }
