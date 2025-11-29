@@ -30,6 +30,10 @@ export class GameAudio {
   }
 
   playQueue() {
+    const soundSetting = localStorage.getItem("sound");
+
+    if (soundSetting === "off") return false;
+
     for (const req of this.queue) {
       if (!req.name) continue;
 
@@ -38,9 +42,15 @@ export class GameAudio {
         bufferSource: this.play(req.name),
       });
     }
+
+    return true;
   }
 
   play(name: string): AudioBufferSourceNode | false {
+    const soundSetting = localStorage.getItem("sound");
+
+    if (soundSetting === "off") return false;
+
     let source: AudioBufferSourceNode | undefined;
 
     if (this.context) {
