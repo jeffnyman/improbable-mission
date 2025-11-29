@@ -100,6 +100,22 @@ a {
       .palette {
         padding-right: 8px;
         border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          border-right: none;
+          padding-right: 0;
+        }
+      }
+
+      .sound-on,
+      .sound-off {
+        padding-right: 8px;
+        border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          border-right: none;
+          padding-right: 0;
+        }
       }
     }
   }
