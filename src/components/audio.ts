@@ -58,8 +58,6 @@ export class GameAudio {
   }
 
   request(audio: AudioRequest) {
-    log(`Requesting: ${audio.name}`);
-
     if (!this.context) return;
 
     for (const queuedAudio of this.queue) {
