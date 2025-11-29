@@ -5,12 +5,14 @@ import { audio } from "./components/audio";
 import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 import { PaletteSelector } from "./ui/paletteSelector";
+import { SoundSelector } from "./ui/soundSelector";
 import { Game } from "./game";
 import { palette } from "./data/palette";
 
 export class Engine {
   private game: Game = new Game();
   private paletteSelector: PaletteSelector = new PaletteSelector();
+  private soundSelector: SoundSelector = new SoundSelector();
   private animationFrameTime = 0;
   private readonly FRAME_INTERVAL = 30;
 
@@ -29,6 +31,7 @@ export class Engine {
 
     new CanvasResizer().init();
     this.paletteSelector.init();
+    this.soundSelector.init();
     this.setupInputHandling();
 
     this.animate();
