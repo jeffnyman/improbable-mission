@@ -44,6 +44,7 @@ export class Elevator {
 
         if (this.sound) {
           this.sound = false;
+          audio.stopAllSounds();
           audio.request({ name: "elevatorStop" });
         }
       }
@@ -56,6 +57,7 @@ export class Elevator {
 
         if (this.sound) {
           this.sound = false;
+          audio.stopAllSounds();
           audio.request({ name: "elevatorStop" });
         }
       }

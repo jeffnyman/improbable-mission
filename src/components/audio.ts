@@ -71,6 +71,19 @@ export class GameAudio {
     return true;
   }
 
+  stopAllSounds() {
+    if (!this.context) return;
+
+    for (const activeSound of this.activeSounds) {
+      if (activeSound.bufferSource) {
+        activeSound.bufferSource.stop(0);
+      }
+    }
+
+    this.queue = [];
+    this.activeSounds = [];
+  }
+
   async loadSounds() {
     for (const audioFile of this.resources) {
       try {
