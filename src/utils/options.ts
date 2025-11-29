@@ -36,6 +36,10 @@ class Options {
     return this.gameOptions.palette;
   }
 
+  getSoundOption() {
+    return this.gameOptions.sound;
+  }
+
   setPaletteOption(targetPalette: string) {
     this.gameOptions.palette = targetPalette;
     localStorage.setItem("palette", targetPalette);

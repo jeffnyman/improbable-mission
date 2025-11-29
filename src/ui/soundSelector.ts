@@ -22,6 +22,16 @@ export class SoundSelector {
         this.setActiveItem(item);
       });
     });
+
+    const soundState = options.getSoundOption();
+    const soundItem = document.querySelector(
+      `.sound-${soundState}`,
+    ) as HTMLElement;
+
+    if (soundItem) {
+      this.applySoundState(soundState);
+      this.setActiveItem(soundItem);
+    }
   }
 
   private applySoundState(state: string) {
