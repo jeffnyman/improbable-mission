@@ -1,8 +1,10 @@
 import type { GameOptions } from "./types";
+import { audio } from "../components/audio";
 
 class Options {
   private gameOptions: GameOptions = {
     palette: "vice",
+    sound: "on",
   };
 
   constructor() {
@@ -15,6 +17,19 @@ class Options {
     if (savedPalette) {
       this.gameOptions.palette = savedPalette;
     }
+
+    if (!audio.getContext()) {
+      localStorage.setItem("sound", "off");
+      this.gameOptions.sound = "off";
+    } else if (localStorage.getItem("sound") === null) {
+      localStorage.setItem("sound", "on");
+    }
+
+    const savedSound = localStorage.getItem("sound");
+
+    if (savedSound) {
+      this.gameOptions.sound = savedSound;
+    }
   }
 
   getPaletteOption() {
@@ -24,6 +39,11 @@ class Options {
   setPaletteOption(targetPalette: string) {
     this.gameOptions.palette = targetPalette;
     localStorage.setItem("palette", targetPalette);
+  }
+
+  setSoundOption(soundState: string) {
+    this.gameOptions.sound = soundState;
+    localStorage.setItem("sound", soundState);
   }
 }
 

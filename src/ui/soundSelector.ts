@@ -1,4 +1,5 @@
 import { audio } from "../components/audio";
+import { options } from "../utils/options";
 
 export class SoundSelector {
   init() {
@@ -16,6 +17,7 @@ export class SoundSelector {
 
         if (!soundState) return;
 
+        options.setSoundOption(soundState);
         this.applySoundState(soundState);
         this.setActiveItem(item);
       });

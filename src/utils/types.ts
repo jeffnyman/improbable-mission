@@ -11,6 +11,7 @@ export interface ActiveSound {
 
 export interface GameOptions {
   palette: string;
+  sound: string;
 }
 
 type PaletteKey = keyof typeof palette;
