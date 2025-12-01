@@ -1,14 +1,24 @@
+import { maps } from "./data/layout";
 import { audio } from "./components/audio";
 import { sceneManager } from "./components/sceneManager";
 import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
 import { PocketComputer } from "./components/pocketComputer";
+import { log } from "./utils/logger";
 
 export class Game {
   private agent: Agent = new Agent();
   private elevator: Elevator = new Elevator();
   private pocketComputer: PocketComputer = new PocketComputer();
   private paused = false;
+
+  init() {
+    const mapId = maps.length - 1;
+    const map = maps[mapId];
+
+    log(`Game.mapId: ${mapId}`); // REMOVE
+    log(`Game.map.rooms: ${JSON.stringify(map.rooms)}`); // REMOVE
+  }
 
   updateScan() {
     // Empty the audio request queue.

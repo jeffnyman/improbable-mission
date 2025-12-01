@@ -36,6 +36,8 @@ export class Engine {
     this.soundSelector.init();
     this.setupInputHandling();
 
+    this.game.init();
+
     this.animate();
     this.scan();
   }
