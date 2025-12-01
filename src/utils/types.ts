@@ -16,3 +16,21 @@ export interface GameOptions {
 
 type PaletteKey = keyof typeof palette;
 export type PaletteArray = (typeof palette)[PaletteKey];
+
+// Agent Types
+
+export type ActionType = "stand";
+
+interface AnimationFrame {
+  x: number;
+  y: number;
+}
+
+interface DirectionAnimations {
+  stand: AnimationFrame[];
+}
+
+export interface Animation {
+  left: DirectionAnimations;
+  right: DirectionAnimations;
+}
