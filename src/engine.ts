@@ -6,6 +6,7 @@ import { sprites } from "./components/sprites";
 import { CanvasResizer } from "./ui/canvasResizer";
 import { PaletteSelector } from "./ui/paletteSelector";
 import { SoundSelector } from "./ui/soundSelector";
+import { FullScreenSelector } from "./ui/fullScreenSelector";
 import { Game } from "./game";
 import { palette } from "./data/palette";
 
@@ -30,6 +31,7 @@ export class Engine {
     browser.requireElement("app").classList.remove("hidden");
 
     new CanvasResizer().init();
+    new FullScreenSelector().init();
     this.paletteSelector.init();
     this.soundSelector.init();
     this.setupInputHandling();
