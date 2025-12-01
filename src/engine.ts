@@ -48,6 +48,7 @@ export class Engine {
 
   private scan() {
     setInterval(() => {
+      if (this.game.isPaused()) return;
       this.scanRoutine();
     }, 27);
   }
@@ -59,6 +60,11 @@ export class Engine {
   private animate() {
     requestAnimationFrame((actualTime) => {
       if (actualTime - this.animationFrameTime > this.FRAME_INTERVAL) {
+        if (this.game.isPaused()) {
+          this.animate();
+          return;
+        }
+
         this.animationFrameTime = actualTime;
         this.animationRoutine();
       }
@@ -70,8 +76,12 @@ export class Engine {
   private setupInputHandling() {
     const app = browser.requireElement("app");
 
-    document.addEventListener("keydown", () => {
+    document.addEventListener("keydown", (evt) => {
       if (app) app.style.cursor = "none";
+
+      if (evt.code === "KeyP" || evt.code === "Pause") {
+        this.game.togglePause();
+      }
     });
 
     document.addEventListener("mousemove", () => {
