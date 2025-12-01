@@ -1,9 +1,11 @@
 import { audio } from "./components/audio";
 import { sceneManager } from "./components/sceneManager";
+import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
 import { PocketComputer } from "./components/pocketComputer";
 
 export class Game {
+  private agent: Agent = new Agent();
   private elevator: Elevator = new Elevator();
   private pocketComputer: PocketComputer = new PocketComputer();
   private paused = false;
@@ -23,6 +25,7 @@ export class Game {
     if (sceneManager.getScene() === "elevator") {
       this.elevator.animationRoutine();
       this.pocketComputer.animationRoutine();
+      this.agent.animationRoutine();
     }
   }
 
