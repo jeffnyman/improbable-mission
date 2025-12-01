@@ -3,6 +3,10 @@ import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
 
 export class Elevator {
+  // There are 8 elevators in the system. The player always
+  // starts in the first one.
+  private x = 1;
+
   // Elevator vertical top position. This is the scroll position
   // of the world. The borders, walls, and corridors will all be
   // drawn with offsets calculated from this value.
@@ -14,6 +18,15 @@ export class Elevator {
 
   // Set whether the elevator sound should play.
   private sound: boolean | undefined = false;
+
+  // Holds room data from the current layout map.
+  private rooms: Record<number, number[]> = {};
+
+  init(rooms: Record<number, number[]>) {
+    this.rooms = rooms;
+
+    console.log(this.rooms); // REMOVE
+  }
 
   scanRoutine() {
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
@@ -102,5 +115,31 @@ export class Elevator {
 
     // Bottom of elevator shaft, if elevator is at bottom.
     if (this.y > 2354) graphics.draw(708, 8, 64, 8, 128, 134 - (this.y - 2354));
+
+    // Draw corridors.
+    const leftRooms = this.rooms[this.x - 1];
+    const rightRooms = this.rooms[this.x];
+
+    console.log(`leftRooms: ${leftRooms}`);
+    console.log(`rightRooms: ${rightRooms}`);
+
+    // Iterate through rooms, column-major format.
+    for (let j = 0; j < 6; j++) {
+      // Draw the left corridors.
+      if (leftRooms[j] > 0) {
+        // This requires checking layout for RIGHT doors.
+        const roomId = leftRooms[j];
+
+        console.log(`leftRooms: roomId = ${roomId}`); // REMOVE
+      }
+
+      // Draw the right corridors.
+      if (rightRooms[j] > 0) {
+        // This requires checking layout for LEFT doors.
+        const roomId = rightRooms[j];
+
+        console.log(`rightRooms: roomId = ${roomId}`); // REMOVE
+      }
+    }
   }
 }

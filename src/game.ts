@@ -18,6 +18,8 @@ export class Game {
 
     log(`Game.mapId: ${mapId}`); // REMOVE
     log(`Game.map.rooms: ${JSON.stringify(map.rooms)}`); // REMOVE
+
+    this.elevator.init(map.rooms);
   }
 
   updateScan() {
