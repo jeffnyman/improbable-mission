@@ -34,3 +34,9 @@ export interface Animation {
   left: DirectionAnimations;
   right: DirectionAnimations;
 }
+
+// Layout Types
+
+export interface RoomColor {
+  bg: number;
+}

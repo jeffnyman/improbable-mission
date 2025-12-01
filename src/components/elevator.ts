@@ -2,6 +2,7 @@ import { audio } from "./audio";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
 import { checkLayout } from "../ui/checkLayout";
+import { roomColors } from "../data/layout";
 
 export class Elevator {
   // There are 8 elevators in the system. The player always
@@ -148,6 +149,16 @@ export class Elevator {
 
           // Draw floor border.
           graphics.draw(164, 288, 136, 8, 0, 256 - offset);
+
+          // Draw background color. This is based on the color
+          // of the room that the corridor leads to.
+          const roomColor = this.getRoomColor(roomId).bg;
+          graphics.rect(0, 208 - offset, 136, 40, roomColor);
+
+          // Draw the wall lines.
+          for (let k = 0; k < 4; k++) {
+            graphics.rect(k * 32 + 22, 208 - offset, 2, 40, 12);
+          }
         }
       }
 
@@ -176,8 +187,22 @@ export class Elevator {
 
           // Draw floor border.
           graphics.draw(164, 304, 136, 8, 184, 256 - offset);
+
+          // Draw background color. This is based on the color
+          // of the room that the corridor leads to.
+          const roomColor = this.getRoomColor(roomId).bg;
+          graphics.rect(184, 208 - offset, 136, 40, roomColor);
+
+          // Draw the wall lines.
+          for (let m = 0; m < 4; m++) {
+            graphics.rect(m * 32 + 200, 208 - offset, 2, 40, 12);
+          }
         }
       }
     }
+  }
+
+  private getRoomColor(roomId: number) {
+    return (roomColors as Record<number, { bg: number }>)[roomId];
   }
 }
