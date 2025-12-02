@@ -77,6 +77,22 @@ export class Elevator {
         }
       }
     }
+
+    // Stop at a corridor position.
+    if (this.y % 216 === 0 && this.direction && !actionUp && !actionDown) {
+      if (
+        checkLayout.hasRightCorridor(this.x, this.y, this.rooms) ||
+        checkLayout.hasLeftCorridor(this.x, this.y, this.rooms)
+      ) {
+        this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.stopAllSounds();
+          audio.request({ name: "elevatorStop" });
+        }
+      }
+    }
   }
 
   animationRoutine() {

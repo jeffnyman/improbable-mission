@@ -12,6 +12,68 @@ class CheckLayout {
     else if (roomDoors[roomId].indexOf(4) !== -1) return 4;
     return false;
   }
+
+  hasRightCorridor(
+    elevator: number,
+    position: number,
+    rooms: Record<number, number[]>,
+  ) {
+    if (position % 216 !== 0) return false;
+
+    const level = Math.floor(position / 216 / 2);
+    const doorLevel = (position / 216) % 2 ? "bottom" : "top";
+    const rightRooms = rooms[elevator];
+    let connects = false;
+
+    if (
+      rightRooms[level] > 0 &&
+      doorLevel === "top" &&
+      this.hasLeftDoor(rightRooms[level]) === 1
+    ) {
+      connects = true;
+    }
+
+    if (
+      rightRooms[level] > 0 &&
+      doorLevel === "bottom" &&
+      this.hasLeftDoor(rightRooms[level]) === 4
+    ) {
+      connects = true;
+    }
+
+    return connects;
+  }
+
+  hasLeftCorridor(
+    elevator: number,
+    position: number,
+    rooms: Record<number, number[]>,
+  ) {
+    if (position % 216 !== 0) return false;
+
+    const level = Math.floor(position / 216 / 2);
+    const doorLevel = (position / 216) % 2 ? "bottom" : "top";
+    const leftRooms = rooms[elevator - 1];
+    let connects = false;
+
+    if (
+      leftRooms[level] > 0 &&
+      doorLevel === "top" &&
+      this.hasRightDoor(leftRooms[level]) === 2
+    ) {
+      connects = true;
+    }
+
+    if (
+      leftRooms[level] > 0 &&
+      doorLevel === "bottom" &&
+      this.hasRightDoor(leftRooms[level]) === 3
+    ) {
+      connects = true;
+    }
+
+    return connects;
+  }
 }
 
 export const checkLayout: CheckLayout = new CheckLayout();
