@@ -28,6 +28,7 @@ export class Game {
 
     if (sceneManager.getScene() === "elevator") {
       this.elevator.scanRoutine();
+      this.agent.scanRoutine();
     }
 
     audio.playQueue();

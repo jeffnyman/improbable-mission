@@ -4,6 +4,8 @@ export class KeyboardManager {
   public keys = {
     UP: "ArrowUp",
     DOWN: "ArrowDown",
+    LEFT: "ArrowLeft",
+    RIGHT: "ArrowRight",
   };
 
   constructor() {
