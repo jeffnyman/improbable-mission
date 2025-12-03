@@ -112,7 +112,6 @@ export class Agent {
   animationRoutine() {
     if (this.action === "stand") {
       const directionAnim = this.animation[this.direction];
-
       if (!directionAnim) return;
 
       const agentImage = directionAnim["stand"][0];
@@ -120,7 +119,6 @@ export class Agent {
     } else {
       // Handle agent running.
       const directionAnim = this.animation[this.direction];
-
       if (!directionAnim) return;
 
       const actionFrames = directionAnim["run"];
@@ -129,5 +127,12 @@ export class Agent {
       const agentImage = actionFrames[this.actionPhase];
       graphics.draw(agentImage.x, agentImage.y, 35, 41, this.x, this.y);
     }
+
+    // Make sure the agent appears behind the elevator border.
+    // Left side.
+    graphics.draw(708, 55, 6, 50, 136, 39);
+
+    // Right side.
+    graphics.draw(750, 55, 6, 50, 178, 39);
   }
 }
