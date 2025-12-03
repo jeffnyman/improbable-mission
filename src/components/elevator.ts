@@ -30,6 +30,10 @@ export class Elevator {
     console.log(this.rooms); // REMOVE
   }
 
+  getCurrentPosition(): { x: number; y: number; rooms: Record<number, number[]> } {
+    return { x: this.x, y: this.y, rooms: this.rooms };
+  }
+
   scanRoutine(agentX: number) {
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent

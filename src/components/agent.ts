@@ -1,6 +1,7 @@
 import type { ActionType, Animation } from "../utils/types";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
+import { checkLayout } from "../ui/checkLayout";
 
 export class Agent {
   // The agent can be in various action states. These are:
@@ -20,6 +21,20 @@ export class Agent {
   // This refers to the direction the agent is looking in.
   // The values are left or right.
   private direction: "left" | "right" = "left";
+
+  // Horizontal collision radius for each of the 14 run animation
+  // frames. Each value represents the distance from the center
+  // point to the edge of the hitbox, adjusted to match the
+  // sprite's visual bounds per frame.
+  private runBoundaryAdjustments = [
+    11, 12, 9, 7, 9, 17, 14, 12, 12, 9, 7, 9, 17, 12,
+  ];
+
+  // Dynamic collision boundaries representing the leftmost (minX)
+  // and rightmost (maxX) positions the agent can occupy, calculated
+  // each frame based on the current action and animation phase.
+  private minX = 0;
+  private maxX = 0;
 
   private animation: Animation;
 
@@ -70,7 +85,11 @@ export class Agent {
     return this.x;
   }
 
-  scanRoutine() {
+  scanRoutine(elevator: {
+    x: number;
+    y: number;
+    rooms: Record<number, number[]>;
+  }) {
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
     const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);
 
@@ -115,6 +134,37 @@ export class Agent {
     // Handle not moving at all.
     if (!actionLeft && !actionRight) {
       this.stand();
+    }
+
+    // Handle collisions with the elevator border. If this is not
+    // done, the agent can run right through the elevator and into
+    // the walls!
+    if (this.action === "stand") {
+      // Default collision boundaries for standing.
+      this.maxX = 142 + 11;
+      this.minX = 143 - 11;
+    }
+
+    if (this.action === "run") {
+      this.maxX = 142 + this.runBoundaryAdjustments[this.actionPhase];
+      this.minX = 143 - this.runBoundaryAdjustments[this.actionPhase];
+    }
+
+    // These lines implement context-aware collision boundaries
+    // that enforce the elevator shaft limits only when there
+    // isn't a corridor opening at the current position.
+    if (
+      this.x < this.minX &&
+      !checkLayout.hasLeftCorridor(elevator.x, elevator.y, elevator.rooms)
+    ) {
+      this.x = this.minX;
+    }
+
+    if (
+      this.x > this.maxX &&
+      !checkLayout.hasRightCorridor(elevator.x, elevator.y, elevator.rooms)
+    ) {
+      this.x = this.maxX;
     }
   }
 
