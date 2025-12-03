@@ -30,18 +30,28 @@ export class Elevator {
     console.log(this.rooms); // REMOVE
   }
 
-  scanRoutine() {
+  scanRoutine(agentX: number) {
+    // Assume the agent is not in the elevator unless their
+    // coordinates line up. Without this in place, the agent
+    // could move the elevator up or down without actually
+    // being in it!
+    let agentInElevator = false;
+
+    if (agentX >= 129 && agentX <= 156) {
+      agentInElevator = true;
+    }
+
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
     // Determine which direction elevator should begin moving.
-    if (actionDown && this.y < 2376) {
+    if (agentInElevator && actionDown && this.y < 2376) {
       this.direction = "down";
 
       if (!this.sound) {
         this.sound = audio.request({ name: "elevatorStart" });
       }
-    } else if (actionUp && this.y > 0) {
+    } else if (agentInElevator && actionUp && this.y > 0) {
       this.direction = "up";
 
       if (!this.sound) {
