@@ -21,8 +21,8 @@ export class GameAudio {
     this.resources = [
       "elevatorStart.ogg",
       "elevatorStop.ogg",
-      "stepLeft.ogg",
-      "stepRight.ogg",
+      "runLeft.ogg",
+      "runRight.ogg",
     ];
   }
 

@@ -163,7 +163,7 @@ export class Agent {
             if (this.actionPhase === 14) this.actionPhase = 0;
 
             if (this.actionPhase === 5 || this.actionPhase === 12) {
-              audio.request({ name: "stepLeft" });
+              audio.request({ name: "runLeft" });
             }
 
             this.x -= 5;
@@ -192,7 +192,7 @@ export class Agent {
             if (this.actionPhase === 14) this.actionPhase = 0;
 
             if (this.actionPhase === 5 || this.actionPhase === 12) {
-              audio.request({ name: "stepRight" });
+              audio.request({ name: "runRight" });
             }
 
             this.x += 5;
