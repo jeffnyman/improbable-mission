@@ -1,5 +1,5 @@
 export class KeyboardManager {
-  private pressedKeys: Record<string, boolean> = {};
+  private pressedKeys: Record<string, boolean | string> = {};
 
   public keys = {
     UP: "ArrowUp",
@@ -16,6 +16,10 @@ export class KeyboardManager {
 
   isKeyPressed(code: string) {
     return this.pressedKeys[code] === true;
+  }
+
+  setKeyState(code: string, state: boolean | string) {
+    this.pressedKeys[code] = state;
   }
 
   handleKeyDown(e: KeyboardEvent) {

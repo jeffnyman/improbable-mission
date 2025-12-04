@@ -19,7 +19,7 @@ export type PaletteArray = (typeof palette)[PaletteKey];
 
 // Agent Types
 
-export type ActionType = "stand" | "run";
+export type ActionType = "stand" | "run" | "jump";
 
 interface AnimationFrame {
   x: number;
@@ -29,6 +29,7 @@ interface AnimationFrame {
 interface DirectionAnimations {
   stand: AnimationFrame[];
   run: AnimationFrame[];
+  jump: AnimationFrame[];
 }
 
 export interface Animation {
