@@ -10,7 +10,7 @@ This project is entirely pedagogical (and, by the way, a vanity project!). Thus,
 
 # Progress
 
-In terms of my second "release" (and keep in mind this is a pedagogical project!), there were a few things I needed to prove to myself in the form of questions:
+With my second "release" (and keep in mind this is a pedagogical project!), there were a few things I needed to prove to myself in the form of questions:
 
 - Can I load sprites?
 - Can I display sprites?
@@ -18,4 +18,6 @@ In terms of my second "release" (and keep in mind this is a pedagogical project!
 - Can I play sounds?
 - Can I allow for movement?
 
-Without any of that, this project was pretty dead in the water. With the second release, I now have the entirety of that bare minimum!
+Without any of that, this project was pretty dead in the water. With the second release, I had the entirety of that bare minimum!
+
+The third "release" expanded on that by making sure that there was a player character (the agent) that the player could control. This allowed me to refine my logic for movement, sprite display, and audio playing.
