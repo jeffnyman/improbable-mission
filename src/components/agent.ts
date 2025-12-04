@@ -130,6 +130,14 @@ export class Agent {
       if (this.actionPhase === 12) {
         // This means the jump has finished.
         this.stand();
+
+        if (this.direction === "left") {
+          audio.request({ name: "jumpLeft" });
+        }
+
+        if (this.direction === "right") {
+          audio.request({ name: "jumpRight" });
+        }
       }
 
       if (this.direction === "left") {

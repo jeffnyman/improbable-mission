@@ -23,6 +23,8 @@ export class GameAudio {
       "elevatorStop.ogg",
       "runLeft.ogg",
       "runRight.ogg",
+      "jumpLeft.ogg",
+      "jumpRight.ogg",
     ];
   }
 
