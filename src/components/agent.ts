@@ -150,6 +150,11 @@ export class Agent {
     } else {
       // Not jumping; so either standing or running.
 
+      // Handle trying to move both directions.
+      if (actionLeft && actionRight) {
+        this.stand();
+      }
+
       // Handle moving to the left.
       if (actionLeft && !actionRight) {
         this.direction = "left";
