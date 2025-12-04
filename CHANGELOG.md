@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](///compare/0.2.0...0.3.0) (2025-12-04)
+
+### Features
+
+- allow player to go full screen 7f31e57
+- allow player to move agent c87b3bf
+- allow player to pause game 1a5895b
+- allow player to perform a jump action 7f123cb
+- display agent sprite in canvas bc1f39e
+- display elevator corridors in canvas 4340675
+
 ## [0.2.0](///compare/0.1.0...0.2.0) (2025-11-29)
 
 ### Features
