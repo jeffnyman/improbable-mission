@@ -1,4 +1,5 @@
 import type { ActionType, Animation } from "../utils/types";
+import { audio } from "./audio";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
 import { checkLayout } from "../ui/checkLayout";
@@ -161,6 +162,10 @@ export class Agent {
 
             if (this.actionPhase === 14) this.actionPhase = 0;
 
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "stepLeft" });
+            }
+
             this.x -= 5;
           }
         }
@@ -185,6 +190,10 @@ export class Agent {
             this.actionPhase++;
 
             if (this.actionPhase === 14) this.actionPhase = 0;
+
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "stepRight" });
+            }
 
             this.x += 5;
           }

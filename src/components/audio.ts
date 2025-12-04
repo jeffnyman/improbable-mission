@@ -18,7 +18,12 @@ export class GameAudio {
 
   constructor() {
     this.context = new AudioContext();
-    this.resources = ["elevatorStart.ogg", "elevatorStop.ogg"];
+    this.resources = [
+      "elevatorStart.ogg",
+      "elevatorStop.ogg",
+      "stepLeft.ogg",
+      "stepRight.ogg",
+    ];
   }
 
   getContext() {
