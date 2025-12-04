@@ -6,6 +6,7 @@ export class KeyboardManager {
     DOWN: "ArrowDown",
     LEFT: "ArrowLeft",
     RIGHT: "ArrowRight",
+    SHIFT: "ShiftLeft",
   };
 
   constructor() {
@@ -22,11 +23,26 @@ export class KeyboardManager {
       e.preventDefault();
     }
 
-    this.pressedKeys[e.code] = true;
+    const code = this.normalizeKeyCode(e.code);
+    this.pressedKeys[code] = true;
   }
 
   handleKeyUp(e: KeyboardEvent) {
-    this.pressedKeys[e.code] = false;
+    const code = this.normalizeKeyCode(e.code);
+    this.pressedKeys[code] = false;
+  }
+
+  private normalizeKeyCode(code: string): string {
+    if (
+      code === "Space" ||
+      code === "ControlLeft" ||
+      code === "ControlRight" ||
+      code === "ShiftLeft" ||
+      code === "ShiftRight"
+    ) {
+      return "ShiftLeft";
+    }
+    return code;
   }
 }
 
