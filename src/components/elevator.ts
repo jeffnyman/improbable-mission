@@ -36,7 +36,11 @@ export class Elevator {
     return { x: this.x, y: this.y, rooms: this.rooms };
   }
 
-  scanRoutine(agentX: number, agentAction: string) {
+  scanRoutine(
+    agentX: number,
+    agentAction: string,
+    onEnterRoom: (direction: string) => void,
+  ) {
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent
     // could move the elevator up or down without actually
@@ -45,6 +49,12 @@ export class Elevator {
 
     if (agentX >= 129 && agentX <= 156) {
       agentInElevator = true;
+    }
+
+    // Handle the agent entering a room.
+    if (agentX <= -25 || agentX >= 315) {
+      const direction = agentX <= -25 ? "left" : "right";
+      onEnterRoom(direction);
     }
 
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
