@@ -3,6 +3,7 @@ import { audio } from "./components/audio";
 import { sceneManager } from "./components/sceneManager";
 import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
+import { Room } from "./components/room";
 import { PocketComputer } from "./components/pocketComputer";
 import { log } from "./utils/logger";
 import { gameTime } from "./utils/gameTime";
@@ -13,6 +14,7 @@ export class Game {
   private pocketComputer: PocketComputer = new PocketComputer();
   private paused = false;
   private scanFrameCounter = 0;
+  private rooms: Record<number, Room> = {};
 
   init() {
     const mapId = maps.length - 1;
@@ -22,6 +24,8 @@ export class Game {
     log(`Game.map.rooms: ${JSON.stringify(map.rooms)}`); // REMOVE
 
     this.elevator.init(map.rooms);
+
+    this.generateRooms();
   }
 
   updateScan() {
@@ -68,5 +72,12 @@ export class Game {
     }
 
     return status;
+  }
+
+  private generateRooms() {
+    for (let i = 1; i <= 32; i++) {
+      this.rooms[i] = new Room();
+      this.rooms[i].init();
+    }
   }
 }
