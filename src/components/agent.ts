@@ -2,6 +2,7 @@ import type { ActionType, Animation } from "../utils/types";
 import { audio } from "./audio";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../utils/keyboard";
+import { gameTime } from "../utils/gameTime";
 import { checkLayout } from "../ui/checkLayout";
 
 export class Agent {
@@ -120,6 +121,8 @@ export class Agent {
     y: number;
     rooms: Record<number, number[]>;
   }) {
+    if (gameTime.getSFC() % 2) return;
+
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
     const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);
     const actionJump = keyboard.isKeyPressed(keyboard.keys.SHIFT);
