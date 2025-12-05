@@ -30,11 +30,15 @@ export class Elevator {
     console.log(this.rooms); // REMOVE
   }
 
-  getCurrentPosition(): { x: number; y: number; rooms: Record<number, number[]> } {
+  getCurrentPosition(): {
+    x: number;
+    y: number;
+    rooms: Record<number, number[]>;
+  } {
     return { x: this.x, y: this.y, rooms: this.rooms };
   }
 
-  scanRoutine(agentX: number) {
+  scanRoutine(agentX: number, agentAction: string) {
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent
     // could move the elevator up or down without actually
@@ -49,13 +53,23 @@ export class Elevator {
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
     // Determine which direction elevator should begin moving.
-    if (agentInElevator && actionDown && this.y < 2376) {
+    if (
+      agentInElevator &&
+      agentAction === "stand" &&
+      actionDown &&
+      this.y < 2376
+    ) {
       this.direction = "down";
 
       if (!this.sound) {
         this.sound = audio.request({ name: "elevatorStart" });
       }
-    } else if (agentInElevator && actionUp && this.y > 0) {
+    } else if (
+      agentInElevator &&
+      agentAction === "stand" &&
+      actionUp &&
+      this.y > 0
+    ) {
       this.direction = "up";
 
       if (!this.sound) {

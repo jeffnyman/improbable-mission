@@ -112,6 +112,10 @@ export class Agent {
     };
   }
 
+  getAction() {
+    return this.action;
+  }
+
   getX() {
     return this.x;
   }
