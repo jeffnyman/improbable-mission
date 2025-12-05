@@ -5,12 +5,14 @@ import { Agent } from "./components/agent";
 import { Elevator } from "./components/elevator";
 import { PocketComputer } from "./components/pocketComputer";
 import { log } from "./utils/logger";
+import { gameTime } from "./utils/gameTime";
 
 export class Game {
   private agent: Agent = new Agent();
   private elevator: Elevator = new Elevator();
   private pocketComputer: PocketComputer = new PocketComputer();
   private paused = false;
+  private scanFrameCounter = 0;
 
   init() {
     const mapId = maps.length - 1;
@@ -23,6 +25,9 @@ export class Game {
   }
 
   updateScan() {
+    this.scanFrameCounter++;
+    gameTime.setSFC(this.scanFrameCounter);
+
     // Empty the audio request queue.
     audio.emptyRequestQueue();
 
