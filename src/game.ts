@@ -14,16 +14,19 @@ export class Game {
   private pocketComputer: PocketComputer = new PocketComputer();
   private paused = false;
   private scanFrameCounter = 0;
+  private map: { rooms: Record<number, number[]> };
   private rooms: Record<number, Room> = {};
 
-  init() {
+  constructor() {
     const mapId = maps.length - 1;
-    const map = maps[mapId];
+    this.map = maps[mapId];
 
     log(`Game.mapId: ${mapId}`); // REMOVE
-    log(`Game.map.rooms: ${JSON.stringify(map.rooms)}`); // REMOVE
+    log(`Game.map.rooms: ${JSON.stringify(this.map.rooms)}`); // REMOVE
+  }
 
-    this.elevator.init(map.rooms);
+  init() {
+    this.elevator.init(this.map.rooms);
 
     this.generateRooms();
   }
@@ -76,7 +79,7 @@ export class Game {
 
   private generateRooms() {
     for (let i = 1; i <= 32; i++) {
-      this.rooms[i] = new Room();
+      this.rooms[i] = new Room(i, this.map.rooms);
       this.rooms[i].init();
     }
   }

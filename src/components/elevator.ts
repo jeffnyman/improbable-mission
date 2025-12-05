@@ -26,8 +26,6 @@ export class Elevator {
 
   init(rooms: Record<number, number[]>) {
     this.rooms = rooms;
-
-    console.log(this.rooms); // REMOVE
   }
 
   getCurrentPosition(): {
