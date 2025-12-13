@@ -36,7 +36,8 @@
   "scripts": {
     "dev": "vite --host --open",
     "build": "tsc && vite build",
-    "preview": "vite preview --host --open"
+    "preview": "vite preview --host --open",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
