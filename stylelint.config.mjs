@@ -8,6 +8,7 @@ export default {
   rules: {
     "csstools/use-nesting": "always",
     "color-no-invalid-hex": true,
+    "no-descending-specificity": null,
     "no-unknown-animations": true,
     "no-unknown-custom-media": true,
     "no-unknown-custom-properties": true,
