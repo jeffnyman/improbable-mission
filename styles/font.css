@@ -1,0 +1,10 @@
+@font-face {
+  font-display: swap;
+  font-family: Sixtyfour;
+  font-style: normal;
+  font-variation-settings:
+    "BLED" 0,
+    "SCAN" -18;
+  font-weight: 400;
+  src: url("/fonts/Sixtyfour.woff2") format("woff2");
+}
