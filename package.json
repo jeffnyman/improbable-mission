@@ -38,9 +38,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview --host --open",
     "typecheck": "tsc --noEmit",
-    "format:styles": "stylelint ./**/*.css --ignore-path .gitignore"
+    "format:styles": "stylelint ./**/*.css --ignore-path .gitignore",
+    "format": "prettier . --check"
   },
   "devDependencies": {
+    "prettier": "3.7.4",
     "stylelint": "^16.26.1",
     "stylelint-config-alphabetical-order": "^1.0.0",
     "stylelint-config-standard": "^39.0.1",
