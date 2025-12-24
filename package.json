@@ -44,9 +44,13 @@
   "scripts": {
     "dev": "vite --host --open",
     "build": "tsc && vite build",
-    "preview": "vite preview --host --open"
+    "preview": "vite preview --host --open",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run --changelog"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.4",
+    "release-it": "^19.2.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.0"
   }
