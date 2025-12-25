@@ -48,13 +48,24 @@
     "release": "release-it",
     "release:dry": "release-it --dry-run --changelog",
     "check": "tsc --noEmit && prettier . --check && eslint . && stylelint ./**/*.css",
-    "fix": "prettier . --write && eslint . --fix && stylelint ./**/*.css --fix"
+    "fix": "prettier . --write && eslint . --fix && stylelint ./**/*.css --fix",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{ts,js,mjs}": [
+      "eslint --quiet --max-warnings=0 --fix --cache --cache-location .eslintcache"
+    ],
+    "**/*.{css,md,json}": [
+      "prettier --write --ignore-unknown"
+    ]
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@release-it/conventional-changelog": "^10.0.4",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "3.7.4",
     "release-it": "^19.2.1",
     "stylelint": "^16.26.1",
