@@ -51,10 +51,15 @@
     "format:styles": "stylelint ./**/*.css",
     "format:styles:fix": "stylelint ./**/*.css --fix",
     "format": "prettier . --check",
-    "format:fix": "prettier . --write"
+    "format:fix": "prettier . --write",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@release-it/conventional-changelog": "^10.0.4",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
     "prettier": "3.7.4",
     "release-it": "^19.2.1",
     "stylelint": "^16.26.1",
@@ -62,6 +67,7 @@
     "stylelint-order": "^7.0.0",
     "stylelint-use-nesting": "^6.0.1",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1",
     "vite": "^7.3.0"
   }
 }
