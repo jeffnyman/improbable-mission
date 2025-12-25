@@ -47,13 +47,8 @@
     "preview": "vite preview --host --open",
     "release": "release-it",
     "release:dry": "release-it --dry-run --changelog",
-    "typecheck": "tsc --noEmit",
-    "format:styles": "stylelint ./**/*.css",
-    "format:styles:fix": "stylelint ./**/*.css --fix",
-    "format": "prettier . --check",
-    "format:fix": "prettier . --write",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "check": "tsc --noEmit && prettier . --check && eslint . && stylelint ./**/*.css",
+    "fix": "prettier . --write && eslint . --fix && stylelint ./**/*.css --fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
