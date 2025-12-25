@@ -46,7 +46,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview --host --open",
     "release": "release-it",
-    "release:dry": "release-it --dry-run --changelog"
+    "release:dry": "release-it --dry-run --changelog",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0.4",
