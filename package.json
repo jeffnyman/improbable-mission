@@ -49,10 +49,13 @@
     "release:dry": "release-it --dry-run --changelog",
     "typecheck": "tsc --noEmit",
     "format:styles": "stylelint ./**/*.css",
-    "format:styles:fix": "stylelint ./**/*.css --fix"
+    "format:styles:fix": "stylelint ./**/*.css --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^10.0.4",
+    "prettier": "3.7.4",
     "release-it": "^19.2.1",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
