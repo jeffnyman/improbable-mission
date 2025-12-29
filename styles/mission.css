@@ -1,13 +1,5 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
+@import url("./font.css");
+@import url("./reset.css");
 
 :root {
   -moz-osx-font-smoothing: grayscale;
@@ -21,18 +13,6 @@
   height: 100%;
 
   overscroll-behavior-y: none;
-}
-
-@font-face {
-  font-family: Sixtyfour;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  font-variation-settings:
-    "BLED" 0,
-    "SCAN" -5;
-
-  src: url("/fonts/Sixtyfour.woff2") format("woff2");
 }
 
 html {
