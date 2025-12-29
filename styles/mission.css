@@ -17,6 +17,12 @@
   text-rendering: optimizelegibility;
 }
 
+:where(html, body) {
+  height: 100%;
+
+  overscroll-behavior-y: none;
+}
+
 @font-face {
   font-family: Sixtyfour;
   font-style: normal;
@@ -29,7 +35,34 @@
   src: url("/fonts/Sixtyfour.woff2") format("woff2");
 }
 
+html {
+  background-color: hsl(0deg 0% 0% / 100%);
+
+  overflow: hidden;
+}
+
 body {
+  background-color: hsl(0deg 0% 0% / 100%);
+
   font-family: Sixtyfour, "Courier New", Courier, monospace;
   font-optical-sizing: auto;
+  line-height: 1;
+  color: hsl(0deg 0% 100% / 100%);
+}
+
+.mode {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 0.5rem 1rem;
+
+  background-color: hsl(0deg 0% 0% / 80%);
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.875rem;
+  color: hsl(0deg 0% 100% / 100%);
+
+  text-align: center;
 }
