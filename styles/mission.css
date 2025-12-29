@@ -8,3 +8,28 @@
   margin: 0;
   padding: 0;
 }
+
+:root {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+}
+
+@font-face {
+  font-family: Sixtyfour;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  font-variation-settings:
+    "BLED" 0,
+    "SCAN" -5;
+
+  src: url("/fonts/Sixtyfour.woff2") format("woff2");
+}
+
+body {
+  font-family: Sixtyfour, "Courier New", Courier, monospace;
+  font-optical-sizing: auto;
+}
