@@ -8,3 +8,10 @@
   margin: 0;
   padding: 0;
 }
+
+:where(img, picture, svg, canvas) {
+  display: block;
+
+  block-size: auto;
+  max-inline-size: 100%;
+}
