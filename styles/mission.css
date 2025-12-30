@@ -31,6 +31,15 @@ body {
   color: hsl(0deg 0% 100% / 100%);
 }
 
+.mission {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
+
 .mode {
   position: fixed;
   right: 0;
@@ -46,4 +55,17 @@ body {
   color: hsl(0deg 0% 100% / 100%);
 
   text-align: center;
+}
+
+.hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  border: 0;
+
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
 }

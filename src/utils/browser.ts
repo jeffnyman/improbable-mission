@@ -1,4 +1,16 @@
 class Browser {
+  requireElement<T extends HTMLElement = HTMLElement>(id: string): T {
+    const el = document.getElementById(id);
+    const errorMessage = `Required element #${id} not found in DOM`;
+
+    if (!el) {
+      this.showAborted(errorMessage);
+      throw new Error(errorMessage);
+    }
+
+    return el as T;
+  }
+
   showAborted(message: string, listItems?: string[]) {
     const abortedDiv = document.createElement("div");
     abortedDiv.className = "aborted-wrapper";
