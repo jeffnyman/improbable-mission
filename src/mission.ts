@@ -15,3 +15,13 @@ audit("Browser ready; mission provided.");
 
 const mission = browser.requireElement("mission");
 mission.classList.remove("hidden");
+
+const accept = browser.requireElement("accept");
+accept.addEventListener("click", missionAccepted);
+
+function missionAccepted() {
+  audit("Mission has been accepted.");
+
+  accept.removeEventListener("click", missionAccepted);
+  mission.remove();
+}
