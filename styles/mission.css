@@ -60,6 +60,16 @@ body {
   height: 100%;
 
   background-color: hsl(0deg 0% 0% / 100%);
+
+  .toolbar {
+    width: 100%;
+
+    background-color: hsl(0deg 0% 87%);
+
+    .item {
+      padding: 10px;
+    }
+  }
 }
 
 .game {
