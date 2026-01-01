@@ -70,14 +70,14 @@ body {
       padding: 10px;
     }
   }
-}
 
-.game {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  .game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
 
-  transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }
 
 .mode {
