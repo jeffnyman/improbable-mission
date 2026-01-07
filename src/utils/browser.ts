@@ -12,6 +12,8 @@ class Browser {
   }
 
   showAborted(message: string, listItems?: string[]) {
+    this.requireElement("app").classList.add("hidden");
+
     const abortedDiv = document.createElement("div");
     abortedDiv.className = "aborted-wrapper";
 
