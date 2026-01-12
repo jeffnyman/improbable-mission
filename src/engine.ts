@@ -4,10 +4,10 @@ import { canvasResizer } from "./ui/canvasResizer";
 import { sprites } from "./utils/sprites";
 
 class Engine {
-  init() {
+  async init() {
     browser.requireElement("app").classList.remove("hidden");
 
-    sprites.loadSprites();
+    await sprites.loadSprites();
     graphics.init("game");
     canvasResizer.init();
   }
