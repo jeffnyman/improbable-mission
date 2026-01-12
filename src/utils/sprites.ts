@@ -1,6 +1,5 @@
 import { browser } from "./browser";
 import { log } from "./logger";
-import spriteSheetImg from "/images/sprites.png";
 
 class Sprites {
   async loadSprites() {
@@ -17,7 +16,7 @@ class Sprites {
         reject(new Error("Unable to load sprite sheet."));
       };
 
-      spriteSheet.src = spriteSheetImg;
+      spriteSheet.src = `${import.meta.env.BASE_URL}images/sprites.png`;
     });
   }
 }
