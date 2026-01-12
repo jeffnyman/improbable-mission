@@ -86,7 +86,7 @@ class Browser {
 
     if (unsupportedReasons.length > 0) {
       this.showAborted(
-        "Browser capabilities check failed.",
+        "Mission stopped due to following reasons:",
         unsupportedReasons,
       );
       throw new Error("Browser capabilities check failed.");
