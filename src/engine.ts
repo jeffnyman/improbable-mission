@@ -1,8 +1,8 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
-import { logOnce } from "./utils/logger";
 import { canvasResizer } from "./ui/canvasResizer";
 import { sprites } from "./utils/sprites";
+import { game } from "./game";
 
 class Engine {
   private animationFrameTime = 0;
@@ -19,7 +19,7 @@ class Engine {
   }
 
   private animationRoutine() {
-    logOnce("In animation loop ..."); // TEMPORARY
+    game.updateAnimation();
   }
 
   private animate() {
