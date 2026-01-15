@@ -1,6 +1,6 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
-import { log } from "./utils/logger";
+import { logOnce } from "./utils/logger";
 import { canvasResizer } from "./ui/canvasResizer";
 import { sprites } from "./utils/sprites";
 
@@ -19,7 +19,7 @@ class Engine {
   }
 
   private animationRoutine() {
-    log("In animation loop ..."); // TEMPORARY
+    logOnce("In animation loop ..."); // TEMPORARY
   }
 
   private animate() {
