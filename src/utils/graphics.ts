@@ -1,4 +1,5 @@
 import { browser } from "./browser";
+import { sprites } from "./sprites";
 
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
@@ -9,6 +10,27 @@ class Graphics {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
+  }
+
+  draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
+    if (!this.ctx) {
+      browser.showAborted("Unable to render on game canvas.");
+      throw new Error("Failed to get 2D rendering context.");
+    }
+
+    const spriteSheet = sprites.getSpriteSheet();
+
+    this.ctx.drawImage(
+      spriteSheet,
+      sx,
+      sy,
+      sw,
+      sh,
+      dx * this.SCALE_FACTOR,
+      dy * this.SCALE_FACTOR,
+      sw * this.SCALE_FACTOR,
+      sh * this.SCALE_FACTOR,
+    );
   }
 
   rect(x: number, y: number, w: number, h: number) {

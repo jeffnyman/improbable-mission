@@ -1,13 +1,23 @@
 import { browser } from "./browser";
-import { log } from "./logger";
 
 class Sprites {
+  private spriteSheet: HTMLImageElement | null = null;
+
+  getSpriteSheet(): HTMLImageElement {
+    if (!this.spriteSheet) {
+      browser.showAborted("Unable to use game sprite sheet.");
+      throw new Error("Sprite sheet not loaded. Call loadSprites() first.");
+    }
+
+    return this.spriteSheet;
+  }
+
   async loadSprites() {
     return new Promise<void>((resolve, reject) => {
       const spriteSheet = new Image();
 
       spriteSheet.onload = () => {
-        log("Sprite sheet loaded"); // TEMPORARY
+        this.spriteSheet = spriteSheet;
         resolve();
       };
 
