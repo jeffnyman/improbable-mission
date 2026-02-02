@@ -56,9 +56,7 @@ class Graphics {
     return this.canvas;
   }
 
-  private getRenderingContext2D(
-    canvas: HTMLCanvasElement,
-  ): CanvasRenderingContext2D {
+  getRenderingContext2D(canvas: HTMLCanvasElement): CanvasRenderingContext2D {
     const ctx = canvas.getContext("2d");
 
     if (!ctx) {

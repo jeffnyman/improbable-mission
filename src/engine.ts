@@ -12,6 +12,7 @@ class Engine {
     browser.requireElement("app").classList.remove("hidden");
 
     await sprites.loadSprites();
+    sprites.initializeSprites();
     graphics.init("game");
     canvasResizer.init();
 

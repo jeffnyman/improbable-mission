@@ -1,7 +1,9 @@
 import { browser } from "./browser";
+import { graphics } from "./graphics";
 
 class Sprites {
   private spriteSheet: HTMLImageElement | null = null;
+  private gameSprites: Record<string, HTMLImageElement> = {};
 
   getSpriteSheet(): HTMLImageElement {
     if (!this.spriteSheet) {
@@ -10,6 +12,37 @@ class Sprites {
     }
 
     return this.spriteSheet;
+  }
+
+  initializeSprites() {
+    if (!this.spriteSheet) {
+      browser.showAborted("Unable to use game sprite sheet.");
+      throw new Error("Sprite sheet not loaded. Call loadSprites() first.");
+    }
+
+    const baseSpriteCanvas = document.createElement("canvas");
+    baseSpriteCanvas.width = this.spriteSheet.naturalWidth;
+    baseSpriteCanvas.height = this.spriteSheet.naturalHeight;
+
+    const baseSpriteContext = graphics.getRenderingContext2D(baseSpriteCanvas);
+    baseSpriteContext.drawImage(this.spriteSheet, 0, 0);
+
+    const baseSpriteData = baseSpriteContext.getImageData(
+      0,
+      0,
+      baseSpriteCanvas.width,
+      baseSpriteCanvas.height,
+    );
+
+    const outputCanvas = document.createElement("canvas");
+    outputCanvas.width = baseSpriteCanvas.width;
+    outputCanvas.height = baseSpriteCanvas.height;
+
+    const outputContext = graphics.getRenderingContext2D(outputCanvas);
+    outputContext.putImageData(baseSpriteData, 0, 0);
+
+    this.gameSprites["source"] = new Image();
+    this.gameSprites["source"].src = outputCanvas.toDataURL("image/png");
   }
 
   async loadSprites() {
