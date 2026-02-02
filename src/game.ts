@@ -1,8 +1,11 @@
-import { logOnce } from "./utils/logger";
+import { elevator } from "./component/elevator";
+import { sceneManager } from "./common/sceneManager";
 
 class Game {
   updateAnimation() {
-    logOnce("In animation loop ..."); // TEMPORARY
+    if (sceneManager.getScene() === "elevator") {
+      elevator.animationRoutine();
+    }
   }
 }
 
