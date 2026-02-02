@@ -1,8 +1,8 @@
-import { logOnce } from "../utils/logger";
+import { graphics } from "../utils/graphics";
 
 class Elevator {
   animationRoutine() {
-    logOnce("In animation loop ..."); // TEMPORARY
+    graphics.rect(128, 0, 64, 200);
   }
 }
 
