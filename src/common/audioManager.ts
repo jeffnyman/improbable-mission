@@ -1,4 +1,4 @@
-import { audit } from "../utils/logger";
+import { audit, log } from "../utils/logger";
 
 class AudioManager {
   private context: AudioContext | null = null;
@@ -47,6 +47,10 @@ class AudioManager {
           audit(`Error loading audio file: ${audioFile}`, error);
         }
       }),
+    );
+
+    log(
+      `Loaded ${Object.keys(this.sounds).length}/${this.resources.length} audio files`,
     );
   }
 }
