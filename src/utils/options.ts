@@ -1,6 +1,4 @@
-interface GameOptions {
-  palette: string;
-}
+import type { GameOptions } from "../types/options";
 
 const DEFAULT_PALETTE = "vice";
 
