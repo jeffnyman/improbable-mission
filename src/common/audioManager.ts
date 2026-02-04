@@ -11,7 +11,7 @@ class AudioManager {
 
   constructor() {
     this.context = new AudioContext();
-    this.resources = [];
+    this.resources = ["elevator.start.ogg", "elevator.stop.ogg"];
   }
 
   isAvailable(): boolean {
