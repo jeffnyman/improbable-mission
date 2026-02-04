@@ -19,6 +19,17 @@ class Engine {
     canvasResizer.init();
 
     this.animate();
+    this.scan();
+  }
+
+  private scanRoutine() {
+    game.updateScan();
+  }
+
+  private scan() {
+    setInterval(() => {
+      this.scanRoutine();
+    }, 27);
   }
 
   private animationRoutine() {
