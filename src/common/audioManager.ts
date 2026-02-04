@@ -26,22 +26,28 @@ class AudioManager {
     return this.context;
   }
 
+  /**
+   * Loads all audio resources in parallel. Failed files are
+   * logged but don't prevent other files from loading.
+   */
   async loadSounds() {
-    for (const audioFile of this.resources) {
-      try {
-        const name = audioFile.replace(/\.[^.]+$/, "");
-        const response = await fetch(
-          `${import.meta.env.BASE_URL}audio/${audioFile}`,
-        );
-        const arrayBuffer = await response.arrayBuffer();
+    await Promise.all(
+      this.resources.map(async (audioFile) => {
+        try {
+          const name = audioFile.replace(/\.[^.]+$/, "");
+          const response = await fetch(
+            `${import.meta.env.BASE_URL}audio/${audioFile}`,
+          );
+          const arrayBuffer = await response.arrayBuffer();
 
-        if (this.context) {
-          this.sounds[name] = await this.context.decodeAudioData(arrayBuffer);
+          if (this.context) {
+            this.sounds[name] = await this.context.decodeAudioData(arrayBuffer);
+          }
+        } catch (error) {
+          audit(`Error loading audio file: ${audioFile}`, error);
         }
-      } catch (error) {
-        audit(`Error loading audio file: ${audioFile}`, error);
-      }
-    }
+      }),
+    );
   }
 }
 
