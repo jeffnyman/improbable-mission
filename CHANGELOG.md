@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0](https://github.com/jeffnyman/improbable-mission/compare/0.1.0...0.2.0) (2026-02-04)
+
+### Features
+
+- allow player to set game palette ([304bf02](https://github.com/jeffnyman/improbable-mission/commit/304bf02a4ec09a591dcbd68c6db6774d1bf8b607))
+- display elevator sprite in canvas ([ffdf18e](https://github.com/jeffnyman/improbable-mission/commit/ffdf18e176216ebf6f8564c709ea22f75aeb1887))
+- display palette choices on toolbar ([64e0445](https://github.com/jeffnyman/improbable-mission/commit/64e0445df90e45bcfd5d9c7b5fefd408310cc1e9))
+- player palette choice changes sprite colors ([723a588](https://github.com/jeffnyman/improbable-mission/commit/723a588825649645c0e3659f4ede7129a2604d15))
+- provide user resizable game canvas ([96f7268](https://github.com/jeffnyman/improbable-mission/commit/96f726813a8caa6d5e145ffdd03b8afc3b4ad812))
+
 ## 0.1.0 (2026-01-03)
 
 ### Features
