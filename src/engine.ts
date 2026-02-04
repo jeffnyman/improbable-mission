@@ -1,6 +1,7 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { canvasResizer } from "./ui/canvasResizer";
+import { paletteSelector } from "./ui/paletteSelector";
 import { sprites } from "./utils/sprites";
 import { game } from "./game";
 
@@ -15,6 +16,7 @@ class Engine {
     sprites.initializeSprites();
     graphics.init("game", "vice");
     canvasResizer.init();
+    paletteSelector.init();
 
     this.animate();
   }
