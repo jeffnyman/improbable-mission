@@ -1,17 +1,20 @@
 import { browser } from "./browser";
 import { sprites } from "./sprites";
+import type { PaletteArray } from "../types/palette";
 
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private palette: string | null = null;
+  private gameColors: PaletteArray | null = null;
   private readonly SCALE_FACTOR = 3;
 
-  init(canvasId: string, paletteName: string) {
+  init(canvasId: string, paletteName: string, gameColors: PaletteArray | null) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
     this.palette = paletteName;
+    this.gameColors = gameColors;
   }
 
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
@@ -45,6 +48,10 @@ class Graphics {
       browser.showAborted("Unable to render on game canvas.");
       throw new Error("Failed to get 2D rendering context.");
     }
+
+    if (!this.gameColors) return;
+
+    this.ctx.fillStyle = "#" + this.gameColors[0];
 
     this.ctx.fillRect(
       x * this.SCALE_FACTOR,

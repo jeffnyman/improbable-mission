@@ -15,9 +15,13 @@ class Engine {
 
     await sprites.loadSprites();
     sprites.initializeSprites();
-    graphics.init("game", options.getPaletteOption());
-    canvasResizer.init();
     paletteSelector.init();
+    graphics.init(
+      "game",
+      options.getPaletteOption(),
+      paletteSelector.getGameColors(),
+    );
+    canvasResizer.init();
 
     this.animate();
   }
