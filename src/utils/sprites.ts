@@ -14,6 +14,10 @@ class Sprites {
     return this.spriteSheet;
   }
 
+  getGameSprites(): Record<string, HTMLImageElement> {
+    return this.gameSprites;
+  }
+
   initializeSprites() {
     if (!this.spriteSheet) {
       browser.showAborted("Unable to use game sprite sheet.");

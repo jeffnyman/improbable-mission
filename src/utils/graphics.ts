@@ -4,12 +4,14 @@ import { sprites } from "./sprites";
 class Graphics {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
+  private palette: string | null = null;
   private readonly SCALE_FACTOR = 3;
 
-  init(canvasId: string) {
+  init(canvasId: string, paletteName: string) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
+    this.palette = paletteName;
   }
 
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
@@ -18,10 +20,15 @@ class Graphics {
       throw new Error("Failed to get 2D rendering context.");
     }
 
-    const spriteSheet = sprites.getSpriteSheet();
+    if (!this.palette) {
+      browser.showAborted("Unable to render based on game palette.");
+      throw new Error("Failed to get a valid palette reference.");
+    }
+
+    const gameSprites = sprites.getGameSprites();
 
     this.ctx.drawImage(
-      spriteSheet,
+      gameSprites[this.palette],
       sx,
       sy,
       sw,
