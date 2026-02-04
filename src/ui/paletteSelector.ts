@@ -1,3 +1,6 @@
+import { browser } from "../utils/browser";
+import { palette } from "../data/palette";
+
 class PaletteSelector {
   init() {
     this.setupPaletteItems();
@@ -12,6 +15,7 @@ class PaletteSelector {
 
         if (!paletteChoice) return;
 
+        this.applyPalette(paletteChoice);
         this.setActiveItem(item);
       });
     });
@@ -27,6 +31,14 @@ class PaletteSelector {
     allItems.forEach((item) => item.classList.remove("active"));
 
     itemClicked.classList.add("active");
+  }
+
+  private applyPalette(paletteName: string) {
+    const colors = (palette as Record<string, string[]>)[paletteName];
+
+    if (!colors) return;
+
+    browser.requireElement("app").style.background = "#" + colors[0];
   }
 }
 
