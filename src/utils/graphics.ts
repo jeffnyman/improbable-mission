@@ -43,7 +43,7 @@ class Graphics {
     );
   }
 
-  rect(x: number, y: number, w: number, h: number) {
+  fillStyle(paletteColor: number) {
     if (!this.ctx) {
       browser.showAborted("Unable to render on game canvas.");
       throw new Error("Failed to get 2D rendering context.");
@@ -51,7 +51,16 @@ class Graphics {
 
     if (!this.gameColors) return;
 
-    this.ctx.fillStyle = "#" + this.gameColors[0];
+    this.ctx.fillStyle = "#" + this.gameColors[paletteColor];
+  }
+
+  rect(x: number, y: number, w: number, h: number, paletteColor: number) {
+    if (!this.ctx) {
+      browser.showAborted("Unable to render on game canvas.");
+      throw new Error("Failed to get 2D rendering context.");
+    }
+
+    this.fillStyle(paletteColor);
 
     this.ctx.fillRect(
       x * this.SCALE_FACTOR,
