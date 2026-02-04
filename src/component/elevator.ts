@@ -7,10 +7,15 @@ class Elevator {
   // drawn with offsets calculated from this value.
   private y = 0;
 
-  // Maximum scroll position of the world. This is the world-space
-  // y-coordinate of the floor of the bottommost corridor. It will
-  // eventually be derived from map data once corridors are defined.
-  private readonly maxWorldY = 3000;
+  // Maximum scroll position of the world. Derived from the corridor
+  // layout: 216 (corridor spacing) * 11 (last corridor index, from
+  // 6 floors * 2 corridors per floor).
+  private readonly maxWorldY = 2376;
+
+  // Scroll position at which the bottom shaft cap begins to appear.
+  // At maxWorldY the cap's bottom edge lands at screen_y 120, which
+  // is where the pocket computer will sit.
+  private readonly shaftBottomY = 2354;
 
   // Direction elevator is moving. This can be "up" or "down".
   // An empty string means the elevator is not moving.
@@ -77,6 +82,13 @@ class Elevator {
 
     // Bottom right.
     graphics.draw(320, 0, 128, 200, 192, 200 - wallOffset);
+
+    // Top of elevator shaft, if elevator is at top.
+    if (this.y < 10) graphics.draw(708, 0, 64, 8, 128, 0 - this.y);
+
+    // Bottom of elevator shaft, if elevator is at bottom.
+    if (this.y > this.shaftBottomY)
+      graphics.draw(708, 8, 64, 8, 128, 134 - (this.y - this.shaftBottomY));
   }
 }
 
