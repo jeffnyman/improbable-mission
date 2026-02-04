@@ -62,6 +62,21 @@ class Elevator {
       // Right border.
       graphics.draw(756, 16, 8, 24, 184, i * 24 - 16 - borderOffset);
     }
+
+    // Draw the side walls.
+    const wallOffset = this.y % 200;
+
+    // Top left.
+    graphics.draw(320, 0, 128, 200, 0, 0 - wallOffset);
+
+    // Top right.
+    graphics.draw(320, 0, 128, 200, 192, 0 - wallOffset);
+
+    // Bottom left.
+    graphics.draw(320, 0, 128, 200, 0, 200 - wallOffset);
+
+    // Bottom right.
+    graphics.draw(320, 0, 128, 200, 192, 200 - wallOffset);
   }
 }
 

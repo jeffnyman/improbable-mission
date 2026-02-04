@@ -126,8 +126,6 @@ a {
     width: 320px;
     height: 200px;
 
-    background-color: red; /* TEMPORARY */
-
     transform: translate(-50%, -50%);
 
     image-rendering: crisp-edges;
