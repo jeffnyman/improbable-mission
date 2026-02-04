@@ -13,7 +13,7 @@ class Engine {
 
     await sprites.loadSprites();
     sprites.initializeSprites();
-    graphics.init("game", "source");
+    graphics.init("game", "vice");
     canvasResizer.init();
 
     this.animate();

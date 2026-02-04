@@ -75,7 +75,9 @@ class Sprites {
 
     // Generate a recolored sprite variant for each defined palette.
     Object.entries(palette).forEach(([name, colors]) => {
-      this.generatePalettedSprite(name, colors);
+      if (name !== "source") {
+        this.generatePalettedSprite(name, colors);
+      }
     });
   }
 
