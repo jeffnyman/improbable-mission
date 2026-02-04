@@ -1,5 +1,7 @@
 import { browser } from "./browser";
+import { options } from "./options";
 import { sprites } from "./sprites";
+import { paletteSelector } from "../ui/paletteSelector";
 import type { PaletteArray } from "../types/palette";
 
 class Graphics {
@@ -9,12 +11,12 @@ class Graphics {
   private gameColors: PaletteArray | null = null;
   private readonly SCALE_FACTOR = 3;
 
-  init(canvasId: string, paletteName: string, gameColors: PaletteArray | null) {
+  init(canvasId: string) {
     this.canvas = this.getCanvasById(canvasId);
     this.ctx = this.getRenderingContext2D(this.canvas);
     this.ctx.imageSmoothingEnabled = false;
-    this.palette = paletteName;
-    this.gameColors = gameColors;
+    this.palette = options.getPaletteOption();
+    this.gameColors = paletteSelector.getGameColors();
   }
 
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
