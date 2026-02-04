@@ -24,4 +24,10 @@ export const palette = {
     "d89c5b", "7f5307", "ef839f", "575753",
     "a3a7a7", "b7fbbf", "a397ff", "efe9e7",
   ],
+  c64hq: [
+    "0a0a0a", "fff8ff", "851f02", "65cda8",
+    "a73b9f", "4dab19", "1a0c92", "ebe353",
+    "a94b02", "441e00", "d28074", "464646",
+    "8b8b8b", "8ef68e", "4d91d1", "bababa",
+  ],
 }
