@@ -13,8 +13,7 @@ class Engine {
   async init() {
     browser.requireElement("app").classList.remove("hidden");
 
-    await audio.loadSounds();
-    await sprites.loadSprites();
+    await Promise.allSettled([audio.loadSounds(), sprites.loadSprites()]);
     sprites.initializeSprites();
     paletteSelector.init();
     graphics.init("game");
