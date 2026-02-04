@@ -1,4 +1,5 @@
 import { browser } from "../utils/browser";
+import { graphics } from "../utils/graphics";
 import { options } from "../utils/options";
 import { palette } from "../data/palette";
 import type { PaletteArray } from "../types/palette";
@@ -59,6 +60,7 @@ class PaletteSelector {
     if (!colors) return;
 
     this.gameColors = colors;
+    graphics.updatePalette(paletteName, colors);
 
     browser.requireElement("app").style.background = "#" + this.gameColors[0];
   }

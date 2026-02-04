@@ -19,6 +19,11 @@ class Graphics {
     this.gameColors = paletteSelector.getGameColors();
   }
 
+  updatePalette(paletteName: string, colors: PaletteArray) {
+    this.palette = paletteName;
+    this.gameColors = colors;
+  }
+
   draw(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number) {
     if (!this.ctx) {
       browser.showAborted("Unable to render on game canvas.");
