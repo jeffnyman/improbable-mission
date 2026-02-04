@@ -1,10 +1,11 @@
 import { elevator } from "./component/elevator";
 import { sceneManager } from "./common/sceneManager";
-import { logOnce } from "./utils/logger";
 
 class Game {
   updateScan() {
-    logOnce("Scanning ...");
+    if (sceneManager.getScene() === "elevator") {
+      elevator.scanRoutine();
+    }
   }
 
   updateAnimation() {

@@ -1,7 +1,49 @@
 import { graphics } from "../utils/graphics";
+import { keyboard } from "../common/keyboardManager";
 
 class Elevator {
+  // Elevator vertical top position. This is the scroll position
+  // of the world. The borders, walls, and corridors will all be
+  // drawn with offsets calculated from this value.
   private y = 0;
+
+  // Maximum scroll position of the world. This is the world-space
+  // y-coordinate of the floor of the bottommost corridor. It will
+  // eventually be derived from map data once corridors are defined.
+  private readonly maxWorldY = 3000;
+
+  // Direction elevator is moving. This can be "up" or "down".
+  // An empty string means the elevator is not moving.
+  private direction = "";
+
+  scanRoutine() {
+    const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
+    const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
+
+    // Determine which direction elevator should begin moving.
+    if (actionDown && this.y < this.maxWorldY) {
+      this.direction = "down";
+    } else if (actionUp && this.y > 0) {
+      this.direction = "up";
+    }
+
+    // Move elevator up or down.
+    if (this.direction === "down") {
+      this.y += 8;
+
+      if (this.y > this.maxWorldY) {
+        this.y = this.maxWorldY;
+        this.direction = "";
+      }
+    } else if (this.direction === "up") {
+      this.y -= 8;
+
+      if (this.y < 0) {
+        this.y = 0;
+        this.direction = "";
+      }
+    }
+  }
 
   animationRoutine() {
     // Draw the elevator shaft.
