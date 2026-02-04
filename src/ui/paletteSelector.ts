@@ -1,4 +1,5 @@
 import { browser } from "../utils/browser";
+import { options } from "../utils/options";
 import { palette } from "../data/palette";
 
 class PaletteSelector {
@@ -15,6 +16,7 @@ class PaletteSelector {
 
         if (!paletteChoice) return;
 
+        options.setPaletteOption(paletteChoice);
         this.applyPalette(paletteChoice);
         this.setActiveItem(item);
       });
