@@ -8,6 +8,7 @@ class Sprites {
   private baseSpriteCanvas: HTMLCanvasElement | null = null;
   private baseSpritePixels: Uint8ClampedArray | null = null;
   private outputSpriteData: ImageData | null = null;
+  private parsedSourcePalette: number[][] = [];
 
   getSpriteSheet(): HTMLImageElement {
     if (!this.spriteSheet) {
@@ -22,12 +23,30 @@ class Sprites {
     return this.gameSprites;
   }
 
+  /**
+   * Initializes the sprite processing pipeline and generates all
+   * palette variants.
+   *
+   * This method:
+   * 1. Parses the source palette for fast RGB lookups
+   * 2. Extracts pixel data from the loaded sprite sheet
+   * 3. Generates a recolored sprite variant for each defined palette
+   *
+   * The baseSpritePixels are kept as a reference for the palette
+   * swapping, while outputSpriteData provides a clean ImageData
+   * template for each variant.
+   */
   initializeSprites() {
     if (!this.spriteSheet) {
       browser.showAborted("Unable to use game sprite sheet.");
       throw new Error("Sprite sheet not loaded. Call loadSprites() first.");
     }
 
+    // Pre-parse the source palette hex colors into RGB arrays for
+    // fast comparison.
+    this.parsePalette();
+
+    // Draw the sprite sheet to a canvas to access raw pixel data.
     this.baseSpriteCanvas = document.createElement("canvas");
     this.baseSpriteCanvas.width = this.spriteSheet.naturalWidth;
     this.baseSpriteCanvas.height = this.spriteSheet.naturalHeight;
@@ -44,13 +63,17 @@ class Sprites {
       this.baseSpriteCanvas.height,
     );
 
+    // Store the original pixel data for palette matching.
     this.baseSpritePixels = baseSpriteData.data;
 
+    // Create a blank ImageData template to copy for each
+    // palette variant.
     this.outputSpriteData = baseSpriteContext.createImageData(
       this.baseSpriteCanvas.width,
       this.baseSpriteCanvas.height,
     );
 
+    // Generate a recolored sprite variant for each defined palette.
     Object.entries(palette).forEach(([name, colors]) => {
       this.generatePalettedSprite(name, colors);
     });
@@ -74,6 +97,21 @@ class Sprites {
     });
   }
 
+  /**
+   * Generates a recolored sprite variant by mapping source palette
+   * colors to a target palette. The algorithm is relatively simple.
+   *
+   * For each pixel in the sprite sheet, find which source palette
+   * color it matches. Then replace the pixel color with the
+   * corresponding color from the target palette (same index).
+   * The alpha channel (transparency) is always preserved.
+   *
+   * The result is stored as an HTMLImageElement in gameSprites.
+   * This is a paletted representation of the spritesheet.
+   *
+   * @param name - The key to store the palette variant under
+   * @param targetPalette - Array of 16 hex color strings
+   */
   private generatePalettedSprite(name: string, targetPalette: string[]) {
     if (
       !this.baseSpriteCanvas ||
@@ -86,49 +124,54 @@ class Sprites {
       );
     }
 
-    const newImageData = this.outputSpriteData;
+    // Create a fresh ImageDat copy to prevent pixel data from
+    // being carried over from previous palette iterations.
+    const newImageData = new ImageData(
+      this.outputSpriteData.data.slice(),
+      this.baseSpriteCanvas.width,
+      this.baseSpriteCanvas.height,
+    );
 
-    // Iterate through every pixel in the sprite sheet data.
+    // Process each pixel in the sprite sheet.
     // (RGBA = 4 bytes per pixel)
     for (
       let pixel = 0, totalPixels = this.baseSpritePixels.length;
       pixel < totalPixels;
       pixel += 4
     ) {
-      // Extract RGB components of current pixel.
+      // Extract the RGB components of the current pixel from the
+      // source sprite.
       const currentRed = this.baseSpritePixels[pixel];
       const currentGreen = this.baseSpritePixels[pixel + 1];
       const currentBlue = this.baseSpritePixels[pixel + 2];
 
-      // Search through the 16-color source palette to find a match.
+      // Find which of the 16 source palette colors the current
+      // pixel mathces.
       for (let color = 0; color < 16; color++) {
-        const sourceColor = palette.source[color];
-        const sourceRed = parseInt(sourceColor[0] + sourceColor[1], 16);
-        const sourceGreen = parseInt(sourceColor[2] + sourceColor[3], 16);
-        const sourceBlue = parseInt(sourceColor[4] + sourceColor[5], 16);
+        const [sourceRed, sourceGreen, sourceBlue] =
+          this.parsedSourcePalette[color];
 
-        // Check if current pixel matches the palette color.
+        // If this pixel matches the source palette color at index
+        // 'color' ...
         if (
           currentRed === sourceRed &&
           currentGreen === sourceGreen &&
           currentBlue === sourceBlue
         ) {
-          // Replace current pixel with the corresponding color
-          // from the target palette.
+          // ... replace it with the target palette color at the
+          // same index. Parse the hex color string (RRGGBB format)
+          // into RBG bytes.
           const targetColor = targetPalette[color];
 
-          newImageData.data[pixel] = parseInt(
-            targetColor[0] + targetColor[1],
-            16,
-          );
+          newImageData.data[pixel] = parseInt(targetColor.substring(0, 2), 16);
 
           newImageData.data[pixel + 1] = parseInt(
-            targetColor[2] + targetColor[3],
+            targetColor.substring(2, 4),
             16,
           );
 
           newImageData.data[pixel + 2] = parseInt(
-            targetColor[4] + targetColor[5],
+            targetColor.substring(4, 6),
             16,
           );
 
@@ -140,7 +183,7 @@ class Sprites {
       }
     }
 
-    // Create a new canvas and draw the recolored sprite data.
+    // Convert the recolored pixel data back into an HTMLImageElement.
     const outputCanvas = document.createElement("canvas");
     outputCanvas.width = this.baseSpriteCanvas.width;
     outputCanvas.height = this.baseSpriteCanvas.height;
@@ -148,8 +191,24 @@ class Sprites {
     const outputContext = graphics.getRenderingContext2D(outputCanvas);
     outputContext.putImageData(newImageData, 0, 0);
 
+    // Store the palette variant as an Image for easy rendering.
     this.gameSprites[name] = new Image();
     this.gameSprites[name].src = outputCanvas.toDataURL("image/png");
+  }
+
+  /**
+   * Pre-parses source palette hex colors into RBG number arrays.
+   *
+   * This avoids repeatedly parsing hex strings during pixel-by-pixel
+   * palette matching, significantly improving performance.
+   */
+  private parsePalette() {
+    this.parsedSourcePalette = palette.source.map((hexColor) => {
+      const red = parseInt(hexColor.substring(0, 2), 16);
+      const green = parseInt(hexColor.substring(2, 4), 16);
+      const blue = parseInt(hexColor.substring(4, 6), 16);
+      return [red, green, blue];
+    });
   }
 }
 
