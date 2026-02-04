@@ -21,6 +21,17 @@ class PaletteSelector {
         this.setActiveItem(item);
       });
     });
+
+    const savedPalette = options.getPaletteOption();
+
+    const paletteItem = document.querySelector(
+      `.palette[data-palette="${savedPalette}"]`,
+    ) as HTMLElement;
+
+    if (paletteItem) {
+      this.applyPalette(savedPalette);
+      this.setActiveItem(paletteItem);
+    }
   }
 
   private setActiveItem(itemClicked: HTMLElement) {
