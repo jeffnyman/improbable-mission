@@ -1,5 +1,6 @@
 import { elevator } from "./component/elevator";
 import { sceneManager } from "./common/sceneManager";
+import { pocketComputer } from "./component/pocketComputer";
 
 class Game {
   updateScan() {
@@ -11,6 +12,7 @@ class Game {
   updateAnimation() {
     if (sceneManager.getScene() === "elevator") {
       elevator.animationRoutine();
+      pocketComputer.animationRoutine();
     }
   }
 }
