@@ -4,6 +4,7 @@ import { canvasResizer } from "./ui/canvasResizer";
 import { paletteSelector } from "./ui/paletteSelector";
 import { sprites } from "./utils/sprites";
 import { game } from "./game";
+import { audio } from "./common/audioManager";
 
 class Engine {
   private animationFrameTime = 0;
@@ -12,6 +13,7 @@ class Engine {
   async init() {
     browser.requireElement("app").classList.remove("hidden");
 
+    await audio.loadSounds();
     await sprites.loadSprites();
     sprites.initializeSprites();
     paletteSelector.init();
