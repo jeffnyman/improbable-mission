@@ -76,10 +76,18 @@ class Engine {
   }
 
   private setupInputHandling() {
+    const app = browser.requireElement("app");
+
     document.addEventListener("keydown", (evt) => {
+      if (app) app.style.cursor = "none";
+
       if (evt.code === "KeyP" || evt.code === "Pause") {
         game.togglePause();
       }
+    });
+
+    document.addEventListener("mousemove", () => {
+      if (app) app.style.cursor = "";
     });
   }
 }
