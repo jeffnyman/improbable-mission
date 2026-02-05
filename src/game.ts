@@ -4,6 +4,8 @@ import { pocketComputer } from "./component/pocketComputer";
 import { audio } from "./common/audioManager";
 
 class Game {
+  private paused = false;
+
   updateScan() {
     // Clear audio queue from previous frame before processing
     // new requests.
@@ -22,6 +24,29 @@ class Game {
       elevator.animationRoutine();
       pocketComputer.animationRoutine();
     }
+  }
+
+  isPaused(): boolean {
+    return this.paused;
+  }
+
+  togglePause(status?: boolean): boolean {
+    if (status === undefined) {
+      status = !this.paused;
+    }
+
+    this.paused = status;
+    const context = audio.getContext();
+
+    if (!context) return status;
+
+    if (this.paused) {
+      context.suspend();
+    } else {
+      context.resume();
+    }
+
+    return status;
   }
 }
 
