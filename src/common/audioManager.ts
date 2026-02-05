@@ -31,6 +31,14 @@ class AudioManager {
   }
 
   /**
+   * Clears the audio request queue.
+   * Should be called at the start of each scan frame.
+   */
+  emptyRequestQueue() {
+    this.queue = [];
+  }
+
+  /**
    * Requests a sound to be played in the current scan frame.
    * Prevents duplicate requests within the same frame.
    * @returns true if sound was queued, false if already queued or no context
