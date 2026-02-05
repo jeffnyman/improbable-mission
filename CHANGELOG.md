@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/jeffnyman/improbable-mission/compare/0.2.0...0.3.0) (2026-02-05)
+
+### Features
+
+- add sound option to toolbar ([11c9b76](https://github.com/jeffnyman/improbable-mission/commit/11c9b7614f1638d4c2575fe726f8c3ec6b341810))
+- allow player to go full screen ([f3621ca](https://github.com/jeffnyman/improbable-mission/commit/f3621caf6e0a4c2a8cbe867b3ff8016d96f94383))
+- allow player to move the elevator ([ccc1b3b](https://github.com/jeffnyman/improbable-mission/commit/ccc1b3b7b2544e4ce211f1092fd1a04b1a91a5b0))
+- allow player to pause game ([1b4e2a8](https://github.com/jeffnyman/improbable-mission/commit/1b4e2a842136dbdf0d58c199e1ce8ed8606227b0))
+- display pocket computer sprite in canvas ([7a56340](https://github.com/jeffnyman/improbable-mission/commit/7a563402ab453f95462339989089b9ec1be1fb6e))
+- play elevator sound during movement ([9c085af](https://github.com/jeffnyman/improbable-mission/commit/9c085afcecd0cc57b60d911e1caed54fc7042458))
+- player can turn sound on or off ([e266834](https://github.com/jeffnyman/improbable-mission/commit/e266834b838b75d74efea6fc1b722ddf4876fea9))
+
 ## [0.2.0](https://github.com/jeffnyman/improbable-mission/compare/0.1.0...0.2.0) (2026-02-04)
 
 ### Features
