@@ -11,6 +11,12 @@ class SoundSelector {
       ".sound-on, .sound-off",
     );
 
+    // If audio is not available, disable the sound controls
+    if (!audio.isAvailable()) {
+      this.disableSoundControls(soundItems);
+      return;
+    }
+
     soundItems.forEach((item) => {
       item.addEventListener("click", () => {
         const soundState = item.classList.contains("sound-on") ? "on" : "off";
@@ -32,6 +38,16 @@ class SoundSelector {
       this.applySoundState(soundState);
       this.setActiveItem(soundItem);
     }
+  }
+
+  private disableSoundControls(soundItems: NodeListOf<HTMLElement>) {
+    soundItems.forEach((item) => {
+      item.style.textDecoration = "line-through";
+      item.style.opacity = "0.4";
+      item.style.cursor = "not-allowed";
+      item.style.pointerEvents = "none";
+      item.title = "Audio not supported in this browser";
+    });
   }
 
   private applySoundState(state: string) {

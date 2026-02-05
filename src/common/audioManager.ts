@@ -21,7 +21,13 @@ class AudioManager {
   private activeSounds: ActiveSound[] = [];
 
   constructor() {
-    this.context = new AudioContext();
+    try {
+      this.context = new AudioContext();
+    } catch (error) {
+      audit("AudioContext not available in this environment", error);
+      this.context = null;
+    }
+
     this.resources = ["elevator.start.ogg", "elevator.stop.ogg"];
   }
 
