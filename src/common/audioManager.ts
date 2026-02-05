@@ -42,6 +42,10 @@ class AudioManager {
    * @returns AudioBufferSourceNode if played, false if context unavailable or sound not loaded
    */
   play(name: string): AudioBufferSourceNode | false {
+    const soundSetting = localStorage.getItem("sound");
+
+    if (soundSetting === "off") return false;
+
     if (!this.context || !this.hasSound(name)) return false;
 
     const source = this.context.createBufferSource();
@@ -57,6 +61,10 @@ class AudioManager {
    * Called at the end of each scan frame to play all requested sounds.
    */
   playQueue() {
+    const soundSetting = localStorage.getItem("sound");
+
+    if (soundSetting === "off") return;
+
     for (const req of this.queue) {
       if (!req.name) continue;
 
@@ -102,6 +110,7 @@ class AudioManager {
    */
   request(audio: AudioRequest): boolean {
     if (!this.context) return false;
+    if (localStorage.getItem("sound") === "off") return false;
 
     // Prevent duplicate sounds in the same frame
     for (const queuedAudio of this.queue) {

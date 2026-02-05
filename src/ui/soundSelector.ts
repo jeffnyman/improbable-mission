@@ -1,4 +1,5 @@
 import { audio } from "../common/audioManager";
+import { options } from "../utils/options";
 
 class SoundSelector {
   init() {
@@ -16,10 +17,21 @@ class SoundSelector {
 
         if (!soundState) return;
 
+        options.setSoundOption(soundState);
         this.applySoundState(soundState);
         this.setActiveItem(item);
       });
     });
+
+    const soundState = options.getSoundOption();
+    const soundItem = document.querySelector(
+      `.sound-${soundState}`,
+    ) as HTMLElement;
+
+    if (soundItem) {
+      this.applySoundState(soundState);
+      this.setActiveItem(soundItem);
+    }
   }
 
   private applySoundState(state: string) {

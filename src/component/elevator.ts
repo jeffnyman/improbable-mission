@@ -32,16 +32,17 @@ class Elevator {
     // Determine which direction elevator should begin moving.
     if (actionDown && this.y < this.maxWorldY) {
       this.direction = "down";
-
-      if (!this.sound) {
-        this.sound = audio.request({ name: "elevator.start" });
-      }
     } else if (actionUp && this.y > 0) {
       this.direction = "up";
+    }
 
-      if (!this.sound) {
-        this.sound = audio.request({ name: "elevator.start" });
-      }
+    // Request the start sound whenever the elevator is moving and
+    // it hasn't been successfully queued yet. Checked every frame
+    // so that a request that failed while sound was off will be
+    // retried once sound is turned on, even if the key has been
+    // released.
+    if (this.direction && !this.sound) {
+      this.sound = audio.request({ name: "elevator.start" });
     }
 
     // Move elevator up or down.
