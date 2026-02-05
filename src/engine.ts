@@ -1,6 +1,7 @@
 import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { canvasResizer } from "./ui/canvasResizer";
+import { fullScreenSelector } from "./ui/fullScreenSelector";
 import { paletteSelector } from "./ui/paletteSelector";
 import { soundSelector } from "./ui/soundSelector";
 import { sprites } from "./utils/sprites";
@@ -20,6 +21,7 @@ class Engine {
     soundSelector.init();
     graphics.init("game");
     canvasResizer.init();
+    fullScreenSelector.init();
 
     this.animate();
     this.scan();
