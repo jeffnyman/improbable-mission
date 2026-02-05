@@ -114,6 +114,25 @@ a {
         padding-right: 8px;
 
         border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          padding-right: 0;
+
+          border-right: none;
+        }
+      }
+
+      .sound-on,
+      .sound-off {
+        padding-right: 8px;
+
+        border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          padding-right: 0;
+
+          border-right: none;
+        }
       }
     }
   }
