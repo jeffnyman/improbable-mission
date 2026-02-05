@@ -61,6 +61,11 @@ class Engine {
    */
   private animate() {
     requestAnimationFrame((actualTime) => {
+      if (game.isPaused()) {
+        this.animate();
+        return;
+      }
+
       if (actualTime - this.animationFrameTime > this.FRAME_INTERVAL) {
         this.animationFrameTime = actualTime;
         this.animationRoutine();
