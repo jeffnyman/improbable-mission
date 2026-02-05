@@ -34,7 +34,7 @@ class Elevator {
       this.direction = "down";
 
       if (!this.sound) {
-        this.sound = audio.request({ name: "elevator.start " });
+        this.sound = audio.request({ name: "elevator.start" });
       }
     } else if (actionUp && this.y > 0) {
       this.direction = "up";
@@ -54,6 +54,8 @@ class Elevator {
 
         if (this.sound) {
           this.sound = false;
+          // Stop the movement sound before playing the stop sound
+          audio.stopAllSounds();
           audio.request({ name: "elevator.stop" });
         }
       }
@@ -66,6 +68,8 @@ class Elevator {
 
         if (this.sound) {
           this.sound = false;
+          // Stop the movement sound before playing the stop sound
+          audio.stopAllSounds();
           audio.request({ name: "elevator.stop" });
         }
       }

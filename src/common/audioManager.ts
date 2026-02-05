@@ -1,5 +1,5 @@
 import { audit, log } from "../utils/logger";
-import type { AudioRequest } from "../types/audio";
+import type { ActiveSound, AudioRequest } from "../types/audio";
 
 class AudioManager {
   private context: AudioContext | null = null;
@@ -10,8 +10,15 @@ class AudioManager {
   // Holds the decoded and buffered sounds.
   private sounds: Record<string, AudioBuffer> = {};
 
-  // Holds requested sound effects in a given scan frame.
+  // Holds requested sound effects for the current scan frame.
+  // Cleared at the start of each frame, populated during scan,
+  // played at end of frame.
   private queue: AudioRequest[] = [];
+
+  // Holds the buffer of source objects for currently playing
+  // sounds. This is used to stop sounds when needed (e.g., when
+  // elevator stops moving).
+  private activeSounds: ActiveSound[] = [];
 
   constructor() {
     this.context = new AudioContext();
@@ -28,6 +35,56 @@ class AudioManager {
 
   getContext(): AudioContext | null {
     return this.context;
+  }
+
+  /**
+   * Plays a sound immediately and returns its buffer source.
+   * @returns AudioBufferSourceNode if played, false if context unavailable or sound not loaded
+   */
+  play(name: string): AudioBufferSourceNode | false {
+    if (!this.context || !this.hasSound(name)) return false;
+
+    const source = this.context.createBufferSource();
+    source.buffer = this.sounds[name];
+    source.connect(this.context.destination);
+    source.start(0);
+
+    return source;
+  }
+
+  /**
+   * Plays all sounds in the request queue and tracks them as active.
+   * Called at the end of each scan frame to play all requested sounds.
+   */
+  playQueue() {
+    for (const req of this.queue) {
+      if (!req.name) continue;
+
+      this.activeSounds.push({
+        name: req.name,
+        bufferSource: this.play(req.name),
+      });
+    }
+  }
+
+  /**
+   * Stops all currently playing sounds and clears both the queue and active
+   * sounds. Used when transitioning between sound states (e.g., elevator
+   * stopping).
+   */
+  stopAllSounds() {
+    if (!this.context) return;
+
+    // Stop all currently playing sounds
+    for (const activeSound of this.activeSounds) {
+      if (activeSound.bufferSource) {
+        activeSound.bufferSource.stop(0);
+      }
+    }
+
+    // Clear both queue and active sounds
+    this.queue = [];
+    this.activeSounds = [];
   }
 
   /**
