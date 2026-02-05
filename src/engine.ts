@@ -23,6 +23,8 @@ class Engine {
     canvasResizer.init();
     fullScreenSelector.init();
 
+    this.setupInputHandling();
+
     this.animate();
     this.scan();
   }
@@ -40,6 +42,7 @@ class Engine {
    */
   private scan() {
     setInterval(() => {
+      if (game.isPaused()) return;
       this.scanRoutine();
     }, 27);
   }
@@ -64,6 +67,14 @@ class Engine {
       }
 
       this.animate();
+    });
+  }
+
+  private setupInputHandling() {
+    document.addEventListener("keydown", (evt) => {
+      if (evt.code === "KeyP" || evt.code === "Pause") {
+        game.togglePause();
+      }
     });
   }
 }
