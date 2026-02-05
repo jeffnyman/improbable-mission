@@ -1,3 +1,5 @@
+import { audio } from "../common/audioManager";
+
 class SoundSelector {
   init() {
     this.setupSoundItems();
@@ -14,9 +16,22 @@ class SoundSelector {
 
         if (!soundState) return;
 
+        this.applySoundState(soundState);
         this.setActiveItem(item);
       });
     });
+  }
+
+  private applySoundState(state: string) {
+    const context = audio.getContext();
+
+    if (!context) return;
+
+    if (state === "off") {
+      context.suspend();
+    } else {
+      context.resume();
+    }
   }
 
   private setActiveItem(itemClicked: HTMLElement) {
