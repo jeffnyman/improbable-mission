@@ -2,6 +2,7 @@ import { browser } from "./utils/browser";
 import { graphics } from "./utils/graphics";
 import { canvasResizer } from "./ui/canvasResizer";
 import { paletteSelector } from "./ui/paletteSelector";
+import { soundSelector } from "./ui/soundSelector";
 import { sprites } from "./utils/sprites";
 import { game } from "./game";
 import { audio } from "./common/audioManager";
@@ -16,6 +17,7 @@ class Engine {
     await Promise.allSettled([audio.loadSounds(), sprites.loadSprites()]);
     sprites.initializeSprites();
     paletteSelector.init();
+    soundSelector.init();
     graphics.init("game");
     canvasResizer.init();
 
