@@ -1,5 +1,6 @@
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
+import { audio } from "../common/audioManager";
 
 class Elevator {
   // Elevator vertical top position. This is the scroll position
@@ -21,6 +22,9 @@ class Elevator {
   // An empty string means the elevator is not moving.
   private direction = "";
 
+  // Set whether the elevator sound should play.
+  private sound: boolean | undefined = false;
+
   scanRoutine() {
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
@@ -28,8 +32,16 @@ class Elevator {
     // Determine which direction elevator should begin moving.
     if (actionDown && this.y < this.maxWorldY) {
       this.direction = "down";
+
+      if (!this.sound) {
+        this.sound = audio.request({ name: "elevator.start " });
+      }
     } else if (actionUp && this.y > 0) {
       this.direction = "up";
+
+      if (!this.sound) {
+        this.sound = audio.request({ name: "elevator.start" });
+      }
     }
 
     // Move elevator up or down.
@@ -39,6 +51,11 @@ class Elevator {
       if (this.y > this.maxWorldY) {
         this.y = this.maxWorldY;
         this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.request({ name: "elevator.stop" });
+        }
       }
     } else if (this.direction === "up") {
       this.y -= 8;
@@ -46,6 +63,11 @@ class Elevator {
       if (this.y < 0) {
         this.y = 0;
         this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.request({ name: "elevator.stop" });
+        }
       }
     }
   }
