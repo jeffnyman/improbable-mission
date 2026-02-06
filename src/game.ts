@@ -1,5 +1,6 @@
 import { agent } from "./component/agent";
 import { elevator } from "./component/elevator";
+import { gameTime } from "./common/gameTime";
 import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
 import { audio } from "./common/audioManager";
@@ -7,6 +8,7 @@ import { maps } from "./data/layout";
 import { log } from "./utils/logger";
 
 class Game {
+  private scanFrameCounter = 0;
   private paused = false;
 
   // The map layout defining which room IDs exist at each
@@ -26,6 +28,12 @@ class Game {
   }
 
   updateScan() {
+    // Increment the local frame counter and sync it to the global
+    // gameTime singleton. This allows other components to query the
+    // current frame without depending on Game.
+    this.scanFrameCounter++;
+    gameTime.setSFC(this.scanFrameCounter);
+
     // Clear audio queue from previous frame before processing
     // new requests.
     audio.emptyRequestQueue();
