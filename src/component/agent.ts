@@ -1,4 +1,5 @@
 import type { ActionType, Animation } from "../types/agent";
+import { audio } from "../common/audioManager";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
@@ -161,6 +162,10 @@ class Agent {
 
             if (this.actionPhase === 14) this.actionPhase = 0;
 
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "run.left" });
+            }
+
             this.x -= 5;
           }
         }
@@ -185,6 +190,10 @@ class Agent {
             this.actionPhase++;
 
             if (this.actionPhase === 14) this.actionPhase = 0;
+
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "run.right" });
+            }
 
             this.x += 5;
           }

@@ -28,7 +28,12 @@ class AudioManager {
       this.context = null;
     }
 
-    this.resources = ["elevator.start.ogg", "elevator.stop.ogg"];
+    this.resources = [
+      "elevator.start.ogg",
+      "elevator.stop.ogg",
+      "run.left.ogg",
+      "run.right.ogg",
+    ];
   }
 
   isAvailable(): boolean {
