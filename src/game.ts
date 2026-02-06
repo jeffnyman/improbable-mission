@@ -3,6 +3,7 @@ import { elevator } from "./component/elevator";
 import { gameTime } from "./common/gameTime";
 import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
+import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { maps } from "./data/layout";
 import { log } from "./utils/logger";
@@ -10,6 +11,9 @@ import { log } from "./utils/logger";
 class Game {
   private scanFrameCounter = 0;
   private paused = false;
+
+  // All room instances indexed by room ID.
+  private rooms: Record<number, Room> = {};
 
   // The map layout defining which room IDs exist at each
   // coordinate.
@@ -21,6 +25,10 @@ class Game {
 
     log(`map.id: ${mapId}`);
     log(`map.rooms: ${JSON.stringify(this.map.rooms)}`);
+  }
+
+  init() {
+    this.generateRooms();
   }
 
   getMap() {
@@ -76,6 +84,13 @@ class Game {
     }
 
     return status;
+  }
+
+  private generateRooms() {
+    for (let i = 1; i <= 32; i++) {
+      this.rooms[i] = new Room();
+      this.rooms[i].init();
+    }
   }
 }
 
