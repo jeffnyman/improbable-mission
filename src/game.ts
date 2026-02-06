@@ -3,9 +3,19 @@ import { elevator } from "./component/elevator";
 import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
 import { audio } from "./common/audioManager";
+import { maps } from "./data/layout";
+import { log } from "./utils/logger";
 
 class Game {
   private paused = false;
+
+  init() {
+    const mapId = maps.length - 1;
+    const map = maps[mapId];
+
+    log(`map.id: ${mapId}`);
+    log(`map.rooms: ${JSON.stringify(map.rooms)}`);
+  }
 
   updateScan() {
     // Clear audio queue from previous frame before processing
