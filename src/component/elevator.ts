@@ -33,6 +33,14 @@ class Elevator {
   // Set whether the elevator sound should play.
   private sound: boolean | undefined = false;
 
+  getCurrentPosition(): {
+    x: number;
+    y: number;
+    rooms: number[][];
+  } {
+    return { x: this.x, y: this.y, rooms: game.getMap().rooms };
+  }
+
   scanRoutine() {
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent

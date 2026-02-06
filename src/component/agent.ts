@@ -1,6 +1,8 @@
 import type { ActionType, Animation } from "../types/agent";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
+import { layoutManager } from "../common/layoutManager";
+import { elevator } from "./elevator";
 
 class Agent {
   // This refers to the action that the agent is taking.
@@ -16,6 +18,20 @@ class Agent {
   // This refers to the direction the agent is looking in.
   // The values are left or right.
   private direction: "left" | "right" = "left";
+
+  // Horizontal collision radius for each of the 14 run animation
+  // frames. Each value represents the distance from the center
+  // point to the edge of the hitbox, adjusted to match the
+  // sprite's visual bounds per frame.
+  private runBoundaryAdjustments = [
+    11, 12, 9, 7, 9, 17, 14, 12, 12, 9, 7, 9, 17, 12,
+  ];
+
+  // Dynamic collision boundaries representing the leftmost (minX)
+  // and rightmost (maxX) positions the agent can occupy, calculated
+  // each frame based on the current action and animation phase.
+  private minX = 0;
+  private maxX = 0;
 
   // The horizontal position is x and the vertical position is y.
   private x = 140; // Centered in elevator shaft (128-192)
@@ -115,6 +131,45 @@ class Agent {
     // Handle not moving at all.
     if (!actionLeft && !actionRight) {
       this.stand();
+    }
+
+    // Handle collisions with the elevator border. If this is not
+    // done, the agent can run right through the elevator and into
+    // the walls!
+    if (this.action === "stand") {
+      // Default collision boundaries for standing.
+      this.maxX = 142 + 11;
+      this.minX = 143 - 11;
+    }
+
+    if (this.action === "run") {
+      this.maxX = 142 + this.runBoundaryAdjustments[this.actionPhase];
+      this.minX = 143 - this.runBoundaryAdjustments[this.actionPhase];
+    }
+
+    // Implement context-aware collision boundaries that enforce
+    // the elevator shaft limits only when there is not a corridor
+    // opening at the current position.
+    if (
+      this.x < this.minX &&
+      !layoutManager.hasLeftCorridor(
+        elevator.getCurrentPosition().x,
+        elevator.getCurrentPosition().y,
+        elevator.getCurrentPosition().rooms,
+      )
+    ) {
+      this.x = this.minX;
+    }
+
+    if (
+      this.x > this.maxX &&
+      !layoutManager.hasLeftCorridor(
+        elevator.getCurrentPosition().x,
+        elevator.getCurrentPosition().y,
+        elevator.getCurrentPosition().rooms,
+      )
+    ) {
+      this.x = this.maxX;
     }
   }
 
