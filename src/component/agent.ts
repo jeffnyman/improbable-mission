@@ -130,6 +130,13 @@ class Agent {
       const agentImage = actionFrames[this.actionPhase];
 
       graphics.draw(agentImage.x, agentImage.y, 35, 41, this.x, this.y);
+
+      // Make sure the agent apperas behind the elevator border.
+      // Left side.
+      graphics.draw(708, 55, 6, 50, 136, 39);
+
+      // Right side.
+      graphics.draw(750, 55, 6, 50, 178, 39);
     }
   }
 }
