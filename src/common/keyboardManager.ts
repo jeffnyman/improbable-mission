@@ -3,6 +3,8 @@ class KeyboardManager {
   private _keys = {
     UP: "ArrowUp",
     DOWN: "ArrowDown",
+    LEFT: "ArrowLeft",
+    RIGHT: "ArrowRight",
   } as const;
 
   constructor() {

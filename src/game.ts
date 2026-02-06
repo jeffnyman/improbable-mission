@@ -32,6 +32,7 @@ class Game {
 
     if (sceneManager.getScene() === "elevator") {
       elevator.scanRoutine();
+      agent.scanRoutine();
     }
 
     // Play all sounds requested during this frame.
