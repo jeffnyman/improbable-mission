@@ -151,6 +151,11 @@ class Agent {
         this.x += this.actionPhase > 9 ? 6 : 7;
       }
     } else {
+      // Handle trying to move both directions.
+      if (actionLeft && actionRight) {
+        this.stand();
+      }
+
       // Handle moving to the left.
       if (actionLeft && !actionRight) {
         this.direction = "left";
