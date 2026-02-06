@@ -1,3 +1,5 @@
+import type { RoomColor } from "../types/layout";
+
 /**
  * A layout is a map made up of rooms. There are 54 possible
  * locations and 32 possible rooms within those locations. A
@@ -65,3 +67,41 @@ export const roomDoors = [
   [4],
   [3],
 ];
+
+/**
+ * bg: Background color of the room
+ */
+export const roomColors: Record<number, RoomColor> = {
+  1: { bg: 5 },
+  2: { bg: 7 },
+  3: { bg: 5 },
+  4: { bg: 7 },
+  5: { bg: 3 },
+  6: { bg: 7 },
+  7: { bg: 5 },
+  8: { bg: 7 },
+  9: { bg: 5 },
+  10: { bg: 5 },
+  11: { bg: 7 },
+  12: { bg: 3 },
+  13: { bg: 3 },
+  14: { bg: 5 },
+  15: { bg: 3 },
+  16: { bg: 7 },
+  17: { bg: 3 },
+  18: { bg: 3 },
+  19: { bg: 3 },
+  20: { bg: 3 },
+  21: { bg: 5 },
+  22: { bg: 3 },
+  23: { bg: 5 },
+  24: { bg: 7 },
+  25: { bg: 3 },
+  26: { bg: 3 },
+  27: { bg: 3 },
+  28: { bg: 5 },
+  29: { bg: 7 },
+  30: { bg: 5 },
+  31: { bg: 3 },
+  32: { bg: 7 },
+};
