@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/jeffnyman/improbable-mission/compare/0.3.0...0.4.0) (2026-02-06)
+
+### Features
+
+- allow player to move agent ([931bcb0](https://github.com/jeffnyman/improbable-mission/commit/931bcb0ebdb4978048a5671d9296ef962422a1a6))
+- display agent sprite in canvas ([3c48685](https://github.com/jeffnyman/improbable-mission/commit/3c486857e18ad8491a29d73ec58a72b5ebe27e9a))
+- display elevator corridors in canvas ([001f32d](https://github.com/jeffnyman/improbable-mission/commit/001f32de24f48720d82fe9fd01068358491ebebb))
+
 ## [0.3.0](https://github.com/jeffnyman/improbable-mission/compare/0.2.0...0.3.0) (2026-02-05)
 
 ### Features
