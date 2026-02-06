@@ -122,6 +122,10 @@ class Agent {
     return this.x;
   }
 
+  getAction(): string {
+    return this.action;
+  }
+
   scanRoutine() {
     // Only process agent logic on even frames to slow down
     // movement/action speed.

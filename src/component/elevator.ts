@@ -56,9 +56,19 @@ class Elevator {
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
     // Determine which direction elevator should begin moving.
-    if (agentInElevator && actionDown && this.y < this.maxWorldY) {
+    if (
+      agentInElevator &&
+      agent.getAction() === "stand" &&
+      actionDown &&
+      this.y < this.maxWorldY
+    ) {
       this.direction = "down";
-    } else if (agentInElevator && actionUp && this.y > 0) {
+    } else if (
+      agentInElevator &&
+      agent.getAction() === "stand" &&
+      actionUp &&
+      this.y > 0
+    ) {
       this.direction = "up";
     }
 
