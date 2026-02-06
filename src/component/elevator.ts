@@ -1,6 +1,7 @@
 import { game } from "../game";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
+import { layoutManager } from "../common/layoutManager";
 import { audio } from "../common/audioManager";
 import { logOnce } from "../utils/logger";
 
@@ -138,6 +139,30 @@ class Elevator {
         const roomId = leftRooms[j];
 
         logOnce(`leftRooms: roomId = ${roomId}`);
+
+        let level: number | false = false;
+
+        if (layoutManager.hasRightDoor(roomId) === 2) level = j * 2;
+        else if (layoutManager.hasRightDoor(roomId) === 3) level = j * 2 + 1;
+
+        // Handle if a corridor needs to be drawn.
+
+        if (
+          level !== false &&
+          this.y > 216 * level - 168 &&
+          this.y < 216 * level + 96
+        ) {
+          const offset = this.y - (216 * level - 168);
+
+          // Draw ceiling border.
+          graphics.draw(164, 280, 136, 8, 0, 200 - offset);
+
+          // Draw the floor.
+          graphics.draw(164, 312, 136, 8, 0, 248 - offset);
+
+          // Draw floor border.
+          graphics.draw(164, 288, 136, 8, 0, 256 - offset);
+        }
       }
 
       // Draw the right corridors.
@@ -146,6 +171,30 @@ class Elevator {
         const roomId = rightRooms[j];
 
         logOnce(`rightRooms: roomId = ${roomId}`);
+
+        let level: number | false = false;
+
+        if (layoutManager.hasLeftDoor(roomId) === 1) level = j * 2;
+        else if (layoutManager.hasLeftDoor(roomId) === 4) level = j * 2 + 1;
+
+        // Handle if a corridor needs to be drawn.
+
+        if (
+          level !== false &&
+          this.y > 216 * level - 168 &&
+          this.y < 216 * level + 96
+        ) {
+          const offset = this.y - (216 * level - 168);
+
+          // Draw ceiling border.
+          graphics.draw(164, 296, 136, 8, 184, 200 - offset);
+
+          // Draw the floor.
+          graphics.draw(164, 320, 136, 8, 184, 248 - offset);
+
+          // Draw floor border.
+          graphics.draw(164, 304, 136, 8, 184, 256 - offset);
+        }
       }
     }
   }
