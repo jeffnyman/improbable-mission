@@ -107,6 +107,11 @@ class Agent {
         this.x += 5;
       }
     }
+
+    // Handle not moving at all.
+    if (!actionLeft && !actionRight) {
+      this.stand();
+    }
   }
 
   animationRoutine() {
@@ -138,6 +143,11 @@ class Agent {
       // Right side.
       graphics.draw(750, 55, 6, 50, 178, 39);
     }
+  }
+
+  private stand() {
+    this.action = "stand";
+    this.actionPhase = 0;
   }
 }
 
