@@ -5,6 +5,7 @@ class KeyboardManager {
     DOWN: "ArrowDown",
     LEFT: "ArrowLeft",
     RIGHT: "ArrowRight",
+    SHIFT: "ShiftLeft",
   } as const;
 
   constructor() {
@@ -20,16 +21,31 @@ class KeyboardManager {
     return this.pressedKeys[code] === true;
   }
 
-  handleKeyDown(e: KeyboardEvent) {
+  private handleKeyDown(e: KeyboardEvent) {
     if ((Object.values(this._keys) as readonly string[]).includes(e.code)) {
       e.preventDefault();
     }
 
-    this.pressedKeys[e.code] = true;
+    const code = this.normalizeKeyCode(e.code);
+    this.pressedKeys[code] = true;
   }
 
-  handleKeyUp(e: KeyboardEvent) {
-    this.pressedKeys[e.code] = false;
+  private handleKeyUp(e: KeyboardEvent) {
+    const code = this.normalizeKeyCode(e.code);
+    this.pressedKeys[code] = false;
+  }
+
+  private normalizeKeyCode(code: string): string {
+    if (
+      code === "Space" ||
+      code === "ControlLeft" ||
+      code === "ControlRight" ||
+      code === "ShiftLeft" ||
+      code === "ShiftRight"
+    ) {
+      return "ShiftLeft";
+    }
+    return code;
   }
 }
 
