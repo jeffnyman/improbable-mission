@@ -25,8 +25,6 @@ class Engine {
 
     this.setupInputHandling();
 
-    game.init();
-
     this.animate();
     this.scan();
   }

@@ -9,12 +9,20 @@ import { log } from "./utils/logger";
 class Game {
   private paused = false;
 
-  init() {
+  // The map layout defining which room IDs exist at each
+  // coordinate.
+  private map: { rooms: Record<number, number[]> };
+
+  constructor() {
     const mapId = maps.length - 1;
-    const map = maps[mapId];
+    this.map = maps[mapId];
 
     log(`map.id: ${mapId}`);
-    log(`map.rooms: ${JSON.stringify(map.rooms)}`);
+    log(`map.rooms: ${JSON.stringify(this.map.rooms)}`);
+  }
+
+  getMap() {
+    return this.map;
   }
 
   updateScan() {
