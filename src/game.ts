@@ -11,7 +11,7 @@ class Game {
 
   // The map layout defining which room IDs exist at each
   // coordinate.
-  private map: { rooms: Record<number, number[]> };
+  private map: { rooms: number[][] };
 
   constructor() {
     const mapId = maps.length - 1;

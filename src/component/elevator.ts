@@ -82,6 +82,22 @@ class Elevator {
         }
       }
     }
+
+    // Stop at corridor position.
+    if (this.y % 216 === 0 && this.direction && !actionUp && !actionDown) {
+      if (
+        layoutManager.hasRightCorridor(this.x, this.y, game.getMap().rooms) ||
+        layoutManager.hasLeftCorridor(this.x, this.y, game.getMap().rooms)
+      ) {
+        this.direction = "";
+
+        if (this.sound) {
+          this.sound = false;
+          audio.stopAllSounds();
+          audio.request({ name: "elevator.stop" });
+        }
+      }
+    }
   }
 
   animationRoutine() {
