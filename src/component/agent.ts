@@ -10,22 +10,28 @@ class Agent {
 
   // The phase of the agent's action refers to the sprite frame.
   // If the agent is standing, this value is 0. The frames for
-  // running are 0 to 13.
+  // running are 0 to 13. The frames for jumping are 0 to 11.
   private actionPhase = 0;
 
+  // Sprite sheet coordinates for all agent animations. Organized
+  // by direction (left/right), then action (stand/run/jump),
+  // containing arrays of {x, y} coordinates for each animation
+  // frame.
   private animation: Animation;
 
   // This refers to the direction the agent is looking in.
   // The values are left or right.
   private direction: "left" | "right" = "left";
 
-  // Horizontal collision radius for each of the 14 run animation
-  // frames. Each value represents the distance from the center
-  // point to the edge of the hitbox, adjusted to match the
+  // Horizontal collision radius for each of the 14 run and 12 jump
+  // animation frames. Each value represents the distance from the
+  // center point to the edge of the hitbox, adjusted to match the
   // sprite's visual bounds per frame.
   private runBoundaryAdjustments = [
     11, 12, 9, 7, 9, 17, 14, 12, 12, 9, 7, 9, 17, 12,
   ];
+
+  private jumpBoundaryAdjustments = [8, 8, 10, 11, 12, 12, 12, 7, 0, 2, 8, 5];
 
   // Dynamic collision boundaries representing the leftmost (minX)
   // and rightmost (maxX) positions the agent can occupy, calculated
@@ -59,6 +65,20 @@ class Agent {
           { x: 420, y: 380 },
           { x: 455, y: 380 },
         ],
+        jump: [
+          { x: 0, y: 462 },
+          { x: 35, y: 462 },
+          { x: 70, y: 462 },
+          { x: 105, y: 462 },
+          { x: 140, y: 462 },
+          { x: 175, y: 462 },
+          { x: 210, y: 462 },
+          { x: 245, y: 462 },
+          { x: 280, y: 462 },
+          { x: 315, y: 462 },
+          { x: 350, y: 462 },
+          { x: 385, y: 462 },
+        ],
       },
       right: {
         stand: [{ x: 0, y: 503 }],
@@ -78,6 +98,20 @@ class Agent {
           { x: 420, y: 339 },
           { x: 455, y: 339 },
         ],
+        jump: [
+          { x: 0, y: 421 },
+          { x: 35, y: 421 },
+          { x: 70, y: 421 },
+          { x: 105, y: 421 },
+          { x: 140, y: 421 },
+          { x: 175, y: 421 },
+          { x: 210, y: 421 },
+          { x: 245, y: 421 },
+          { x: 280, y: 421 },
+          { x: 315, y: 421 },
+          { x: 350, y: 421 },
+          { x: 385, y: 421 },
+        ],
       },
     };
   }
@@ -89,48 +123,78 @@ class Agent {
   scanRoutine() {
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
     const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);
+    const actionJump = keyboard.isKeyPressed(keyboard.keys.SHIFT);
 
-    // Handle moving to the left.
-    if (actionLeft && !actionRight) {
-      this.direction = "left";
+    if (this.action === "jump") {
+      this.actionPhase++;
 
-      if (this.action !== "run") {
-        // This starts the run action.
-        this.action = "run";
-        this.actionPhase = 0;
-        this.x -= 10;
-      } else {
-        // This continues the running action.
-        this.actionPhase++;
-
-        if (this.actionPhase === 14) this.actionPhase = 0;
-
-        this.x -= 5;
+      if (this.actionPhase === 12) {
+        // This means the jump has finished.
+        this.stand();
       }
-    }
 
-    // Handle moving to the right.
-    if (actionRight && !actionLeft) {
-      this.direction = "right";
-
-      if (this.action !== "run") {
-        // This starts the run action.
-        this.action = "run";
-        this.actionPhase = 0;
-        this.x += 10;
-      } else {
-        // This continues the running action.
-        this.actionPhase++;
-
-        if (this.actionPhase === 14) this.actionPhase = 0;
-
-        this.x += 5;
+      if (this.direction === "left") {
+        this.x -= this.actionPhase > 9 ? 6 : 7;
       }
-    }
 
-    // Handle not moving at all.
-    if (!actionLeft && !actionRight) {
-      this.stand();
+      if (this.direction === "right") {
+        this.x += this.actionPhase > 9 ? 6 : 7;
+      }
+    } else {
+      // Handle moving to the left.
+      if (actionLeft && !actionRight) {
+        this.direction = "left";
+
+        if (actionJump) {
+          keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
+          this.action = "jump";
+          this.actionPhase = 0;
+        } else {
+          if (this.action !== "run") {
+            // This starts the run action.
+            this.action = "run";
+            this.actionPhase = 0;
+            this.x -= 10;
+          } else {
+            // This continues the running action.
+            this.actionPhase++;
+
+            if (this.actionPhase === 14) this.actionPhase = 0;
+
+            this.x -= 5;
+          }
+        }
+      }
+
+      // Handle moving to the right.
+      if (actionRight && !actionLeft) {
+        this.direction = "right";
+
+        if (actionJump) {
+          keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
+          this.action = "jump";
+          this.actionPhase = 0;
+        } else {
+          if (this.action !== "run") {
+            // This starts the run action.
+            this.action = "run";
+            this.actionPhase = 0;
+            this.x += 10;
+          } else {
+            // This continues the running action.
+            this.actionPhase++;
+
+            if (this.actionPhase === 14) this.actionPhase = 0;
+
+            this.x += 5;
+          }
+        }
+      }
+
+      // Handle not moving at all.
+      if (!actionLeft && !actionRight) {
+        this.stand();
+      }
     }
 
     // Handle collisions with the elevator border. If this is not
@@ -145,6 +209,11 @@ class Agent {
     if (this.action === "run") {
       this.maxX = 142 + this.runBoundaryAdjustments[this.actionPhase];
       this.minX = 143 - this.runBoundaryAdjustments[this.actionPhase];
+    }
+
+    if (this.action === "jump") {
+      this.maxX = 142 + this.jumpBoundaryAdjustments[this.actionPhase];
+      this.minX = 143 - this.jumpBoundaryAdjustments[this.actionPhase];
     }
 
     // Implement context-aware collision boundaries that enforce
@@ -187,7 +256,7 @@ class Agent {
 
       if (!directionAnim) return;
 
-      const actionFrames = directionAnim["run"];
+      const actionFrames = directionAnim[this.action];
 
       if (!actionFrames || !actionFrames[this.actionPhase]) return;
 

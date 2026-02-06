@@ -1,4 +1,4 @@
-export type ActionType = "stand" | "run";
+export type ActionType = "stand" | "run" | "jump";
 
 interface AnimationFrame {
   x: number;
@@ -8,6 +8,7 @@ interface AnimationFrame {
 interface DirectionAnimation {
   stand: AnimationFrame[];
   run: AnimationFrame[];
+  jump: AnimationFrame[];
 }
 
 export interface Animation {

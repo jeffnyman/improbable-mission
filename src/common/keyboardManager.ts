@@ -17,6 +17,10 @@ class KeyboardManager {
     return this._keys;
   }
 
+  setKeyState(code: string, state: boolean | string) {
+    this.pressedKeys[code] = state;
+  }
+
   isKeyPressed(code: string): boolean {
     return this.pressedKeys[code] === true;
   }
