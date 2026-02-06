@@ -66,6 +66,10 @@ class Agent {
     };
   }
 
+  getX(): number {
+    return this.x;
+  }
+
   scanRoutine() {
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
     const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);

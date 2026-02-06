@@ -1,3 +1,4 @@
+import { agent } from "./agent";
 import { game } from "../game";
 import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
@@ -33,13 +34,23 @@ class Elevator {
   private sound: boolean | undefined = false;
 
   scanRoutine() {
+    // Assume the agent is not in the elevator unless their
+    // coordinates line up. Without this in place, the agent
+    // could move the elevator up or down without actually
+    // being in it!
+    let agentInElevator = false;
+
+    if (agent.getX() >= 129 && agent.getX() <= 156) {
+      agentInElevator = true;
+    }
+
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
     const actionDown = keyboard.isKeyPressed(keyboard.keys.DOWN);
 
     // Determine which direction elevator should begin moving.
-    if (actionDown && this.y < this.maxWorldY) {
+    if (agentInElevator && actionDown && this.y < this.maxWorldY) {
       this.direction = "down";
-    } else if (actionUp && this.y > 0) {
+    } else if (agentInElevator && actionUp && this.y > 0) {
       this.direction = "up";
     }
 
