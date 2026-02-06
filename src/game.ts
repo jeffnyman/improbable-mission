@@ -88,7 +88,7 @@ class Game {
 
   private generateRooms() {
     for (let i = 1; i <= 32; i++) {
-      this.rooms[i] = new Room();
+      this.rooms[i] = new Room(i);
       this.rooms[i].init();
     }
   }
