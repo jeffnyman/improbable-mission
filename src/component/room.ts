@@ -39,16 +39,18 @@ export class Room {
           elevatorLeft = elevatorIndex;
           leftDoorPosition = leftDoorType === 1 ? "top" : "bottom";
 
-          log(`Elevator left: ${elevatorLeft}`); // REMOVE
-          log(`Left door position: ${leftDoorPosition}`); // REMOVE
+          log(
+            `Left door connects to elevator shaft ${elevatorLeft} at ${leftDoorPosition}`,
+          );
         }
 
         if (rightDoorType) {
           elevatorRight = elevatorIndex + 1;
           rightDoorPosition = rightDoorType === 2 ? "top" : "bottom";
 
-          log(`Elevator right: ${elevatorRight}`); // REMOVE
-          log(`Right door position: ${rightDoorPosition}`); // REMOVE
+          log(
+            `Right door connects to elevator shaft ${elevatorRight} at ${rightDoorPosition}`,
+          );
         }
 
         break;
