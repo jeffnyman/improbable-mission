@@ -2,20 +2,22 @@
  * A layout is a map made up of rooms. There are 54 possible
  * locations and 32 possible rooms within those locations. A
  * value of 0 indicates no room.
+ *
+ * Format: Row-major, where rooms[level][elevator]
+ * - 6 levels (rows 0-5)
+ * - 8 elevator positions (columns 0-7)
  */
+// prettier-ignore
 export const maps = [
   {
-    rooms: {
-      0: [27, 0, 28, 10, 0, 11],
-      1: [25, 18, 13, 29, 30, 0],
-      2: [20, 2, 0, 0, 0, 0],
-      3: [0, 0, 5, 14, 0, 0],
-      4: [3, 4, 26, 21, 12, 6],
-      5: [16, 19, 32, 0, 22, 7],
-      6: [8, 0, 1, 23, 0, 24],
-      7: [9, 0, 15, 0, 0, 17],
-      8: [0, 0, 0, 0, 0, 31],
-    },
+    rooms: [
+      [27, 25, 20, 0, 3, 16, 8, 9, 0],  // Level 0
+      [0, 18, 2, 0, 4, 19, 0, 0, 0],    // Level 1
+      [28, 13, 0, 5, 26, 32, 1, 15, 0], // Level 2
+      [10, 29, 0, 14, 21, 0, 23, 0, 0], // Level 3
+      [0, 30, 0, 0, 12, 22, 0, 0, 0],   // Level 4
+      [11, 0, 0, 0, 6, 7, 24, 17, 31],  // Level 5
+    ],
   },
 ];
 

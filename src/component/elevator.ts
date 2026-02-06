@@ -3,7 +3,6 @@ import { graphics } from "../utils/graphics";
 import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
 import { audio } from "../common/audioManager";
-import { logOnce } from "../utils/logger";
 
 class Elevator {
   // There are 8 elevators in the system. The player always
@@ -125,25 +124,23 @@ class Elevator {
       graphics.draw(708, 8, 64, 8, 128, 134 - (this.y - this.shaftBottomY));
 
     // Draw corridors.
-    const leftRooms = game.getMap().rooms[this.x - 1];
-    const rightRooms = game.getMap().rooms[this.x];
 
-    logOnce(`leftRooms: ${leftRooms}`);
-    logOnce(`rightRooms: ${rightRooms}`);
+    const mapRooms = game.getMap().rooms;
 
     // Iterate through rooms.
     for (let j = 0; j < 6; j++) {
-      // Draw the left corridors.
-      if (leftRooms[j] > 0) {
-        // This requires checking the layout for RIGHT doors.
-        const roomId = leftRooms[j];
+      const leftRoomId = mapRooms[j][this.x - 1];
+      const rightRoomId = mapRooms[j][this.x];
 
-        logOnce(`leftRooms: roomId = ${roomId}`);
+      // Draw the left corridors.
+      if (leftRoomId > 0) {
+        // This requires checking the layout for RIGHT doors.
 
         let level: number | false = false;
 
-        if (layoutManager.hasRightDoor(roomId) === 2) level = j * 2;
-        else if (layoutManager.hasRightDoor(roomId) === 3) level = j * 2 + 1;
+        if (layoutManager.hasRightDoor(leftRoomId) === 2) level = j * 2;
+        else if (layoutManager.hasRightDoor(leftRoomId) === 3)
+          level = j * 2 + 1;
 
         // Handle if a corridor needs to be drawn.
 
@@ -166,16 +163,14 @@ class Elevator {
       }
 
       // Draw the right corridors.
-      if (rightRooms[j] > 0) {
+      if (rightRoomId > 0) {
         // This requires checking the layout for LEFT doors.
-        const roomId = rightRooms[j];
-
-        logOnce(`rightRooms: roomId = ${roomId}`);
 
         let level: number | false = false;
 
-        if (layoutManager.hasLeftDoor(roomId) === 1) level = j * 2;
-        else if (layoutManager.hasLeftDoor(roomId) === 4) level = j * 2 + 1;
+        if (layoutManager.hasLeftDoor(rightRoomId) === 1) level = j * 2;
+        else if (layoutManager.hasLeftDoor(rightRoomId) === 4)
+          level = j * 2 + 1;
 
         // Handle if a corridor needs to be drawn.
 
