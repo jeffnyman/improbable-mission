@@ -1,6 +1,7 @@
 import type { ActionType, Animation } from "../types/agent";
 import { audio } from "../common/audioManager";
 import { graphics } from "../utils/graphics";
+import { gameTime } from "../common/gameTime";
 import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
 import { elevator } from "./elevator";
@@ -122,6 +123,10 @@ class Agent {
   }
 
   scanRoutine() {
+    // Only process agent logic on even frames to slow down
+    // movement/action speed.
+    if (gameTime.getSFC() % 2) return;
+
     const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
     const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);
     const actionJump = keyboard.isKeyPressed(keyboard.keys.SHIFT);
