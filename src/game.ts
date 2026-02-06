@@ -1,3 +1,4 @@
+import { agent } from "./component/agent";
 import { elevator } from "./component/elevator";
 import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
@@ -23,6 +24,7 @@ class Game {
     if (sceneManager.getScene() === "elevator") {
       elevator.animationRoutine();
       pocketComputer.animationRoutine();
+      agent.animationRoutine();
     }
   }
 
