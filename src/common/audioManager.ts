@@ -33,6 +33,8 @@ class AudioManager {
       "elevator.stop.ogg",
       "run.left.ogg",
       "run.right.ogg",
+      "jump.left.ogg",
+      "jump.right.ogg",
     ];
   }
 
