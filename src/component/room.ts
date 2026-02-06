@@ -1,6 +1,6 @@
-import { layoutManager } from "../common/layoutManager";
 import { game } from "../game";
 import { log } from "../utils/logger";
+import { calculateRoomConnections } from "../utils/roomConnections";
 
 export class Room {
   // This is the id of the room, which can run from 1 to 32.
@@ -15,46 +15,33 @@ export class Room {
   }
 
   private setupRoomConnections() {
-    let elevatorLeft: number;
-    let elevatorRight: number;
-    let leftDoorPosition: string;
-    let rightDoorPosition: string;
-
     const rooms = game.getMap().rooms;
+    const connection = calculateRoomConnections(this.id, rooms);
 
-    // Iterate over levels (rows) in row-major format.
-    for (let levelIndex = 0; levelIndex < rooms.length; levelIndex++) {
-      const level = rooms[levelIndex];
-      const elevatorIndex = level.indexOf(this.id);
+    if (!connection) {
+      return;
+    }
 
-      if (elevatorIndex !== -1) {
-        log(
-          `Room ${this.id} is at level ${levelIndex}, elevator ${elevatorIndex}`,
-        );
+    log(
+      `Room ${this.id} is at level ${connection.level}, elevator ${connection.elevator}`,
+    );
 
-        const leftDoorType = layoutManager.hasLeftDoor(this.id);
-        const rightDoorType = layoutManager.hasRightDoor(this.id);
+    if (connection.leftDoor) {
+      const elevatorLeft = connection.leftDoor.elevator;
+      const leftDoorPosition = connection.leftDoor.position;
 
-        if (leftDoorType) {
-          elevatorLeft = elevatorIndex;
-          leftDoorPosition = leftDoorType === 1 ? "top" : "bottom";
+      log(
+        `Left door connects to elevator shaft ${elevatorLeft} at ${leftDoorPosition}`,
+      );
+    }
 
-          log(
-            `Left door connects to elevator shaft ${elevatorLeft} at ${leftDoorPosition}`,
-          );
-        }
+    if (connection.rightDoor) {
+      const elevatorRight = connection.rightDoor.elevator;
+      const rightDoorPosition = connection.rightDoor.position;
 
-        if (rightDoorType) {
-          elevatorRight = elevatorIndex + 1;
-          rightDoorPosition = rightDoorType === 2 ? "top" : "bottom";
-
-          log(
-            `Right door connects to elevator shaft ${elevatorRight} at ${rightDoorPosition}`,
-          );
-        }
-
-        break;
-      }
+      log(
+        `Right door connects to elevator shaft ${elevatorRight} at ${rightDoorPosition}`,
+      );
     }
   }
 }
