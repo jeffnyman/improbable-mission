@@ -1,5 +1,7 @@
 import { game } from "../game";
-import { log, logOnce } from "../utils/logger";
+import { log } from "../utils/logger";
+import { graphics } from "../utils/graphics";
+import { roomColors } from "../data/layout";
 import { calculateRoomConnections } from "../utils/roomConnections";
 
 export class Room {
@@ -15,7 +17,16 @@ export class Room {
   }
 
   animationRoutine() {
-    logOnce("Animate the room ..."); // REMOVE
+    const bg = roomColors[this.id].bg;
+
+    // Show the room background.
+    graphics.rect(0, 0, 320, 200, bg);
+
+    // Draw the room borders.
+    for (let i = 0; i < 25; i++) {
+      graphics.draw(344, 200, 8, 8, 0, 0 + i * 8);
+      graphics.draw(352, 200, 8, 8, 312, 0 + i * 8);
+    }
   }
 
   private setupRoomConnections() {
