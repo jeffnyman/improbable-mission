@@ -264,7 +264,7 @@ class Agent {
 
     if (
       this.x > this.maxX &&
-      !layoutManager.hasLeftCorridor(
+      !layoutManager.hasRightCorridor(
         elevator.getCurrentPosition().x,
         elevator.getCurrentPosition().y,
         elevator.getCurrentPosition().rooms,
