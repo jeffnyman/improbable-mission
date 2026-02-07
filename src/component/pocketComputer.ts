@@ -1,3 +1,4 @@
+import { elevator } from "./elevator";
 import { graphics } from "../utils/graphics";
 
 class PocketComputer {
@@ -44,6 +45,17 @@ class PocketComputer {
         }
       }
     }
+
+    // Draw the elevator point.
+    const level = Math.floor(elevator.getCurrentPosition().y / 216 / 2);
+
+    graphics.rect(
+      83 + (elevator.getCurrentPosition().x - 1) * 16,
+      136 + level * 8,
+      2,
+      3,
+      7,
+    );
   }
 }
 
