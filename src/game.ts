@@ -6,7 +6,7 @@ import { pocketComputer } from "./component/pocketComputer";
 import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { maps } from "./data/layout";
-import { log } from "./utils/logger";
+import { log, logOnce } from "./utils/logger";
 
 class Game {
   private scanFrameCounter = 0;
@@ -18,6 +18,18 @@ class Game {
   // The map layout defining which room IDs exist at each
   // coordinate.
   private map: { rooms: number[][] };
+
+  // The screen transition can be false (not happening), opening
+  // (an "open" transition) or closing (a "close" transition).
+  private transitionState: false | "close" | "open" = false;
+
+  // The transition height can be a value from 0 to 100.
+  private transitionHeight = 0;
+
+  // Callback function to execute when the screen transition
+  // completes e.g., entering or leaving a room). This is set
+  // by startTransition().
+  private transitionFunction?: () => void;
 
   constructor() {
     const mapId = maps.length - 1;
@@ -46,9 +58,35 @@ class Game {
     // new requests.
     audio.emptyRequestQueue();
 
-    if (sceneManager.getScene() === "elevator") {
-      elevator.scanRoutine();
-      agent.scanRoutine();
+    if (this.transitionState) {
+      if (this.transitionState === "close") {
+        this.transitionHeight = this.transitionHeight + 7;
+
+        if (this.transitionHeight >= 120) {
+          this.transitionState = "open";
+
+          if (this.transitionFunction) {
+            this.transitionFunction();
+            this.transitionFunction = undefined;
+          }
+        }
+      } else if (this.transitionState === "open") {
+        this.transitionHeight = this.transitionHeight - 7;
+
+        if (this.transitionHeight <= 0) {
+          this.transitionState = false;
+        }
+      }
+    } else {
+      if (sceneManager.getScene() === "elevator") {
+        elevator.scanRoutine((direction) => {
+          this.startTransition(() => {
+            this.enterRoom(direction);
+          });
+        });
+
+        agent.scanRoutine();
+      }
     }
 
     // Play all sounds requested during this frame.
@@ -84,6 +122,20 @@ class Game {
     }
 
     return status;
+  }
+
+  private enterRoom(direction: string) {
+    logOnce("DIRECTION: ", direction); // REMOVE
+  }
+
+  private startTransition(cb: () => void) {
+    if (this.transitionState) {
+      return;
+    }
+
+    this.transitionState = "close";
+    this.transitionHeight = 0;
+    this.transitionFunction = cb;
   }
 
   private generateRooms() {

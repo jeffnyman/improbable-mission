@@ -41,7 +41,7 @@ class Elevator {
     return { x: this.x, y: this.y, rooms: game.getMap().rooms };
   }
 
-  scanRoutine() {
+  scanRoutine(onEnterRoom: (direction: string) => void) {
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent
     // could move the elevator up or down without actually
@@ -50,6 +50,12 @@ class Elevator {
 
     if (agent.getX() >= 129 && agent.getX() <= 156) {
       agentInElevator = true;
+    }
+
+    // Handle the agent entering a room.
+    if (agent.getX() <= -25 || agent.getX() >= 315) {
+      const direction = agent.getX() <= -25 ? "left" : "right";
+      onEnterRoom(direction);
     }
 
     const actionUp = keyboard.isKeyPressed(keyboard.keys.UP);
