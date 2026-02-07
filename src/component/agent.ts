@@ -26,6 +26,12 @@ class Agent {
   // The values are left or right.
   private direction: "left" | "right" = "left";
 
+  // This holds the direction that the agent has entered the room
+  // from. This can be either left or right. An empty string means
+  // means the value hasn't been set so no room direction has been
+  // set.
+  private roomEnterDirection = "";
+
   // Horizontal collision radius for each of the 14 run and 12 jump
   // animation frames. Each value represents the distance from the
   // center point to the edge of the hitbox, adjusted to match the
@@ -125,6 +131,24 @@ class Agent {
 
   getAction(): string {
     return this.action;
+  }
+
+  setRoomEnterDirection(direction: string) {
+    this.roomEnterDirection = direction;
+  }
+
+  setStartPosition(roomId: number) {
+    if (this.roomEnterDirection === "right") {
+      this.x = 4;
+      this.direction = "right";
+      this.y = layoutManager.hasLeftDoor(roomId) == 1 ? 9 : 153;
+    } else {
+      this.x = 283;
+      this.direction = "left";
+      this.y = layoutManager.hasRightDoor(roomId) == 2 ? 9 : 153;
+    }
+
+    this.stand();
   }
 
   scanElevatorScene() {

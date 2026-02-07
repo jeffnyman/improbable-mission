@@ -7,7 +7,7 @@ import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { graphics } from "./utils/graphics";
 import { maps } from "./data/layout";
-import { log, logOnce } from "./utils/logger";
+import { log } from "./utils/logger";
 
 class Game {
   private scanFrameCounter = 0;
@@ -150,7 +150,7 @@ class Game {
   }
 
   private enterRoom(direction: string) {
-    logOnce("DIRECTION: ", direction); // REMOVE
+    agent.setRoomEnterDirection(direction);
 
     const elevatorPos = elevator.getCurrentPosition();
     const level = Math.floor(elevatorPos.y / 216 / 2);
@@ -158,6 +158,7 @@ class Game {
     const roomId = this.map.rooms[level][elevatorIndex];
 
     this.room = this.rooms[roomId];
+    agent.setStartPosition(roomId);
 
     sceneManager.setScene("room");
   }
