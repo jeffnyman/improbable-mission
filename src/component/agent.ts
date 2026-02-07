@@ -275,9 +275,117 @@ class Agent {
     }
   }
 
+  scanRoomScene() {
+    // Only process agent logic on even frames to slow down
+    // movement/action speed.
+    if (gameTime.getSFC() % 2) return;
+
+    const actionLeft = keyboard.isKeyPressed(keyboard.keys.LEFT);
+    const actionRight = keyboard.isKeyPressed(keyboard.keys.RIGHT);
+    const actionJump = keyboard.isKeyPressed(keyboard.keys.SHIFT);
+
+    if (this.action === "jump") {
+      this.actionPhase++;
+
+      if (this.actionPhase === 12) {
+        // This means the jump has finished.
+
+        if (this.direction === "left") {
+          audio.request({ name: "jump.left" });
+        }
+
+        if (this.direction === "right") {
+          audio.request({ name: "jump.right" });
+        }
+
+        this.stand();
+      }
+
+      if (this.direction === "left") {
+        this.x -= this.actionPhase > 9 ? 6 : 7;
+      }
+
+      if (this.direction === "right") {
+        this.x += this.actionPhase > 9 ? 6 : 7;
+      }
+    } else {
+      // Handle trying to move both directions.
+      if (actionLeft && actionRight) {
+        this.stand();
+      }
+
+      // Handle moving to the left.
+      if (actionLeft && !actionRight) {
+        this.direction = "left";
+
+        if (actionJump) {
+          keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
+          this.action = "jump";
+          this.actionPhase = 0;
+        } else {
+          if (this.action !== "run") {
+            // This starts the run action.
+            this.action = "run";
+            this.actionPhase = 0;
+            this.x -= 10;
+          } else {
+            // This continues the running action.
+            this.actionPhase++;
+
+            if (this.actionPhase === 14) this.actionPhase = 0;
+
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "run.left" });
+            }
+
+            this.x -= 5;
+          }
+        }
+      }
+
+      // Handle moving to the right.
+      if (actionRight && !actionLeft) {
+        this.direction = "right";
+
+        if (actionJump) {
+          keyboard.setKeyState(keyboard.keys.SHIFT, "hold");
+          this.action = "jump";
+          this.actionPhase = 0;
+        } else {
+          if (this.action !== "run") {
+            // This starts the run action.
+            this.action = "run";
+            this.actionPhase = 0;
+            this.x += 10;
+          } else {
+            // This continues the running action.
+            this.actionPhase++;
+
+            if (this.actionPhase === 14) this.actionPhase = 0;
+
+            if (this.actionPhase === 5 || this.actionPhase === 12) {
+              audio.request({ name: "run.right" });
+            }
+
+            this.x += 5;
+          }
+        }
+      }
+
+      // Handle not moving at all.
+      if (!actionLeft && !actionRight) {
+        this.stand();
+      }
+    }
+  }
+
   scanRoutine() {
     if (sceneManager.getScene() === "elevator") {
       this.scanElevatorScene();
+    }
+
+    if (sceneManager.getScene() === "room") {
+      this.scanRoomScene();
     }
   }
 

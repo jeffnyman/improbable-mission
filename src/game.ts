@@ -72,6 +72,10 @@ class Game {
 
         agent.scanRoutine();
       }
+
+      if (sceneManager.getScene() === "room") {
+        agent.scanRoutine();
+      }
     }
 
     // Play all sounds requested during this frame.
