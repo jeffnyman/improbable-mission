@@ -82,6 +82,18 @@ class Game {
           });
         });
 
+        // Reveal the map portion on the pocket computer. This
+        // will show the level of the elevator system.
+        const pos = elevator.getCurrentPosition();
+
+        if (pos.y % 216 === 0) {
+          const level = Math.floor(pos.y / 216 / 2);
+
+          // Convert 1-indexed elevator position to 0-indexed
+          // for the array.
+          pocketComputer.revealMapSection(pos.x - 1, level);
+        }
+
         agent.scanElevatorScene();
       }
 
