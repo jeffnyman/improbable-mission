@@ -2,6 +2,7 @@ import { game } from "../game";
 import { log } from "../utils/logger";
 import { graphics } from "../utils/graphics";
 import { roomColors } from "../data/layout";
+import { layoutManager } from "../common/layoutManager";
 import { calculateRoomConnections } from "../utils/roomConnections";
 
 export class Room {
@@ -26,6 +27,28 @@ export class Room {
     for (let i = 0; i < 25; i++) {
       graphics.draw(344, 200, 8, 8, 0, 0 + i * 8);
       graphics.draw(352, 200, 8, 8, 312, 0 + i * 8);
+    }
+
+    // Cut out the doors from the borders.
+
+    // Left top.
+    if (layoutManager.hasLeftDoor(this.id) === 1) {
+      graphics.rect(0, 8, 8, 40, bg);
+    }
+
+    // Left bottom.
+    if (layoutManager.hasLeftDoor(this.id) === 4) {
+      graphics.rect(0, 152, 8, 48, bg);
+    }
+
+    // Right top.
+    if (layoutManager.hasRightDoor(this.id) === 2) {
+      graphics.rect(312, 8, 8, 40, bg);
+    }
+
+    // Right bottom.
+    if (layoutManager.hasRightDoor(this.id) === 3) {
+      graphics.rect(312, 152, 8, 48, bg);
     }
   }
 
