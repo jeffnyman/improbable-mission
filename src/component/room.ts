@@ -9,12 +9,24 @@ export class Room {
   // This is the id of the room, which can run from 1 to 32.
   private id: number;
 
+  // A room is revealed when the agent enters it.
+  // This acts as a flag for the pocket computer map.
+  private revealed = false;
+
   constructor(id: number) {
     this.id = id;
   }
 
   init() {
     this.setupRoomConnections();
+  }
+
+  setRevealed(value: boolean) {
+    this.revealed = value;
+  }
+
+  isRevealed() {
+    return this.revealed;
   }
 
   animationRoutine() {

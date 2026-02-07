@@ -64,6 +64,10 @@ class Game {
     return this.map;
   }
 
+  getRoom(roomId: number) {
+    return this.rooms[roomId];
+  }
+
   updateScan() {
     // Increment the local frame counter and sync it to the global
     // gameTime singleton. This allows other components to query the
@@ -210,6 +214,7 @@ class Game {
 
     this.room = this.rooms[this.roomId];
     agent.setStartPosition(this.roomId);
+    this.room.setRevealed(true);
 
     sceneManager.setScene("room");
   }

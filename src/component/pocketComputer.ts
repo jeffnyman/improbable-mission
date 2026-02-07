@@ -81,6 +81,21 @@ class PocketComputer {
                   0,
                 );
               }
+
+              // Check if the room is revealed.
+              // Draw room indicator to the LEFT of the elevator shaft.
+              if (
+                layoutManager.hasRightDoor(leftRoomId) &&
+                game.getRoom(leftRoomId).isRevealed()
+              ) {
+                graphics.rect(
+                  72 + (elevator - 1) * 16,
+                  137 + level * 8,
+                  8,
+                  5,
+                  0,
+                );
+              }
             }
 
             // Is there a right room? (room to the right of this elevator)
@@ -103,6 +118,21 @@ class PocketComputer {
                   141 + level * 8,
                   3,
                   1,
+                  0,
+                );
+              }
+
+              // Check if the room is revealed.
+              // Draw room indicator to the RIGHT of the elevator shaft.
+              if (
+                layoutManager.hasLeftDoor(rightRoomId) &&
+                game.getRoom(rightRoomId).isRevealed()
+              ) {
+                graphics.rect(
+                  88 + (elevator - 1) * 16,
+                  137 + level * 8,
+                  8,
+                  5,
                   0,
                 );
               }
