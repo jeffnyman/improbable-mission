@@ -109,6 +109,7 @@ class Game {
     if (sceneManager.getScene() === "room") {
       if (this.room) {
         this.room.animationRoutine();
+        agent.animationRoutine();
       }
     }
 

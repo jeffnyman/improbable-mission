@@ -4,6 +4,7 @@ import { graphics } from "../utils/graphics";
 import { gameTime } from "../common/gameTime";
 import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
+import { sceneManager } from "../common/sceneManager";
 import { elevator } from "./elevator";
 
 class Agent {
@@ -295,8 +296,10 @@ class Agent {
       const agentImage = actionFrames[this.actionPhase];
 
       graphics.draw(agentImage.x, agentImage.y, 35, 41, this.x, this.y);
+    }
 
-      // Make sure the agent apperas behind the elevator border.
+    if (sceneManager.getScene() === "elevator") {
+      // Make sure the agent appears behind the elevator border.
       // Left side.
       graphics.draw(708, 55, 6, 50, 136, 39);
 
