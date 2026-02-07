@@ -3,6 +3,7 @@ import { elevator } from "./component/elevator";
 import { gameTime } from "./common/gameTime";
 import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
+import { layoutManager } from "./common/layoutManager";
 import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { graphics } from "./utils/graphics";
@@ -186,13 +187,31 @@ class Game {
   }
 
   private leaveRoom(direction: string) {
+    if (!this.room) {
+      return;
+    }
+
     if (direction === "left") {
+      elevator.setShaft(this.room.getElevatorLeft());
+
+      elevator.setY(
+        this.room.getFloorLevel() * 432 +
+          (layoutManager.hasLeftDoor(this.roomId) === 1 ? 0 : 216),
+      );
+
       agent.setDirection("left");
       agent.setX(300);
       agent.setY(45);
     }
 
     if (direction === "right") {
+      elevator.setShaft(this.room.getElevatorRight());
+
+      elevator.setY(
+        this.room.getFloorLevel() * 432 +
+          (layoutManager.hasRightDoor(this.roomId) === 2 ? 0 : 216),
+      );
+
       agent.setDirection("right");
       agent.setX(-16);
       agent.setY(45);

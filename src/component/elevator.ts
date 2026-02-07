@@ -42,6 +42,17 @@ class Elevator {
     return { x: this.x, y: this.y, rooms: game.getMap().rooms };
   }
 
+  setY(y: number) {
+    this.y = y;
+  }
+
+  setShaft(id: number) {
+    if (id === this.x) return;
+
+    // Set the elevator number.
+    this.x = id;
+  }
+
   scanRoutine(onEnterRoom: (direction: string) => void) {
     if (pocketComputer.getState() !== "map") return;
 
@@ -184,8 +195,8 @@ class Elevator {
 
     // Iterate through rooms.
     for (let j = 0; j < 6; j++) {
-      const leftRoomId = mapRooms[j][this.x - 1];
-      const rightRoomId = mapRooms[j][this.x];
+      const leftRoomId = this.x > 0 ? mapRooms[j][this.x - 1] : 0;
+      const rightRoomId = this.x < 9 ? mapRooms[j][this.x] : 0;
 
       // Draw the left corridors.
       if (leftRoomId > 0) {

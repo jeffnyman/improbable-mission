@@ -13,12 +13,34 @@ export class Room {
   // This acts as a flag for the pocket computer map.
   private revealed = false;
 
+  // This is the elevator level, which can run from 1 to 6.
+  // A value of -1 means no elevator level.
+  private floorLevel = -1;
+
+  // These refer to the left and right side elevator numbers.
+  // The values can run from 1 to 8. A value of 0 indicates
+  // that there is no elevator to the left or right.
+  private elevatorLeft = 0;
+  private elevatorRight = 0;
+
   constructor(id: number) {
     this.id = id;
   }
 
   init() {
     this.setupRoomConnections();
+  }
+
+  getFloorLevel() {
+    return this.floorLevel;
+  }
+
+  getElevatorLeft() {
+    return this.elevatorLeft;
+  }
+
+  getElevatorRight() {
+    return this.elevatorRight;
   }
 
   setRevealed(value: boolean) {
@@ -72,25 +94,27 @@ export class Room {
       return;
     }
 
+    this.floorLevel = connection.level;
+
     log(
       `Room ${this.id} is at level ${connection.level}, elevator ${connection.elevator}`,
     );
 
     if (connection.leftDoor) {
-      const elevatorLeft = connection.leftDoor.elevator;
+      this.elevatorLeft = connection.leftDoor.elevator;
       const leftDoorPosition = connection.leftDoor.position;
 
       log(
-        `Left door connects to elevator shaft ${elevatorLeft} at ${leftDoorPosition}`,
+        `Left door connects to elevator shaft ${this.elevatorLeft} at ${leftDoorPosition}`,
       );
     }
 
     if (connection.rightDoor) {
-      const elevatorRight = connection.rightDoor.elevator;
+      this.elevatorRight = connection.rightDoor.elevator;
       const rightDoorPosition = connection.rightDoor.position;
 
       log(
-        `Right door connects to elevator shaft ${elevatorRight} at ${rightDoorPosition}`,
+        `Right door connects to elevator shaft ${this.elevatorRight} at ${rightDoorPosition}`,
       );
     }
   }
