@@ -1,5 +1,6 @@
 import { elevator } from "./elevator";
 import { graphics } from "../utils/graphics";
+import { gameTime } from "../common/gameTime";
 
 class PocketComputer {
   // Holds the revealed, and thus by definition, the unrevealed
@@ -54,7 +55,7 @@ class PocketComputer {
       136 + level * 8,
       2,
       3,
-      7,
+      [0, 11, 12, 15, 1, 15, 12, 11][Math.floor((gameTime.getAFC() % 24) / 3)],
     );
   }
 }
