@@ -5,6 +5,7 @@ import { sceneManager } from "./common/sceneManager";
 import { pocketComputer } from "./component/pocketComputer";
 import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
+import { graphics } from "./utils/graphics";
 import { maps } from "./data/layout";
 import { log, logOnce } from "./utils/logger";
 
@@ -61,6 +62,23 @@ class Game {
     // new requests.
     audio.emptyRequestQueue();
 
+    if (!this.transitionState) {
+      if (sceneManager.getScene() === "elevator") {
+        elevator.scanRoutine((direction) => {
+          this.startTransition(() => {
+            this.enterRoom(direction);
+          });
+        });
+
+        agent.scanRoutine();
+      }
+    }
+
+    // Play all sounds requested during this frame.
+    audio.playQueue();
+  }
+
+  updateAnimation() {
     if (this.transitionState) {
       if (this.transitionState === "close") {
         this.transitionHeight = this.transitionHeight + 7;
@@ -80,23 +98,8 @@ class Game {
           this.transitionState = false;
         }
       }
-    } else {
-      if (sceneManager.getScene() === "elevator") {
-        elevator.scanRoutine((direction) => {
-          this.startTransition(() => {
-            this.enterRoom(direction);
-          });
-        });
-
-        agent.scanRoutine();
-      }
     }
 
-    // Play all sounds requested during this frame.
-    audio.playQueue();
-  }
-
-  updateAnimation() {
     if (sceneManager.getScene() === "elevator") {
       elevator.animationRoutine();
       pocketComputer.animationRoutine();
@@ -107,6 +110,14 @@ class Game {
       if (this.room) {
         this.room.animationRoutine();
       }
+    }
+
+    // This handles the transition between elevator shafts and
+    // the rooms. This must be drawn AFTER scene rendering so
+    // it appears on top.
+    if (this.transitionState) {
+      graphics.rect(0, 100, 320, -this.transitionHeight, 0);
+      graphics.rect(0, 100, 320, +this.transitionHeight, 0);
     }
   }
 
