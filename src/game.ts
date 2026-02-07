@@ -126,6 +126,7 @@ class Game {
 
   private enterRoom(direction: string) {
     logOnce("DIRECTION: ", direction); // REMOVE
+    sceneManager.setScene("room");
   }
 
   private startTransition(cb: () => void) {

@@ -1,1 +1,1 @@
-export type SceneName = "elevator";
+export type SceneName = "elevator" | "room";
