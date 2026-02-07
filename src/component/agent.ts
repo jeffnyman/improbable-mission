@@ -1,6 +1,7 @@
 import type { ActionType, Animation } from "../types/agent";
 import { audio } from "../common/audioManager";
 import { graphics } from "../utils/graphics";
+import { game } from "../game";
 import { gameTime } from "../common/gameTime";
 import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
@@ -299,7 +300,7 @@ class Agent {
     }
   }
 
-  scanRoomScene() {
+  scanRoomScene(onLeaveRoom: (direction: string) => void) {
     // Only process agent logic on even frames to slow down
     // movement/action speed.
     if (gameTime.getSFC() % 2) return;
@@ -400,16 +401,15 @@ class Agent {
       if (!actionLeft && !actionRight) {
         this.stand();
       }
-    }
-  }
 
-  scanRoutine() {
-    if (sceneManager.getScene() === "elevator") {
-      this.scanElevatorScene();
-    }
+      // Handle the agent leaving the room.
+      if (layoutManager.hasLeftDoor(game.getRoomId()) && this.x < -28) {
+        onLeaveRoom?.("left");
+      }
 
-    if (sceneManager.getScene() === "room") {
-      this.scanRoomScene();
+      if (layoutManager.hasRightDoor(game.getRoomId()) && this.x > 314) {
+        onLeaveRoom?.("right");
+      }
     }
   }
 

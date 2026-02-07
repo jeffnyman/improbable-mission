@@ -7,7 +7,7 @@ import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { graphics } from "./utils/graphics";
 import { maps } from "./data/layout";
-import { log } from "./utils/logger";
+import { log, logOnce } from "./utils/logger";
 
 class Game {
   private scanFrameCounter = 0;
@@ -18,6 +18,10 @@ class Game {
 
   // The room the agent is currently in.
   private room: Room | null = null;
+
+  // The ID of the currently active room. This is set when the
+  // agent enters a room from the elevator.
+  private roomId: number;
 
   // The map layout defining which room IDs exist at each
   // coordinate.
@@ -39,12 +43,20 @@ class Game {
     const mapId = maps.length - 1;
     this.map = maps[mapId];
 
+    // This is being done to make sure the roomId is set but
+    // it's being set to an invalid value.
+    this.roomId = -1;
+
     log(`map.id: ${mapId}`);
     log(`map.rooms: ${JSON.stringify(this.map.rooms)}`);
   }
 
   init() {
     this.generateRooms();
+  }
+
+  getRoomId() {
+    return this.roomId;
   }
 
   getMap() {
@@ -70,11 +82,15 @@ class Game {
           });
         });
 
-        agent.scanRoutine();
+        agent.scanElevatorScene();
       }
 
       if (sceneManager.getScene() === "room") {
-        agent.scanRoutine();
+        agent.scanRoomScene((direction) => {
+          this.startTransition(() => {
+            this.leaveRoom(direction);
+          });
+        });
       }
     }
 
@@ -149,16 +165,27 @@ class Game {
     return status;
   }
 
+  private leaveRoom(direction: string) {
+    if (direction === "left") {
+      logOnce("Leaving room to left ..."); // REMOVE
+    }
+
+    if (direction === "right") {
+      logOnce("Leaving room to right ..."); // REMOVE
+    }
+  }
+
   private enterRoom(direction: string) {
     agent.setRoomEnterDirection(direction);
 
     const elevatorPos = elevator.getCurrentPosition();
     const level = Math.floor(elevatorPos.y / 216 / 2);
     const elevatorIndex = elevatorPos.x - (direction === "left" ? 1 : 0);
-    const roomId = this.map.rooms[level][elevatorIndex];
 
-    this.room = this.rooms[roomId];
-    agent.setStartPosition(roomId);
+    this.roomId = this.map.rooms[level][elevatorIndex];
+
+    this.room = this.rooms[this.roomId];
+    agent.setStartPosition(this.roomId);
 
     sceneManager.setScene("room");
   }
