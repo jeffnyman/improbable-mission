@@ -48,11 +48,9 @@ class PocketComputer {
     }
 
     // Draw the elevator point.
-    const level = Math.floor(elevator.getCurrentPosition().y / 216 / 2);
-
     graphics.rect(
       83 + (elevator.getCurrentPosition().x - 1) * 16,
-      136 + level * 8,
+      136 + Math.floor(elevator.getCurrentPosition().y / 53),
       2,
       3,
       [0, 11, 12, 15, 1, 15, 12, 11][Math.floor((gameTime.getAFC() % 24) / 3)],
