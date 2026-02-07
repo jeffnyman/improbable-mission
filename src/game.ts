@@ -15,6 +15,9 @@ class Game {
   // All room instances indexed by room ID.
   private rooms: Record<number, Room> = {};
 
+  // The room the agent is currently in.
+  private room: Room | null = null;
+
   // The map layout defining which room IDs exist at each
   // coordinate.
   private map: { rooms: number[][] };
@@ -99,6 +102,12 @@ class Game {
       pocketComputer.animationRoutine();
       agent.animationRoutine();
     }
+
+    if (sceneManager.getScene() === "room") {
+      if (this.room) {
+        this.room.animationRoutine();
+      }
+    }
   }
 
   isPaused(): boolean {
@@ -126,6 +135,15 @@ class Game {
 
   private enterRoom(direction: string) {
     logOnce("DIRECTION: ", direction); // REMOVE
+
+    const elevatorPos = elevator.getCurrentPosition();
+    const level = Math.floor(elevatorPos.y / 216 / 2);
+    const rooms =
+      this.map.rooms[elevatorPos.x - (direction === "left" ? 1 : 0)];
+    const roomId = rooms[level];
+
+    this.room = this.rooms[roomId];
+
     sceneManager.setScene("room");
   }
 

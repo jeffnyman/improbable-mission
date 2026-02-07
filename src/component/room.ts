@@ -1,5 +1,5 @@
 import { game } from "../game";
-import { log } from "../utils/logger";
+import { log, logOnce } from "../utils/logger";
 import { calculateRoomConnections } from "../utils/roomConnections";
 
 export class Room {
@@ -12,6 +12,10 @@ export class Room {
 
   init() {
     this.setupRoomConnections();
+  }
+
+  animationRoutine() {
+    logOnce("Animate the room ..."); // REMOVE
   }
 
   private setupRoomConnections() {
