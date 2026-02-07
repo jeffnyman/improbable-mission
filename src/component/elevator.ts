@@ -5,6 +5,7 @@ import { keyboard } from "../common/keyboardManager";
 import { layoutManager } from "../common/layoutManager";
 import { audio } from "../common/audioManager";
 import { roomColors } from "../data/layout";
+import { pocketComputer } from "./pocketComputer";
 
 class Elevator {
   // There are 8 elevators in the system. The player always
@@ -42,6 +43,8 @@ class Elevator {
   }
 
   scanRoutine(onEnterRoom: (direction: string) => void) {
+    if (pocketComputer.getState() !== "map") return;
+
     // Assume the agent is not in the elevator unless their
     // coordinates line up. Without this in place, the agent
     // could move the elevator up or down without actually

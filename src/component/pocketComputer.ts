@@ -25,6 +25,10 @@ class PocketComputer {
     this.revealedMap[0][0] = 1;
   }
 
+  getState() {
+    return this.state;
+  }
+
   revealMapSection(elevatorNum: number, level: number) {
     this.revealedMap[level][elevatorNum] = 1;
   }
