@@ -149,9 +149,8 @@ class Game {
 
     const elevatorPos = elevator.getCurrentPosition();
     const level = Math.floor(elevatorPos.y / 216 / 2);
-    const rooms =
-      this.map.rooms[elevatorPos.x - (direction === "left" ? 1 : 0)];
-    const roomId = rooms[level];
+    const elevatorIndex = elevatorPos.x - (direction === "left" ? 1 : 0);
+    const roomId = this.map.rooms[level][elevatorIndex];
 
     this.room = this.rooms[roomId];
 
