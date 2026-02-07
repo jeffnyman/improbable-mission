@@ -127,7 +127,7 @@ class Agent {
     return this.action;
   }
 
-  scanRoutine() {
+  scanElevatorScene() {
     // Only process agent logic on even frames to slow down
     // movement/action speed.
     if (gameTime.getSFC() % 2) return;
@@ -272,6 +272,12 @@ class Agent {
       )
     ) {
       this.x = this.maxX;
+    }
+  }
+
+  scanRoutine() {
+    if (sceneManager.getScene() === "elevator") {
+      this.scanElevatorScene();
     }
   }
 
