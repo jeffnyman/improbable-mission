@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.0](https://github.com/jeffnyman/improbable-mission/compare/0.4.0...0.5.0) (2026-02-07)
+
+### Features
+
+- player can enter and leave rooms ([bfde06d](https://github.com/jeffnyman/improbable-mission/commit/bfde06d89e7875240a32e35652ab78a06d562fd7))
+- player can see elevator travel on pocket computer ([04a54ae](https://github.com/jeffnyman/improbable-mission/commit/04a54ae84d17122c1a4f764774b822643beb876e))
+- player can see rooms traveled to on map ([88484d3](https://github.com/jeffnyman/improbable-mission/commit/88484d365b2747dec71e2f452c54a3a28b6c7da6))
+- player can traverse the map ([46653aa](https://github.com/jeffnyman/improbable-mission/commit/46653aab4aafc587d255653bd0a66f268000c6bc))
+
 ## [0.4.0](https://github.com/jeffnyman/improbable-mission/compare/0.3.0...0.4.0) (2026-02-06)
 
 ### Features
