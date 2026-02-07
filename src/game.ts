@@ -7,7 +7,7 @@ import { Room } from "./component/room";
 import { audio } from "./common/audioManager";
 import { graphics } from "./utils/graphics";
 import { maps } from "./data/layout";
-import { log, logOnce } from "./utils/logger";
+import { log } from "./utils/logger";
 
 class Game {
   private scanFrameCounter = 0;
@@ -167,12 +167,20 @@ class Game {
 
   private leaveRoom(direction: string) {
     if (direction === "left") {
-      logOnce("Leaving room to left ..."); // REMOVE
+      agent.setDirection("left");
+      agent.setX(300);
+      agent.setY(45);
     }
 
     if (direction === "right") {
-      logOnce("Leaving room to right ..."); // REMOVE
+      agent.setDirection("right");
+      agent.setX(-16);
+      agent.setY(45);
     }
+
+    agent.setAction("stand");
+
+    sceneManager.setScene("elevator");
   }
 
   private enterRoom(direction: string) {

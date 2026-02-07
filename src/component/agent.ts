@@ -152,6 +152,22 @@ class Agent {
     this.stand();
   }
 
+  setX(x: number) {
+    this.x = x;
+  }
+
+  setY(y: number) {
+    this.y = y;
+  }
+
+  setAction(action: "stand") {
+    this.action = action;
+  }
+
+  setDirection(direction: "left" | "right") {
+    this.direction = direction;
+  }
+
   scanElevatorScene() {
     // Only process agent logic on even frames to slow down
     // movement/action speed.
