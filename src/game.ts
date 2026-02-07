@@ -10,6 +10,7 @@ import { maps } from "./data/layout";
 import { log } from "./utils/logger";
 
 class Game {
+  private animationFrameCounter = 0;
   private scanFrameCounter = 0;
   private paused = false;
 
@@ -111,6 +112,9 @@ class Game {
   }
 
   updateAnimation() {
+    this.animationFrameCounter++;
+    gameTime.setAFC(this.animationFrameCounter);
+
     if (this.transitionState) {
       if (this.transitionState === "close") {
         this.transitionHeight = this.transitionHeight + 7;

@@ -6,6 +6,7 @@
  */
 class GameTime {
   private scanFrameCounter = 0;
+  private animationFrameCounter = 0;
 
   /**
    * Get the current scan frame counter.
@@ -17,8 +18,27 @@ class GameTime {
   }
 
   /**
+   * Get the current animation frame counter.
+   * This represents the number of render/draw cycles that have
+   * occurred since game start.
+   */
+  getAFC() {
+    return this.animationFrameCounter;
+  }
+
+  /**
+   * Set the animation frame counter.
+   * Called by the main game loop to keep the centralized counter
+   * in sync.
+   */
+  setAFC(counter: number) {
+    this.animationFrameCounter = counter;
+  }
+
+  /**
    * Set the scan frame counter.
-   * Called by the main game loop to keep the centralized counter in sync.
+   * Called by the main game loop to keep the centralized counter
+   * in sync.
    */
   setSFC(counter: number) {
     this.scanFrameCounter = counter;
