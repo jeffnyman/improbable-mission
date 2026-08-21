@@ -1,0 +1,217 @@
+@import url("./fonts.css");
+@import url("./reset.css");
+@import url("./aborted.css");
+@import url("./crawl.css");
+
+:root {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+}
+
+:where(html, body) {
+  height: 100%;
+  overscroll-behavior-y: none;
+}
+
+html {
+  background-color: oklch(0% 0 0deg);
+  overflow: hidden;
+}
+
+body {
+  background-color: oklch(0% 0 0deg);
+  color: oklch(100% 0 0deg);
+  font-family: Sixtyfour, "Courier New", Courier, monospace;
+  font-optical-sizing: auto;
+  line-height: 1;
+  cursor:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FFF" stroke="%23402AFF" stroke-width="2" d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z"></path></svg>'),
+    auto;
+}
+
+a {
+  cursor:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FFF" stroke="%23402AFF" stroke-width="2" stroke-linejoin="round" d="M10 11V8.99c0-.88.59-1.64 1.44-1.86h.05A1.99 1.99 0 0 1 14 9.05V12v-2c0-.88.6-1.65 1.46-1.87h.05A1.98 1.98 0 0 1 18 10.06V13v-1.94a2 2 0 0 1 1.51-1.94h0A2 2 0 0 1 22 11.06V14c0 .6-.08 1.27-.21 1.97a7.96 7.96 0 0 1-7.55 6.48 54.98 54.98 0 0 1-4.48 0 7.96 7.96 0 0 1-7.55-6.48C2.08 15.27 2 14.59 2 14v-1.49c0-1.11.9-2.01 2.01-2.01h0a2 2 0 0 1 2.01 2.03l-.01.97v-10c0-1.1.9-2 2-2h0a2 2 0 0 1 2 2V11Z"></path></svg>')
+      4 4,
+    auto;
+}
+
+.mission {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .title {
+    width: 26%;
+    height: auto;
+  }
+
+  .accept {
+    margin-top: 20px;
+    color: hsl(211deg 100% 50%);
+
+    cursor:
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><g fill="none" stroke="%23FF2862" stroke-width="2"><circle cx="12" cy="12" r="8.5"></circle><path d="M1 12h5M18 12h5M12 6V1.04M12 23v-4.96M11.95 11.95h.1v.1h-.1z"></path></g></svg>')
+        24 24,
+      auto;
+
+    letter-spacing: 0.2ch;
+    word-spacing: 1ch;
+  }
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  background-color: hsl(0deg 0% 0% / 100%);
+  color: hsl(0deg 0% 28%);
+
+  .toolbar {
+    display: flex;
+    width: 100%;
+    background-color: hsl(0deg 0% 87%);
+    color: hsl(0deg 0% 12%);
+    text-transform: uppercase;
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px;
+      border: 1px solid hsl(0deg 0% 68%);
+      background-color: hsl(0deg 0% 94%);
+
+      .clickable {
+        cursor:
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FFF" stroke="%23402AFF" stroke-width="2" stroke-linejoin="round" d="M10 11V8.99c0-.88.59-1.64 1.44-1.86h.05A1.99 1.99 0 0 1 14 9.05V12v-2c0-.88.6-1.65 1.46-1.87h.05A1.98 1.98 0 0 1 18 10.06V13v-1.94a2 2 0 0 1 1.51-1.94h0A2 2 0 0 1 22 11.06V14c0 .6-.08 1.27-.21 1.97a7.96 7.96 0 0 1-7.55 6.48 54.98 54.98 0 0 1-4.48 0 7.96 7.96 0 0 1-7.55-6.48C2.08 15.27 2 14.59 2 14v-1.49c0-1.11.9-2.01 2.01-2.01h0a2 2 0 0 1 2.01 2.03l-.01.97v-10c0-1.1.9-2 2-2h0a2 2 0 0 1 2 2V11Z"></path></svg>')
+            4 4,
+          auto;
+
+        &.active {
+          text-decoration: underline;
+        }
+      }
+
+      .palette {
+        padding-right: 8px;
+        border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          padding-right: 0;
+          border-right: none;
+        }
+      }
+
+      .sound-on,
+      .sound-off {
+        padding-right: 8px;
+        border-right: 1px solid hsl(0deg 0% 53%);
+
+        &:last-child {
+          padding-right: 0;
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    background-color: hsl(0deg 0% 0%);
+    inset: 0;
+    opacity: 0.7;
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    width: min(640px, 90vw);
+    height: min(75vh, 600px);
+    border: 12px solid hsl(48deg 56% 70%);
+    background-color: hsl(0deg 0% 40%);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+
+    h2 {
+      margin: 20px 0;
+      font-size: 2em;
+      color: hsl(56deg 100% 50%);
+      text-align: center;
+    }
+
+    p {
+      margin: 12px 0;
+      font-size: 1.2em;
+      text-align: justify;
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 10px 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    color: hsl(0deg 0% 93%);
+    overflow-y: auto;
+    scrollbar-color: hsl(0deg 0% 60%) hsl(0deg 0% 33%);
+    scrollbar-width: thin;
+  }
+
+  .content h3 {
+    margin: 1.2em 0 0.4em;
+    color: hsl(48deg 56% 70%);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .content p {
+    margin: 0.6em 0;
+  }
+
+  .content p.img {
+    text-align: center;
+  }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    image-rendering: pixelated;
+  }
+
+  .content ul {
+    margin: 0.6em 0;
+    padding-left: 1.4em;
+  }
+
+  .content li {
+    margin: 0.4em 0;
+  }
+
+  .game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    image-rendering: crisp-edges;
+  }
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -1,0 +1,100 @@
+.aborted-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  max-width: 90vw;
+  transform: translate(-50%, -50%);
+
+  .aborted-bg {
+    position: absolute;
+    top: -140px;
+    left: 50%;
+    z-index: -2;
+    max-width: 420px;
+    border-radius: 70px;
+    opacity: 0.85;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  .aborted-text {
+    position: relative;
+    padding: 1.5rem;
+    border: 2px solid oklch(79.4% 0.171 71deg);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px oklch(0% 0 0deg / 25%);
+    background: linear-gradient(
+      to bottom right,
+      oklch(82.4% 0.145 72deg),
+      oklch(94.1% 0.036 76deg)
+    );
+    font-family: system-ui, sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: center;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 16px;
+      box-shadow: 0 0 20px oklch(89% 0.183 96deg / 60%);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        oklch(87.2% 0.091 92deg),
+        oklch(89% 0.183 96deg),
+        oklch(87.2% 0.091 92deg),
+        transparent
+      );
+
+      animation: shimmer 3s linear infinite;
+      background-size: 200% 100%;
+      inset: -6px;
+
+      @media (prefers-reduced-motion: reduce) {
+        background: linear-gradient(
+          90deg,
+          oklch(89% 0.183 96deg),
+          oklch(79.4% 0.171 71deg),
+          oklch(89% 0.183 96deg)
+        );
+
+        animation: none;
+      }
+    }
+  }
+
+  p {
+    font-weight: 600;
+    color: oklch(21.6% 0 0deg);
+
+    &:first-of-type {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: oklch(39.7% 0.163 29deg);
+    }
+  }
+
+  ul {
+    margin-top: 20px;
+    list-style: none;
+
+    li {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: oklch(54.5% 0.204 32deg);
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}

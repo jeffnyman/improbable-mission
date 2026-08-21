@@ -1,0 +1,171 @@
+/*
+ * The opening crawl that plays between ACCEPT THE MISSION and the
+ * game booting.
+ *
+ * The text sits on a plane tilted away from the viewer and slides
+ * along it, shrinking toward a vanishing point while the gradient
+ * overhead swallows what reaches the top. The order of the transform
+ * matters: the rotation is applied last (leftmost), so the plane is
+ * fixed in the scene and only the text moves along it. Composing it
+ * the other way around — sliding the whole rotated plane — drags the
+ * vanishing point with it and lands the entire crawl on screen at
+ * once.
+ *
+ * The plane is anchored to the bottom edge of the stage, so text at
+ * the start of its travel sits at the bottom of the viewport at full
+ * size, then recedes.
+ *
+ * --crawl-start and --crawl-end are written by the script: they are
+ * where the text enters and leaves, which depends on how tall the
+ * text wrapped and how the tilt projects at this viewport size. The
+ * rest of the numbers are the look, and live here.
+ */
+.crawl-scene {
+  /* The music runs about 55 seconds. Stopping a little short of that
+     lets the last line clear the horizon just before the final bar,
+     rather than the audio being clipped mid-phrase. */
+  --crawl-duration: 52s;
+
+  /* Shallower perspective and a steeper tilt buy a more dramatic
+     recession. They also cost pace — the steeper the plane, the more
+     of it the text has to cross — which is paid for by retiring the
+     text early, behind the fade. See --crawl-exit. */
+  --crawl-perspective: 450px;
+  --crawl-tilt: 34deg;
+
+  /* Where the last line stops, as a fraction of stage height from the
+     top. It only has to reach the point the fade has gone opaque;
+     driving it any further up the plane is time spent on text nobody
+     can see. */
+  --crawl-exit: 0.22;
+  --crawl-start: 0px;
+  --crawl-end: -2000px;
+
+  position: fixed;
+  display: none;
+  background-color: oklch(0% 0 0deg);
+  cursor: none;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.crawl-scene.active {
+  display: block;
+}
+
+.crawl-scene .stage {
+  position: absolute;
+  inset: 0;
+  perspective: var(--crawl-perspective);
+  overflow: hidden;
+}
+
+.crawl-scene .crawl {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: min(76vw, 900px);
+  margin-inline: auto;
+  color: hsl(48deg 56% 70%);
+  font-family:
+    "Franklin Gothic Medium", "Arial Narrow", "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: clamp(26px, 5.4vmin, 60px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-align: justify;
+  text-wrap: pretty;
+
+  /* The anchor the plane pivots around, and the point the script
+     solves its two endpoints against. */
+  transform-origin: 50% 100%;
+}
+
+.crawl-scene.running .crawl {
+  animation: mission-crawl var(--crawl-duration) linear forwards;
+}
+
+.crawl-scene .crawl p + p {
+  margin-top: 1em;
+}
+
+.crawl-scene .crawl .title {
+  text-align: center;
+}
+
+.crawl-scene .crawl .title p {
+  font-size: 0.68em;
+  letter-spacing: 0.34em;
+
+  /* Letter-spacing pads the trailing character too, which throws a
+     centered line visibly off axis. */
+  text-indent: 0.34em;
+}
+
+.crawl-scene .crawl .title h1 {
+  margin: 0.35em 0 1.3em;
+  color: hsl(56deg 100% 50%);
+  font-family: Sixtyfour, "Courier New", Courier, monospace;
+  font-size: 0.6em;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Swallows the text as it nears the vanishing point, so lines thin
+   out instead of stopping abruptly at the top edge. It has to be
+   fully opaque by the height --crawl-exit retires the text at, or the
+   last line will still be faintly visible when the scene is torn
+   down. Opaque from 22% of the stage up; the ramp below that. */
+.crawl-scene .fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background-image: linear-gradient(to top, transparent, oklch(0% 0 0deg) 60%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.crawl-scene .skip {
+  position: absolute;
+  right: 2.5vmin;
+  bottom: 2.5vmin;
+  color: hsl(0deg 0% 42%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 3;
+
+  /* Shows itself once the crawl is underway, then gets out of the
+     way rather than sitting there for the whole minute. */
+  animation: mission-crawl-hint 8s ease-in-out 2s both;
+}
+
+@keyframes mission-crawl {
+  from {
+    transform: rotateX(var(--crawl-tilt)) translateY(var(--crawl-start));
+  }
+
+  to {
+    transform: rotateX(var(--crawl-tilt)) translateY(var(--crawl-end));
+  }
+}
+
+@keyframes mission-crawl-hint {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  12%,
+  72% {
+    opacity: 1;
+  }
+}

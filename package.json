@@ -1,0 +1,42 @@
+{
+  "name": "improbable-mission",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A faithful recreation of the 1984 puzzle-platformer Impossible Mission by Epyx.",
+  "homepage": "https://jeffnyman.github.io/improbable-mission",
+  "bugs": {
+    "url": "https://github.com/jeffnyman/improbable-mission/issues",
+    "email": "jeffnyman@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jeff Nyman",
+    "email": "jeffnyman@gmail.com",
+    "url": "https://github.com/jeffnyman"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffnyman/improbable-mission.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host --open",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host --open",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:visual": "node tests/visual/snapshot.mjs compare",
+    "test:visual:update": "node tests/visual/snapshot.mjs capture"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "playwright": "^1.62.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.10"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
+  }
+}

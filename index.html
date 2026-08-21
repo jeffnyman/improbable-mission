@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en-US" dir="ltr" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Improbable Mission</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Jeff Nyman" />
+    <meta
+      name="description"
+      content="Impossible Mission recreation in JavaScript."
+    />
+    <meta
+      name="keywords"
+      content="Impossible Mission, Commodore 64, retrogaming"
+    />
+    <link
+      rel="canonical"
+      href="https://jeffnyman.github.io/improbable-mission"
+    />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon.png" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="48x48"
+      href="/icons/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/icons/site.webmanifest" />
+    <link rel="stylesheet" href="/styles/mission.css" />
+    <script type="module" src="/src/mission.ts"></script>
+  </head>
+
+  <body>
+    <div id="mission" class="mission hidden">
+      <img
+        class="title"
+        src="/images/mission-title.png"
+        width="559"
+        height="432"
+        alt="Improbable Mission"
+        title="Should you choose to accept it ..."
+      />
+      <p id="accept" class="accept">ACCEPT THE MISSION</p>
+    </div>
+
+    <div id="crawl" class="crawl-scene">
+      <div class="stage">
+        <div id="crawlText" class="crawl">
+          <div class="title">
+            <p>Mission Briefing</p>
+            <h1>Improbable Mission</h1>
+          </div>
+
+          <p>
+            It is a period of quiet crisis. In the past three days, the military
+            computer installations of every major world power have reported
+            security failures. In each case, someone reached a primary missile
+            attack computer.
+          </p>
+
+          <p>
+            Only one man is capable of tampering on this scale: Professor Elvin
+            Atombender. Deep beneath the earth, in a stronghold of thirty-two
+            rooms joined by eight elevator shafts, he works to break the launch
+            codes — and when he succeeds, he will end the world.
+          </p>
+
+          <p>
+            You have six hours. Your weapons are a keen analytical mind and an
+            M1A9366B pocket computer. Hidden in Elvin's furniture lie nine
+            scattered pieces that spell the password to his control room. The
+            world is depending on you....
+          </p>
+        </div>
+      </div>
+
+      <div class="fade"></div>
+
+      <p class="skip">Press any key to skip</p>
+    </div>
+
+    <div id="app" class="app hidden">
+      <div id="toolbar" class="toolbar">
+        <div class="item">
+          <a href="https://www.lemon64.com" target="_blank" rel="noreferrer">
+            <img
+              src="/images/toolbar/commodore.icon.png"
+              width="18"
+              height="18"
+              alt="C64"
+              title="Lemon64.com"
+            />
+          </a>
+        </div>
+
+        <div class="item">
+          <span id="readDossier" class="clickable">Dossier</span>
+        </div>
+
+        <div class="item">
+          <img
+            src="/images/toolbar/palette.icon.png"
+            width="18"
+            height="18"
+            alt="Game Colors"
+            title="Palette"
+          />
+          <span class="palette clickable" data-palette="vice">vice</span>
+          <span class="palette clickable" data-palette="colodore"
+            >colodore</span
+          >
+          <span class="palette clickable" data-palette="ccs64">ccs64</span>
+          <span class="palette clickable" data-palette="c64hq">c64hq</span>
+          <span class="palette clickable" data-palette="c64s">c64s</span>
+          <span class="palette clickable" data-palette="pc64">pc64</span>
+        </div>
+
+        <div class="item">
+          <img
+            src="/images/toolbar/sound.icon.png"
+            width="18"
+            height="18"
+            alt="Game Sounds"
+            title="Sound"
+          />
+          <span class="clickable sound-on">on</span>
+          <span class="clickable sound-off">off</span>
+        </div>
+
+        <div class="item">
+          <span id="fullscreen" class="clickable">
+            <img
+              src="/images/toolbar/fullscreen.icon.png"
+              width="18"
+              height="18"
+              alt="Full Screen"
+              title="Fullscreen"
+            />
+          </span>
+        </div>
+      </div>
+
+      <canvas id="game" class="game" width="960" height="600"></canvas>
+
+      <div id="overlay" class="overlay hidden"></div>
+
+      <div id="dossier" class="modal hidden">
+        <div class="content">
+          <h2>MISSION DOSSIER</h2>
+
+          <p>
+            <em
+              >Mission of vital importance to national and global security.
+              Operations to begin immediately. Utmost urgency.</em
+            >
+          </p>
+
+          <p>
+            During the past three days, key military computer installations of
+            every major world power have reported security failures. In each
+            case, someone gained access to a primary missile attack computer.
+            Only one person is capable of computer tampering on this scale:
+            Professor Elvin Atombender. We believe Elvin is working to break the
+            computers' launch codes. When he succeeds, he plans to trigger a
+            missile attack that will destroy the world.
+          </p>
+
+          <p>
+            You must penetrate Elvin's underground stronghold and stop him. Our
+            computers estimate he will break the launch codes in exactly
+            <strong>six hours</strong>. Your only weapons are your keen
+            analytical mind and your M1A9366B pocket computer. Good luck. The
+            world is depending on you.
+          </p>
+
+          <h3>The Stronghold</h3>
+
+          <p>
+            Elvin's stronghold consists of 32 rooms connected by eight elevator
+            shafts. As you explore, your pocket computer (at the bottom of the
+            elevator screen) maps the shafts, corridors, and rooms you have
+            visited.
+          </p>
+
+          <p class="img">
+            <img
+              src="/images/dossier/elevator.system.png"
+              width="324"
+              height="205"
+              alt="The elevator system"
+            />
+          </p>
+
+          <h3>Controls</h3>
+
+          <ul>
+            <li>
+              <strong>Arrow keys</strong> — run left/right; ride elevators and
+              lifting platforms up/down while standing on them.
+            </li>
+            <li>
+              <strong>Shift, Space, or Ctrl</strong> — the fire button: a
+              somersaulting jump in the rooms (with or without a running start),
+              and the pocket computer switch while standing in an elevator.
+            </li>
+            <li>
+              <strong>Up</strong> — search the furniture you are standing in
+              front of, log into a security terminal, or play the organ console
+              in the code rooms.
+            </li>
+            <li><strong>P</strong> — pause.</li>
+          </ul>
+
+          <h3>Searching for Codes</h3>
+
+          <p>
+            Elvin hides his passwords in his furniture. Stand directly in front
+            of any object and hold <strong>up</strong>: a box shows the word
+            "searching" and a shrinking progress bar. Keep holding until the bar
+            disappears. If you let go, you can resume where you left off — but
+            leaving the room restarts the search.
+          </p>
+
+          <p class="img">
+            <img
+              src="/images/dossier/furnitures.png"
+              width="241"
+              height="34"
+              alt="Furniture"
+            />
+          </p>
+
+          <p>When a search completes, one of four things appears:</p>
+
+          <ul>
+            <li>
+              <strong>"Nothing here."</strong> — the object then disappears.
+            </li>
+            <li>
+              <strong>A lift init password</strong> — resets a room's lifting
+              platforms from a terminal.
+              <img
+                src="/images/dossier/lift.init.png"
+                width="64"
+                height="32"
+                alt="Lift init password"
+              />
+            </li>
+            <li>
+              <strong>A snooze password</strong> — temporarily deactivates the
+              robots in a room.
+              <img
+                src="/images/dossier/snooze.png"
+                width="70"
+                height="38"
+                alt="Snooze password"
+              />
+            </li>
+            <li>
+              <strong>A puzzle piece</strong> — part of the control room
+              password, filed automatically into your pocket computer.
+              <img
+                src="/images/dossier/puzzle.found.png"
+                width="96"
+                height="50"
+                alt="Puzzle piece found"
+              />
+            </li>
+          </ul>
+
+          <h3>Security Terminals</h3>
+
+          <p class="img">
+            <img
+              src="/images/dossier/terminal.screen.png"
+              width="320"
+              height="200"
+              alt="A security terminal screen"
+            />
+          </p>
+
+          <p>
+            Stand in front of a terminal and press <strong>up</strong> to log
+            in. Select a function with up/down and confirm with fire: reset the
+            room's lifting platforms (spends a lift init), disable the room's
+            robots for a while (spends a snooze), or log off. Your pocket
+            computer shows how many of each you hold.
+          </p>
+
+          <h3>The Code Rooms</h3>
+
+          <p class="img">
+            <img
+              src="/images/dossier/organ.room.png"
+              width="324"
+              height="204"
+              alt="The organ code room"
+            />
+          </p>
+
+          <p>
+            Two music rooms let you earn extra passwords. Stand at the organ
+            console and press <strong>up</strong>. Squares flash on the
+            checkerboard, each playing a note; use the glove to touch them in
+            ascending order, low to high. Each success grants a snooze or a lift
+            init — and the next sequence grows longer. Touch below the board to
+            walk away.
+          </p>
+
+          <h3>The Pocket Computer</h3>
+
+          <p class="img">
+            <img
+              src="/images/dossier/pocket.computer.png"
+              width="320"
+              height="79"
+              alt="The pocket computer"
+            />
+          </p>
+
+          <p>
+            Press fire while standing in an elevator to switch the map for the
+            puzzle desktop. Use the glove (arrow keys; fire to click) to pick
+            pieces from the memory window, drop them on the desktop, and stack
+            them: pieces of the same puzzle in the same color and orientation
+            will merge. The buttons, left to right: memory scroll arrows and the
+            phone on the left; vertical flip, horizontal flip, trash, OFF, undo,
+            pause, and the three color keys on the right.
+          </p>
+
+          <ul>
+            <li>Pieces are often upside down or backwards — flip them.</li>
+            <li>Pieces must match in color — recolor them.</li>
+            <li>
+              A completed puzzle is a solid punch card of four pieces, right
+              side up. Each one adds a letter to Elvin's password on the status
+              line.
+            </li>
+            <li>Nine puzzles solved = the full nine-letter password.</li>
+          </ul>
+
+          <h3>The Phone</h3>
+
+          <p class="img">
+            <img
+              src="/images/dossier/phone.png"
+              width="195"
+              height="78"
+              alt="The phone choices"
+            />
+          </p>
+
+          <p>
+            The phone key dials the agency's computer for help: it can correct
+            the orientation of the two pieces in the memory window, or tell you
+            whether the upper piece's puzzle is solvable with what you hold.
+            Every call costs <strong>two minutes</strong> on the clock.
+          </p>
+
+          <h3>The Control Room</h3>
+
+          <p class="img">
+            <img
+              src="/images/dossier/exit.room.png"
+              width="325"
+              height="205"
+              alt="Elvin's control room door"
+            />
+          </p>
+
+          <p>
+            The door to Elvin's control room is in one of the bedrooms. With the
+            completed password, stand in front of the door and push
+            <strong>up</strong>. The door will open — and you'll finally have
+            the last laugh.
+          </p>
+
+          <h3>Time and Scoring</h3>
+
+          <p>
+            The clock starts at 12:00 and the game ends at 6:00. Falling off the
+            bottom of the screen or being zapped by a robot or the floating orb
+            costs <strong>ten minutes</strong>; each phone call costs two. When
+            the game ends: 1 point per second remaining, 100 per puzzle piece
+            found, 100 per snooze or lift init found, 500 per puzzle solved, and
+            1000 for completing the mission.
+          </p>
+
+          <p><em>Another visitor. Stay a while. Stay forever!</em></p>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="aborted-wrapper">
+        <img
+          class="aborted-bg"
+          src="/images/agent-thwarted.png"
+          width="1022"
+          height="412"
+          alt="Mission Aborted!"
+        />
+      </div>
+
+      <div class="aborted-text">
+        <p>Mission aborted!</p>
+        <p>Agents need JavaScript to accept the mission.</p>
+      </div>
+    </noscript>
+  </body>
+</html>

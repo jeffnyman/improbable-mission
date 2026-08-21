@@ -1,0 +1,105 @@
+name: Deploy to GitHub Pages
+
+# Every push to main rebuilds the site and publishes it. The manual
+# trigger is here for the times you want to redeploy without a commit —
+# usually after changing something in the repository's Pages settings.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages deployments authenticate with a short-lived OIDC token rather
+# than a stored secret, which is what "id-token: write" is for. Nothing
+# in this workflow writes back to the repository, so "contents" stays
+# read-only.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If two pushes land close together, let the first deployment finish
+# instead of cancelling it. A half-published site is worse than one
+# that is thirty seconds stale.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      # Node 26 is the current LTS, and matches the @types/node major
+      # this project develops against. The npm cache is keyed off
+      # package-lock.json, so it only misses when dependencies change.
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The unit suite is fast and has no browser dependency, so it runs
+      # before the build and fails early.
+      #
+      # The pixel-snapshot harness (npm run test:visual) is deliberately
+      # NOT run here. Its baselines were captured on one machine, and
+      # font rasterisation and GPU compositing differ enough on a CI
+      # runner that it would fail for reasons that have nothing to do
+      # with the code. It stays a local check.
+      - name: Run tests
+        run: npm test
+
+      # Reads the repository's Pages configuration. The base_path output
+      # is used below to confirm the build agrees with it. Set
+      # "enablement: true" if you would rather this turn Pages on for
+      # you than do it in the repository settings.
+      - name: Read the Pages configuration
+        id: pages
+        uses: actions/configure-pages@v6
+
+      # Runs tsc and then vite build. vite.config.ts sets
+      # base: "/improbable-mission/", which is what makes the asset URLs
+      # in dist/index.html resolve under the repository subpath.
+      - name: Build
+        run: npm run build
+
+      # vite.config.ts hardcodes the base path, so renaming the
+      # repository would silently break every asset URL on the deployed
+      # site while the build itself stayed green. This compares what was
+      # actually emitted against where Pages is going to serve it.
+      - name: Check the built base path matches where Pages will serve it
+        run: |
+          base='${{ steps.pages.outputs.base_path }}'
+          if ! grep -q "src=\"${base}/assets/" dist/index.html; then
+            echo "::error::Built asset URLs do not start with ${base}/"
+            echo "Pages will serve this site from ${base}/, but dist/index.html references:"
+            grep -o 'src="[^"]*assets/[^"]*"' dist/index.html | head -3
+            echo "Update 'base' in vite.config.ts (and 'homepage' in package.json) to match."
+            exit 1
+          fi
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # Naming the environment is what lets the deployed URL show up on
+    # the repository's home page and in the Actions run summary.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
