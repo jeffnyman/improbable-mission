@@ -6,6 +6,8 @@
   <em>"Stay awhile ... stay forever!"</em>
 </p>
 
+<p align="center"><img src="https://img.shields.io/badge/NO%20AI-100%25%20Made%20By%20Human-2e7d32?style=for-the-badge&labelColor=8b1a1a" alt="No AI - 100% Made By Human"/></p>
+
 In 1984, a maniacal villain taunted players from their Commodore 64 screens, and ["Impossible Mission"](https://en.wikipedia.org/wiki/Impossible_Mission) became an instant classic. With its groundbreaking digitized speech, acrobatic platforming, and race-against-time puzzle-solving, this game captivated a generation of gamers on the C64, ZX Spectrum, and other home computers of the era.
 
 <p align="center">
