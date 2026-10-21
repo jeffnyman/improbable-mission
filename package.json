@@ -30,11 +30,11 @@
     "test:visual:update": "node tests/visual/snapshot.mjs capture"
   },
   "devDependencies": {
-    "@types/node": "^26.2.0",
-    "playwright": "^1.62.1",
-    "typescript": "~6.0.2",
+    "@types/node": "^26.6.5",
+    "playwright": "^1.64.1",
+    "typescript": "~7.0.2",
     "vite": "^8.2.0",
-    "vitest": "^4.1.10"
+    "vitest": "^5.0.5"
   },
   "allowScripts": {
     "fsevents@2.3.3": true
