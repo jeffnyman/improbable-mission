@@ -6,8 +6,6 @@
   <em>"Stay awhile ... stay forever!"</em>
 </p>
 
-<p align="center"><img src="https://img.shields.io/badge/NO%20AI-100%25%20Made%20By%20Human-2e7d32?style=for-the-badge&labelColor=8b1a1a" alt="No AI - 100% Made By Human"/></p>
-
 In 1984, a maniacal villain taunted players from their Commodore 64 screens, and ["Impossible Mission"](https://en.wikipedia.org/wiki/Impossible_Mission) became an instant classic. With its groundbreaking digitized speech, acrobatic platforming, and race-against-time puzzle-solving, this game captivated a generation of gamers on the C64, ZX Spectrum, and other home computers of the era.
 
 <p align="center">
@@ -27,7 +25,7 @@ Whether you're chasing nostalgia or discovering this gem for the first time, pre
 
 As the game manual stated, _"Good luck. The world is depending on you."_
 
-## 🤖 The Mission Is ...
+## The Mission Is ...
 
 <p align="center">
   <img src="./assets/logo.png" height="200"><br>
@@ -47,7 +45,7 @@ The game combines some difficult platform jumping, puzzle solving, and explorati
 
 I also have a copy of the <a href="./assets/impossible-mission-manual.pdf">original manual</a> for the game should you wish to check it out.
 
-## 🕹️ Playing
+## Playing
 
 You have six hours (the clock on your pocket computer runs from 12:00 to 6:00) to find Elvin's control room password and open his door. The loop:
 
@@ -109,7 +107,7 @@ also be enabled at load with `?cheats=stayforever,airwalk`.
 A `?map=N` query parameter (0-10) forces a specific tower layout for
 testing.
 
-## 🏗️ How the Code Fits Together
+## How the Code Fits Together
 
 If you're reading the source rather than playing, start here. There is
 no framework and no build magic beyond Vite: just TypeScript modules,
@@ -236,13 +234,13 @@ The pixel-snapshot suite does not run in CI. Its baselines are tied to
 the machine that captured them, and a runner's font rasterisation
 differs enough to fail for reasons unrelated to the code.
 
-## 🙏 Attributions
+## Attributions
 
 - **Original game**: Dennis Caswell / Epyx, 1984. Disassembled.
 - **JavaScript implementation**: this project is a TypeScript recreation, built from scratch, inspired by the 2013 vanilla-JS remake by [Krisztian Toth](http://krissz.hu/). Unfortunately, he never released his source code, so this isn't a port of it; it's what I was able to recreate from observing and playing that version compared to the disassembled original. As I found, there were a lot of bugs in this implementation, so I didn't follow it too much.
 - **Defold implementation**: this project, referred to as [C64 Impossible Mission Tribute](https://github.com/acapitani/im), uses the Defold game engine. The room implementation data model was useful to understanding how the game worked and the logic overall gave me an independent source from the disassembled original.
 
-## 👨‍💻 Author
+## Author
 
 <p align="center">
   Made with 🤍 by <a href="https://github.com/jeffnyman">Jeff Nyman</a>
@@ -263,7 +261,7 @@ differs enough to fail for reasons unrelated to the code.
   </a>
 </p>
 
-## ☦️ Doxazein (δοξάζειν)
+## Doxazein (δοξάζειν)
 
 <p align="center">
   חֶסֶד וֶאֱמֶת אַל־יַעַזְבֻךָ קָשְׁרֵם עַל־גַּרְגְּרֹתֶיךָ כָּתְבֵם עַל־לוּחַ לִבֶּךָ
@@ -276,7 +274,7 @@ write them upon the table of thine heart."<br>
 <em>Proverbs 3:3</em>
 </p>
 
-## ⚖️ License
+## License
 
 The code used in this project is licensed under the [MIT license](https://github.com/jeffnyman/improbable-mission/blob/main/LICENSE).
 

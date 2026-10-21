@@ -30,10 +30,8 @@ The brain (`brain.js`) plans with the real engine as its model. To move inside a
 | `replay.mjs` | Replays a recording in a fresh game and reports where it ends |
 | `record.mjs` | Films a recording at true speed |
 | `survey.mjs` | Checks every room from every door for furniture the planner cannot reach |
-| `seeds.mjs` | Lists, per layout, which seeds keep puzzle pieces out of room 24 |
 | `wrongcard.mjs` | Checks every stack of pieces the game would accept, to see if any card can be finished with another card's pieces |
-| `map0-seed4.json` to `map10-seed4.json` | Winning recordings for all 11 layouts, seed 4 |
-| `map0-seed4.webm` | A video of the map 0 run at true speed, 12.5 minutes and 118 MB |
+| `map0-seed1.json` to `map10-seed4.json` | Winning recordings for all 11 layouts, with seeds 1 and 4 |
 
 ## Commands
 
@@ -46,11 +44,10 @@ npx vite --port 5399 --strictPort
 Then:
 
 ```sh
-node tools/agent/agent.mjs  0 4                       # play map 0 with seed 4
-node tools/agent/replay.mjs tools/agent/map0-seed4.json
-node tools/agent/record.mjs tools/agent/map0-seed4.json tools/agent/map0-seed4.webm
+node tools/agent/agent.mjs  0 1                       # play map 0 with seed 1
+node tools/agent/replay.mjs tools/agent/map0-seed1.json
+node tools/agent/record.mjs tools/agent/map0-seed1.json map0-seed1.webm
 node tools/agent/survey.mjs                           # room reachability report
-node tools/agent/seeds.mjs  0 10 12                   # clean seeds per layout
 node tools/agent/wrongcard.mjs                        # foreign-piece check
 ```
 
@@ -58,9 +55,8 @@ Filming needs an ffmpeg that can encode VP8, set with `FFMPEG` if it is not on t
 
 ## What it found
 
-- **All 11 layouts can be won.** With seed 4 the agent won every layout, each spelling that layout's password, in 26,000 to 31,500 scan frames, or 12 to 14 minutes of game time.
-
-- **Room 24's top floor is unreachable in this port.** The fireplace and the chair with the lamp stand on a floor reachable only from the second floor, and every jump from a lift onto the second floor's ledges misses. From the left lift, starting a jump clamps the agent 4 pixels to the right and the landing overshoots the ledge by about that much. From the right lift, the jump overshoots one ledge and falls short of the next. Nine of the first twelve seeds put a piece up there, on every layout, which makes those games unwinnable. Placement picks a room first and furniture second, so a room with only two items gets a piece far more often than its share of furniture. Check the room in the original before treating this as a port bug.
+- **Room 24's upper floors were unreachable, and are now fixed.** The only way up is a jump from a lift onto a second-floor ledge, and that jump lands with only a couple of foot pixels on the ledge. The game required half the foot to be supported, so the agent fell, and nine of the first twelve seeds hid a piece up there, making those games unwinnable. The original holds that landing (checked in VICE), so the landing rule in `src/component/agent.ts` now keeps the agent up while any foot pixel is supported. After the fix the survey finds every furniture item reachable.
+- **All 11 layouts can be won.** With seeds 1 and 4 the agent won every layout, each spelling that layout's password, in 26,000 to 32,500 scan frames, or 12 to 15 minutes of game time.
 - **No card can be finished with another card's pieces, for now.** The solved check never verifies which card a piece belongs to, but with today's fixed piece shapes no stack containing a foreign piece fits. That changes if pieces are ever cut fresh each game.
 - **Room 17's bookcase is reachable only from the left door.** That is fine for play, since the left door is available, but it is worth knowing.
 

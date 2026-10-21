@@ -1433,14 +1433,16 @@ export class Agent {
     // can stand in a doorway.
     const px = this.getSafetyPixels(level, roomId, true, liftGroups);
 
-    // Count the foot pixels that rest on something solid; the
-    // agent stays up while at least half the foot is supported.
-    let stableFoots = 0;
+    // The agent stays up while any foot pixel rests on something
+    // solid. Requiring half the foot made room 24's upper floors
+    // unreachable: the jump from its right-hand lift lands on the
+    // second-floor ledge with only a couple of foot pixels on it,
+    // and in the original (checked in VICE) that landing holds.
     for (let i = 0; i < 35; i++) {
-      if (foot[i] !== "0" && px[this.x + i] !== "0") stableFoots++;
+      if (foot[i] !== "0" && px[this.x + i] !== "0") return false;
     }
 
-    return stableFoots >= Math.ceil(footOnFloor / 2) ? false : true;
+    return true;
   }
 
   /**

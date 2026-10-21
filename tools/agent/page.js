@@ -211,8 +211,16 @@
   }
   H.snapshot = () => {
     const objs = [H.game, H.agent, H.gameTime, H.elevator, H.pc, ...roomObjects()];
+    // The game rewrites the first falling pose (sprite and collision
+    // mask) with whatever pose a fall starts from. Those live in
+    // nested objects the field copy above only references, so save
+    // them explicitly or a fall in one planning branch leaks into
+    // the next.
+    const a = H.agent;
+    const fallPoses = ["left", "right"].map((d) => [a.animation[d].fall[0], a.collisionMap[d].fall[0]]);
     return {
       objs,
+      fallPoses,
       saved: objs.map(snapObj),
       keys: { ...H.keyboard.pressedKeys },
       rng,
@@ -223,6 +231,10 @@
   };
   H.restore = (snap) => {
     snap.objs.forEach((o, i) => restoreObj(o, snap.saved[i]));
+    ["left", "right"].forEach((d, i) => {
+      H.agent.animation[d].fall[0] = snap.fallPoses[i][0];
+      H.agent.collisionMap[d].fall[0] = snap.fallPoses[i][1];
+    });
     H.keyboard.pressedKeys = { ...snap.keys };
     rng = snap.rng;
     vnow = snap.vnow;
