@@ -1,0 +1,29 @@
+version: 2
+
+updates:
+  # Keep GitHub Actions up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(ci)"
+    groups:
+      # One PR for all action updates.
+      github-actions:
+        patterns:
+          - "*"
+
+  # Keep npm dependencies up to date.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      # Group every npm update into a single PR. Separate PRs all rewrite
+      # package-lock.json, so merging one puts the rest into conflict.
+      npm-dependencies:
+        patterns:
+          - "*"
