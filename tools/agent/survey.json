@@ -1,0 +1,568 @@
+[
+ {
+  "room": 1,
+  "from": "right",
+  "explored": 360383,
+  "unreachable": [],
+  "reachable": 6,
+  "total": 6,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 2,
+  "from": "left",
+  "explored": 52778,
+  "unreachable": [],
+  "reachable": 2,
+  "total": 2,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 2,
+  "from": "right",
+  "explored": 99395,
+  "unreachable": [],
+  "reachable": 2,
+  "total": 2,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 3,
+  "from": "left",
+  "explored": 614671,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 3,
+  "from": "right",
+  "explored": 533183,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 4,
+  "from": "left",
+  "explored": 6453,
+  "unreachable": [],
+  "reachable": 0,
+  "total": 0,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 4,
+  "from": "right",
+  "explored": 6440,
+  "unreachable": [],
+  "reachable": 0,
+  "total": 0,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 5,
+  "from": "left",
+  "explored": 193188,
+  "unreachable": [],
+  "reachable": 2,
+  "total": 2,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 5,
+  "from": "right",
+  "explored": 330214,
+  "unreachable": [],
+  "reachable": 2,
+  "total": 2,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 6,
+  "from": "left",
+  "explored": 16544,
+  "unreachable": [],
+  "reachable": 6,
+  "total": 6,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 7,
+  "from": "left",
+  "explored": 133233,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 7,
+  "from": "right",
+  "explored": 213452,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 8,
+  "from": "left",
+  "explored": 26600,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 8,
+  "from": "right",
+  "explored": 26600,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 9,
+  "from": "left",
+  "explored": 182851,
+  "unreachable": [],
+  "reachable": 6,
+  "total": 6,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 9,
+  "from": "right",
+  "explored": 238347,
+  "unreachable": [],
+  "reachable": 6,
+  "total": 6,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 10,
+  "from": "right",
+  "explored": 111023,
+  "unreachable": [],
+  "reachable": 4,
+  "total": 4,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 11,
+  "from": "right",
+  "explored": 33667,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 12,
+  "from": "left",
+  "explored": 25044,
+  "unreachable": [],
+  "reachable": 7,
+  "total": 7,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 13,
+  "from": "left",
+  "explored": 185959,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 13,
+  "from": "right",
+  "explored": 43612,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 14,
+  "from": "left",
+  "explored": 150595,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 14,
+  "from": "right",
+  "explored": 150596,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 15,
+  "from": "left",
+  "explored": 165030,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 15,
+  "from": "right",
+  "explored": 165032,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 16,
+  "from": "left",
+  "explored": 26440,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 16,
+  "from": "right",
+  "explored": 26443,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 17,
+  "from": "left",
+  "explored": 45949,
+  "unreachable": [],
+  "reachable": 4,
+  "total": 4,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 17,
+  "from": "right",
+  "explored": 7577,
+  "unreachable": [
+   "bookcase@26,11"
+  ],
+  "reachable": 3,
+  "total": 4,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 18,
+  "from": "right",
+  "explored": 20990,
+  "unreachable": [],
+  "reachable": 4,
+  "total": 4,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 19,
+  "from": "left",
+  "explored": 406488,
+  "unreachable": [],
+  "reachable": 4,
+  "total": 4,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 20,
+  "from": "left",
+  "explored": 108338,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 20,
+  "from": "right",
+  "explored": 108338,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 21,
+  "from": "left",
+  "explored": 432284,
+  "unreachable": [],
+  "reachable": 6,
+  "total": 6,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 22,
+  "from": "left",
+  "explored": 140481,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 22,
+  "from": "right",
+  "explored": 38781,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 23,
+  "from": "left",
+  "explored": 28471,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 24,
+  "from": "left",
+  "explored": 47406,
+  "unreachable": [
+   "fireplace@15,5",
+   "chairWithLamp@25,5"
+  ],
+  "reachable": 0,
+  "total": 2,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 24,
+  "from": "right",
+  "explored": 47406,
+  "unreachable": [
+   "fireplace@15,5",
+   "chairWithLamp@25,5"
+  ],
+  "reachable": 0,
+  "total": 2,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 25,
+  "from": "left",
+  "explored": 44027,
+  "unreachable": [],
+  "reachable": 3,
+  "total": 3,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 26,
+  "from": "left",
+  "explored": 519183,
+  "unreachable": [],
+  "reachable": 9,
+  "total": 9,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 27,
+  "from": "right",
+  "explored": 41759,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 28,
+  "from": "right",
+  "explored": 36162,
+  "unreachable": [],
+  "reachable": 4,
+  "total": 4,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 29,
+  "from": "left",
+  "explored": 17521,
+  "unreachable": [],
+  "reachable": 7,
+  "total": 7,
+  "exits": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "room": 29,
+  "from": "right",
+  "explored": 17521,
+  "unreachable": [],
+  "reachable": 7,
+  "total": 7,
+  "exits": [
+   "right",
+   "left"
+  ]
+ },
+ {
+  "room": 30,
+  "from": "right",
+  "explored": 169575,
+  "unreachable": [],
+  "reachable": 5,
+  "total": 5,
+  "exits": [
+   "right"
+  ]
+ },
+ {
+  "room": 31,
+  "from": "left",
+  "explored": 4312,
+  "unreachable": [],
+  "reachable": 0,
+  "total": 0,
+  "exits": [
+   "left"
+  ]
+ },
+ {
+  "room": 32,
+  "from": "right",
+  "explored": 4326,
+  "unreachable": [],
+  "reachable": 0,
+  "total": 0,
+  "exits": [
+   "right"
+  ]
+ }
+]
